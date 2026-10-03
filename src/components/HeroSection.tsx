@@ -7,7 +7,7 @@ export const HeroSection: React.FC = () => {
   const { homepage } = data;
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#F7F9FC] via-[#F7F9FC] to-white pt-8 pb-16 sm:pt-10 sm:pb-20 md:pt-16 md:pb-28">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#F7F9FC] via-[#F7F9FC] to-white pt-7 pb-12 sm:pt-8 sm:pb-14 md:pt-12 md:pb-20">
       {/* Subtle brand ambient decorations (Royal Blue & Gold gentle glow) */}
       <div
         className="pointer-events-none absolute -top-24 right-0 w-96 h-96 rounded-full bg-[#003088]/5 blur-3xl"
@@ -35,12 +35,12 @@ export const HeroSection: React.FC = () => {
             </h1>
 
             {/* Supporting Text */}
-            <p className="text-sm sm:text-lg text-slate-600 leading-relaxed mb-6 sm:mb-8 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-lg text-slate-600 leading-relaxed mb-5 sm:mb-6 max-w-2xl mx-auto">
               {homepage.heroSubheadline}
             </p>
 
             {/* Services Highlight Bar */}
-            <div className="mb-6 sm:mb-9 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 w-fit max-w-full justify-center shadow-2xs">
+            <div className="mb-5 sm:mb-7 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 w-fit max-w-full justify-center shadow-2xs">
               <span className="inline-flex items-center gap-1.5 text-[#003088]">
                 <TrendingUp className="w-4 h-4 text-[#003088]" />
                 Digital Marketing
@@ -58,7 +58,7 @@ export const HeroSection: React.FC = () => {
             </div>
 
             {/* CTA Button Group */}
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 w-full sm:w-auto">
               <a
                 href="#portfolio"
                 className="w-full sm:w-auto min-h-12 inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-white bg-[#003088] hover:bg-[#00205c] rounded-md shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.98]"
