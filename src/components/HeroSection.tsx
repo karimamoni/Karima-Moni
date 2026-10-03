@@ -21,7 +21,7 @@ export const HeroSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Hero Content */}
-          <div className="flex flex-col items-start text-left max-w-4xl">
+          <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
             {/* Identity Kicker */}
             <div className="inline-flex items-center gap-2 mb-3 text-xs font-semibold text-[#003088] uppercase tracking-wider">
               <span>{homepage.brandName}</span>
@@ -30,17 +30,17 @@ export const HeroSection: React.FC = () => {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-[#101828] leading-[1.18] sm:leading-[1.15] tracking-tight mb-4 sm:mb-5 max-w-2xl text-balance">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-[#101828] leading-[1.18] sm:leading-[1.15] tracking-tight mb-4 sm:mb-5 max-w-4xl text-balance mx-auto">
               {homepage.heroHeadline}
             </h1>
 
             {/* Supporting Text */}
-            <p className="text-sm sm:text-lg text-slate-600 leading-relaxed mb-6 sm:mb-8 max-w-xl">
+            <p className="text-sm sm:text-lg text-slate-600 leading-relaxed mb-6 sm:mb-8 max-w-2xl mx-auto">
               {homepage.heroSubheadline}
             </p>
 
             {/* Services Highlight Bar */}
-            <div className="mb-6 sm:mb-9 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 w-full sm:w-auto shadow-2xs">
+            <div className="mb-6 sm:mb-9 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 w-fit max-w-full justify-center shadow-2xs">
               <span className="inline-flex items-center gap-1.5 text-[#003088]">
                 <TrendingUp className="w-4 h-4 text-[#003088]" />
                 Digital Marketing
@@ -58,7 +58,7 @@ export const HeroSection: React.FC = () => {
             </div>
 
             {/* CTA Button Group */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
               <a
                 href="#portfolio"
                 className="w-full sm:w-auto min-h-12 inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-white bg-[#003088] hover:bg-[#00205c] rounded-md shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.98]"
