@@ -25,6 +25,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
   const [highlightService, setHighlightService] = useState(false);
 
   const nameInputRef = useRef<HTMLInputElement>(null);
+  const serviceSelectRef = useRef<HTMLSelectElement>(null);
   // Sync if preselectedService changes
   useEffect(() => {
     if (preselectedService) {
