@@ -95,9 +95,11 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
         {filteredProjects.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
             {filteredProjects.map((project) => (
-              <div
+              <button
                 key={project.id}
+                type="button"
                 onClick={() => setSelectedProject(project)}
+                aria-label={`View project: ${project.name}`}
                 className="group bg-[#F7F9FC] rounded-2xl border border-slate-200/90 hover:border-[#003088]/40 hover:bg-white hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col justify-between"
                 role="button"
                 tabIndex={0}
@@ -152,7 +154,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                     <ArrowUpRight className="w-3.5 h-3.5 text-[#003088] group-hover:text-white transition-colors" />
                   </div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         ) : (
