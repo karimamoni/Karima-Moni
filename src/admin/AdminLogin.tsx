@@ -6,8 +6,8 @@ import { KarimaMoniLogo } from '../components/KarimaMoniLogo';
 interface AdminLoginProps { isOpen: boolean; onClose: () => void; }
 
 export const AdminLogin: React.FC<AdminLoginProps> = ({ isOpen, onClose }) => {
-  const { data, loginAdmin, signupAdmin } = useCms();
-  const [email, setEmail] = useState(data.contactInfo.email);
+  const { loginAdmin, signupAdmin } = useCms();
+  const [email, setEmail] = useState('karimamonimarketer@gmail.com');
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState<'login' | 'signup'>('login');
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
