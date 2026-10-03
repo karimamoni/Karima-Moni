@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Quote, CheckCircle } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 import { useCms } from '../context/CmsContext';
 
 export const ReviewsSection: React.FC = () => {
@@ -16,13 +16,13 @@ export const ReviewsSection: React.FC = () => {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
-            Client Endorsements
+            Client Feedback
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#101828] tracking-tight mb-4">
-            What People Say
+            What Clients Say
           </h2>
           <p className="text-base sm:text-lg text-slate-600">
-            Real feedback from founders, directors, and creators who partnered with Karima Moni for digital marketing, brand identity, and AI creative solutions.
+            Feedback from clients and collaborators I've worked with.
           </p>
         </div>
 
@@ -55,9 +55,7 @@ export const ReviewsSection: React.FC = () => {
                 <div>
                   <h4 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
                     <span>{rev.clientName}</span>
-                    <span title="Verified Collaboration" className="inline-flex items-center">
-                      <CheckCircle className="w-3.5 h-3.5 text-[#003088]" />
-                    </span>
+
                   </h4>
                   <p className="text-xs text-slate-500">
                     {rev.role}, <span className="text-slate-700 font-medium">{rev.company}</span>
