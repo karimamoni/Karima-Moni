@@ -22,7 +22,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
     'All',
     'Performance Marketing',
     'Creative Content',
-    'Creative Content',
   ];
 
   const filteredProjects = useMemo(() => {
