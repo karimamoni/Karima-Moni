@@ -6,6 +6,9 @@ import {
 } from '../types';
 import { initialCmsData } from '../data/initialData';
 
+// Dedicated CMS admin identity. This is intentionally separate from the public contact email.
+const ADMIN_EMAIL = 'karimamonimarketer@gmail.com';
+
 async function invoke<T>(body: Record<string, any>): Promise<T> {
   const { data, error } = await supabase.functions.invoke('portfolio-api', { body });
   if (error) {
@@ -61,7 +64,7 @@ export const api = {
   },
 
   async login(password: string, email?: string): Promise<{ success: boolean; user: any }> {
-    const targetEmail = (email || initialCmsData.contactInfo.email).trim();
+    const targetEmail = (email || ADMIN_EMAIL).trim();
     const { data, error } = await supabase.auth.signInWithPassword({ email: targetEmail, password });
     if (error || !data.user) throw new Error(error?.message || 'Invalid admin credentials.');
     return { success: true, user: { email: data.user.email, name: 'Karima Moni', role: 'admin' } };
@@ -69,7 +72,7 @@ export const api = {
 
   async signup(email: string, password: string): Promise<{ success: boolean; confirmationRequired: boolean }> {
     const targetEmail = email.trim().toLowerCase();
-    if (targetEmail !== initialCmsData.contactInfo.email.toLowerCase()) {
+    if (targetEmail !== ADMIN_EMAIL.toLowerCase()) {
       throw new Error('Use the portfolio owner email address configured for Admin access.');
     }
     const { data, error } = await supabase.auth.signUp({
