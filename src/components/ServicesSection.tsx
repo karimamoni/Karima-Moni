@@ -55,7 +55,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
           </p>
         </div>
 
-        {/* Core Service Groups */}
+        {/* Service Groups */}
         <div className="space-y-16">
           {serviceCategories.map((category) => {
             const theme = getCategoryTheme(category.slug);
@@ -65,7 +65,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
 
             return (
               <div key={category.id} className="relative">
-                {/* Category Header Card */}
+                {/* Category Header */}
                 <div
                   className={`bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-2xs mb-6 ${theme.borderAccent}`}
                 >
@@ -96,7 +96,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                   </div>
                 </div>
 
-                {/* Sub-services Grid */}
+                {/* Services Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {categoryServices.map((service) => (
                     <div
@@ -135,7 +135,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                         </div>
                       </div>
 
-                      {/* Footer Affordance */}
+                      {/* Details Affordance */}
                       <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#003088]">
                         <span>View Details →</span>
                       </div>
