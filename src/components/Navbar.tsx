@@ -43,14 +43,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCvModal }) => {
           : 'bg-white border-b border-slate-100'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         {/* Zone 1: Brand Wordmark & Emblem */}
         <a href="#" className="flex items-center group py-2 focus-visible:outline-hidden">
           <KarimaMoniLogo variant="full" src={data.settings.logoUrl} />
         </a>
 
         {/* Zone 2: Navigation Links (Text with clean hover) */}
-        <nav className="hidden lg:flex items-center gap-7 text-[14px] font-medium text-slate-700">
+        <nav className="hidden lg:flex items-center gap-6 text-[14px] font-medium text-slate-700">
           {navLinks.map((link) => (
             <a
               key={link.label}
