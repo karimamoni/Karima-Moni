@@ -27,7 +27,7 @@ export const AdminPortfolioManager: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     client: '',
-    category: 'Digital Marketing' as ProjectCategory,
+    category: 'Performance Marketing' as ProjectCategory,
     subCategory: '',
     service: 'Facebook Ads',
     date: '2026',
@@ -51,7 +51,7 @@ export const AdminPortfolioManager: React.FC = () => {
     setFormData({
       name: '',
       client: '',
-      category: 'Digital Marketing',
+      category: 'Performance Marketing',
       subCategory: 'Paid Ads',
       service: 'Facebook Ads',
       date: 'March 2026',
