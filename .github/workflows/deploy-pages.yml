@@ -36,8 +36,9 @@ jobs:
           VITE_SUPABASE_PUBLISHABLE_KEY: sb_publishable_wJEYD2GMz8dEey-WJQ3LfA_LOK5tzKt
       - name: Include public assets excluded by the custom Vite publicDir
         run: |
-          mkdir -p dist/cv
+          mkdir -p dist/cv dist/images
           cp -f public/cv/* dist/cv/ 2>/dev/null || true
+          cp -f public/images/* dist/images/ 2>/dev/null || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
