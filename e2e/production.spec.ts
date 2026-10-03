@@ -2,9 +2,22 @@ import { test, expect } from '@playwright/test';
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || 'https://karimamoni.github.io/Karima-Moni/';
 
+async function openReadyPortfolio(page: import('@playwright/test').Page) {
+  for (let attempt = 0; attempt < 6; attempt += 1) {
+    await page.goto(baseURL, { waitUntil: 'domcontentloaded' });
+    try {
+      await page.locator('#about').waitFor({ state: 'visible', timeout: 10000 });
+      return;
+    } catch {
+      if (attempt === 5) throw new Error('Production site did not become ready after repeated reloads.');
+      await page.waitForTimeout(5000);
+    }
+  }
+}
+
 test.describe('production portfolio smoke test', () => {
   test('homepage loads and core sections are visible', async ({ page }) => {
-    await page.goto(baseURL, { waitUntil: 'networkidle' });
+    await openReadyPortfolio(page);
     await expect(page).toHaveTitle(/Karima|Moni/i);
 
     for (const id of ['about', 'services', 'portfolio', 'contact']) {
