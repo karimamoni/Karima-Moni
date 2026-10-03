@@ -95,23 +95,23 @@ function PortfolioApp() {
         {/* Hero Section */}
         <HeroSection />
 
-        {/* About Me & Mission */}
+        {/* About */}
         <AboutSection onOpenCvModal={() => setIsCvModalOpen(true)} />
 
-        {/* Services Spectrum (3 Categories & Modal) */}
+        {/* Services */}
         <ServicesSection onSelectServiceForContact={handleServiceSelected} />
 
-        {/* Simple client process */}
+        {/* Process */}
         <HowItWorksSection />
 
-        {/* Selected portfolio work */}
+        {/* Portfolio */}
         <PortfolioSection onSelectProjectForContact={handleServiceSelected} />
 
 
-        {/* Client testimonials */}
+        {/* Reviews */}
         <ReviewsSection />
 
-        {/* Contact & Dynamic Inbound Leads Form */}
+        {/* Contact */}
         <ContactSection preselectedService={preselectedService} />
 
       </main>
