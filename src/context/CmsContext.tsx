@@ -167,14 +167,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
   }, [refreshData, refreshLeads]);
 
-  const signupAdmin = async (email: string, password: string): Promise<{ success: boolean; confirmationRequired?: boolean; error?: string }> => {
-    try {
-      const res = await api.signup(email, password);
-      return { success: true, confirmationRequired: res.confirmationRequired };
-    } catch (err: any) {
-      return { success: false, error: err.message || 'Could not create admin account.' };
-    }
-  };
+
 
   // Real Server-Side Login
   const loginAdmin = async (
@@ -794,7 +787,6 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         isLoading,
         adminUser,
         loginAdmin,
-        signupAdmin,
         logoutAdmin,
         changeAdminPassword,
         refreshData,
