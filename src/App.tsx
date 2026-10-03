@@ -54,6 +54,11 @@ function PortfolioApp() {
     }
   }, [isAdmin, isAdminViewOpen]);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('admin') === '1') setIsLoginModalOpen(true);
+  }, []);
+
   const handleOpenAdmin = () => {
     if (isAdmin) {
       setIsLoginModalOpen(false);
