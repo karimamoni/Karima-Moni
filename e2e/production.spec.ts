@@ -34,4 +34,20 @@ test.describe('production portfolio smoke test', () => {
     await page.goto(baseURL, { waitUntil: 'networkidle' });
     expect(failed, JSON.stringify(failed, null, 2)).toEqual([]);
   });
+  test('admin API rejects unauthenticated management operations', async ({ request }) => {
+    const apiUrl = 'https://aohdvlibkksdboohbhgb.supabase.co/functions/v1/portfolio-api';
+    const headers = { 'Content-Type': 'application/json' };
+    const leadsResponse = await request.post(apiUrl, {
+      headers,
+      data: { op: 'get_leads' },
+    });
+    expect(leadsResponse.status()).toBe(401);
+
+    const crudResponse = await request.post(apiUrl, {
+      headers,
+      data: { op: 'crud', resource: 'projects', action: 'add', data: { name: 'unauthorized-test' } },
+    });
+    expect(crudResponse.status()).toBe(401);
+  });
+
 });
