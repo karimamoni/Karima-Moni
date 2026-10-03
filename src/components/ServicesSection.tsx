@@ -40,10 +40,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
   };
 
   return (
-    <section id="services" className="py-20 md:py-28 bg-[#F7F9FC]">
+    <section id="services" className="py-14 sm:py-16 md:py-20 bg-[#F7F9FC]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
             What I Do
           </div>
@@ -56,7 +56,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
         </div>
 
         {/* Service Groups */}
-        <div className="space-y-16">
+        <div className="space-y-10">
           {serviceCategories.map((category) => {
             const theme = getCategoryTheme(category.slug);
             const categoryServices = services.filter(
@@ -67,7 +67,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
               <div key={category.id} className="relative">
                 {/* Category Header */}
                 <div
-                  className={`bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-2xs mb-6 ${theme.borderAccent}`}
+                  className={`bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-2xs mb-5 ${theme.borderAccent}`}
                 >
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
@@ -97,7 +97,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                 </div>
 
                 {/* Services Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
                   {categoryServices.map((service) => (
                     <div
                       key={service.id}
@@ -111,7 +111,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                           setSelectedService(service);
                         }
                       }}
-                      className="group bg-white p-6 rounded-xl border border-slate-200/90 hover:border-[#003088] hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col justify-between"
+                      className="group bg-white p-5 rounded-xl border border-slate-200/90 hover:border-[#003088] hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col justify-between"
                     >
                       <div>
                         <div className="flex items-start justify-between gap-2 mb-3">
