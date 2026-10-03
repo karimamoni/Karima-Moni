@@ -12,7 +12,7 @@ import {
   requireAdmin,
   AuthenticatedRequest,
 } from './server/auth';
-import { upload, cvUpload } from './server/upload';
+import { upload, cvUpload, uploadFileToSupabase } from './server/upload';
 import { sanitizeString } from './server/sanitize';
 import { sendLeadNotification } from './server/email';
 
@@ -64,13 +64,9 @@ app.use((_req, res, next) => {
 });
 
 // Static file serving for uploads and public folder
-const STORAGE_ROOT = path.resolve(process.env.STORAGE_PATH || process.cwd());
-const uploadsPath = path.resolve(STORAGE_ROOT, 'uploads');
 const publicPath = path.resolve(process.cwd(), 'public');
-if (!fs.existsSync(uploadsPath)) fs.mkdirSync(uploadsPath, { recursive: true });
 if (!fs.existsSync(publicPath)) fs.mkdirSync(publicPath, { recursive: true });
 
-app.use('/uploads', express.static(uploadsPath));
 app.use('/public', express.static(publicPath));
 app.use('/cv', express.static(path.resolve(publicPath, 'cv')));
 
@@ -475,7 +471,7 @@ app.post(
   '/api/cv/upload',
   requireAdmin,
   cvUpload.single('file'),
-  (req: AuthenticatedRequest, res: Response) => {
+  async (req: AuthenticatedRequest, res: Response) => {
     if (!req.file) {
       res.status(400).json({ error: 'No PDF file was uploaded' });
       return;
@@ -486,7 +482,7 @@ app.post(
       return;
     }
 
-    const fileUrl = `/uploads/${req.file.filename}`;
+    const fileUrl = await uploadFileToSupabase(req.file, 'cv');
     const fileSize = `${(req.file.size / 1024).toFixed(1)} KB`;
     const title = req.body.title || 'Karima Moni – Senior Marketing Resume';
     const version = req.body.version || `v2026.${Date.now().toString().slice(-3)}`;
@@ -548,13 +544,13 @@ app.post(
   '/api/media/upload',
   requireAdmin,
   upload.single('file'),
-  (req: AuthenticatedRequest, res: Response) => {
+  async (req: AuthenticatedRequest, res: Response) => {
     if (!req.file) {
       res.status(400).json({ error: 'No file was uploaded' });
       return;
     }
 
-    const fileUrl = `/uploads/${req.file.filename}`;
+    const fileUrl = await uploadFileToSupabase(req.file, 'media');
     let type: 'image' | 'pdf' | 'video' | 'other' = 'other';
     if (req.file.mimetype.startsWith('image/')) type = 'image';
     else if (req.file.mimetype === 'application/pdf') type = 'pdf';
@@ -597,6 +593,7 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 // ==========================================
 
 async function startServer() {
+  await db.initialize();
   if (!isProd) {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
