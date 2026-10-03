@@ -16,7 +16,7 @@ import { AdminLogin } from './admin/AdminLogin';
 import { AdminLayout } from './admin/AdminLayout';
 
 function PortfolioApp() {
-  const { data, isAdmin } = useCms();
+  const { data, isAdmin, saveError, clearSaveError } = useCms();
   const [isAdminViewOpen, setIsAdminViewOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
@@ -74,6 +74,12 @@ function PortfolioApp() {
 
   return (
     <div className="min-h-screen bg-[#F7F9FC] text-[#101828] flex flex-col antialiased selection:bg-[#F4B820]/30 selection:text-[#003088] pb-16 sm:pb-0">
+      {saveError && (
+        <div role="alert" className="fixed top-4 left-1/2 z-[70] -translate-x-1/2 w-[min(92vw,520px)] rounded-xl border border-rose-200 bg-white px-4 py-3 shadow-xl flex items-start gap-3">
+          <div className="min-w-0 flex-1 text-sm font-medium text-rose-700">{saveError}</div>
+          <button type="button" onClick={clearSaveError} className="text-xs font-bold text-slate-500 hover:text-slate-900">Dismiss</button>
+        </div>
+      )}
       {/* Sticky Top Navigation */}
       <Navbar onOpenCvModal={() => setIsCvModalOpen(true)} />
 
