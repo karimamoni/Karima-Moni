@@ -26,9 +26,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, onOpenCvModal }) =>
     { label: 'About', href: '#about' },
     { label: 'Services', href: '#services' },
     { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Case Studies', href: '#case-studies' },
-    { label: 'Reviews', href: '#reviews' },
-    { label: 'Blog', href: '#blog' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -76,10 +73,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, onOpenCvModal }) =>
           <button
             onClick={onOpenAdmin}
             className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-600 hover:text-[#003088] border border-slate-200 rounded-md hover:border-[#003088]/40 transition-colors"
-            title="Open Admin CMS"
+            title="Open portfolio manager"
           >
             <ShieldCheck className="w-3.5 h-3.5 text-[#003088]" />
-            <span>Admin CMS</span>
+            <span>Manage</span>
           </button>
 
           {/* Primary CTA */}
@@ -97,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, onOpenCvModal }) =>
           <button
             onClick={onOpenAdmin}
             className="p-2 text-slate-600 hover:text-[#003088] hover:bg-slate-100 rounded-lg transition-colors"
-            title="Admin CMS Portal"
+            title="Portfolio manager"
             aria-label="Admin CMS Portal"
           >
             <ShieldCheck className="w-5 h-5 text-[#003088]" />
@@ -136,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, onOpenCvModal }) =>
               className="w-full flex items-center justify-center gap-2 py-2.5 text-xs font-semibold text-slate-700 bg-slate-100 rounded-md hover:bg-slate-200 transition-colors"
             >
               <ShieldCheck className="w-4 h-4 text-[#003088]" />
-              <span>Admin CMS Portal</span>
+              <span>Manage Portfolio</span>
             </button>
             {data.settings.cvButtonsEnabled && (
               <button

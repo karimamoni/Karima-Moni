@@ -25,8 +25,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
     { label: 'About', href: '#about' },
     { label: 'Services', href: '#services' },
     { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Case Studies', href: '#case-studies' },
-    { label: 'Blog', href: '#blog' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -155,21 +153,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
                   Graphic Design & Identity
                 </a>
               </li>
-              <li>
-                <a href="#services" className="hover:text-white transition-colors">
-                  AI Video Creation
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-white transition-colors">
-                  SEO & Content Strategy
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-white transition-colors">
-                  AI Content Automation
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -192,7 +175,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
                   onClick={onOpenAdmin}
                   className="text-xs text-slate-400 hover:text-white underline underline-offset-4"
                 >
-                  Manage Portfolio (Admin CMS)
+                  Manage Portfolio
                 </button>
               </li>
             </ul>

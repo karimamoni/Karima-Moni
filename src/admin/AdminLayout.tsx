@@ -5,11 +5,7 @@ import {
   User,
   Layers,
   FolderGit2,
-  TrendingUp,
   Star,
-  BookOpen,
-  Wrench,
-  GraduationCap,
   FileText,
   Image as ImageIcon,
   Mail,
@@ -19,7 +15,6 @@ import {
   ExternalLink,
   Menu,
   X,
-  Plus,
 } from 'lucide-react';
 import { KarimaMoniLogo } from '../components/KarimaMoniLogo';
 import { useCms } from '../context/CmsContext';
@@ -28,11 +23,7 @@ import { AdminHomepageManager } from './AdminHomepageManager';
 import { AdminAboutManager } from './AdminAboutManager';
 import { AdminServicesManager } from './AdminServicesManager';
 import { AdminPortfolioManager } from './AdminPortfolioManager';
-import { AdminCaseStudiesManager } from './AdminCaseStudiesManager';
 import { AdminReviewsManager } from './AdminReviewsManager';
-import { AdminBlogManager } from './AdminBlogManager';
-import { AdminSkillsToolsManager } from './AdminSkillsToolsManager';
-import { AdminExperienceManager } from './AdminExperienceManager';
 import { AdminCvManager } from './AdminCvManager';
 import { AdminMediaManager } from './AdminMediaManager';
 import { AdminLeadsManager } from './AdminLeadsManager';
@@ -57,11 +48,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onClose, onOpenCvPrevi
     { id: 'about', label: 'About & Mission', icon: <User className="w-4 h-4" /> },
     { id: 'services', label: 'Services Spectrum', icon: <Layers className="w-4 h-4" /> },
     { id: 'projects', label: 'Portfolio Projects', icon: <FolderGit2 className="w-4 h-4" /> },
-    { id: 'caseStudies', label: 'Case Studies (8-Step)', icon: <TrendingUp className="w-4 h-4" /> },
     { id: 'reviews', label: 'Client Reviews', icon: <Star className="w-4 h-4" /> },
-    { id: 'blog', label: 'Blog Posts & Guides', icon: <BookOpen className="w-4 h-4" /> },
-    { id: 'skills', label: 'Skills & Tools', icon: <Wrench className="w-4 h-4" /> },
-    { id: 'experience', label: 'Journey & Certificates', icon: <GraduationCap className="w-4 h-4" /> },
     { id: 'cv', label: 'CV / Resume Manager', icon: <FileText className="w-4 h-4" /> },
     { id: 'media', label: 'Media Library', icon: <ImageIcon className="w-4 h-4" /> },
     {
@@ -165,18 +152,13 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onClose, onOpenCvPrevi
               onNavigateTab={(tab) => setActiveTab(tab)}
               onOpenCreateProject={() => setActiveTab('projects')}
               onOpenCreateService={() => setActiveTab('services')}
-              onOpenCreateBlog={() => setActiveTab('blog')}
             />
           )}
           {activeTab === 'homepage' && <AdminHomepageManager />}
           {activeTab === 'about' && <AdminAboutManager />}
           {activeTab === 'services' && <AdminServicesManager />}
           {activeTab === 'projects' && <AdminPortfolioManager />}
-          {activeTab === 'caseStudies' && <AdminCaseStudiesManager />}
           {activeTab === 'reviews' && <AdminReviewsManager />}
-          {activeTab === 'blog' && <AdminBlogManager />}
-          {activeTab === 'skills' && <AdminSkillsToolsManager />}
-          {activeTab === 'experience' && <AdminExperienceManager />}
           {activeTab === 'cv' && <AdminCvManager onOpenPreviewCv={onOpenCvPreview} />}
           {activeTab === 'media' && <AdminMediaManager />}
           {activeTab === 'leads' && <AdminLeadsManager />}

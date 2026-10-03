@@ -2,27 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { CmsProvider, useCms } from './context/CmsContext';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
-import { QuickIntro } from './components/QuickIntro';
 import { AboutSection } from './components/AboutSection';
-import { WhyChooseMe } from './components/WhyChooseMe';
 import { ServicesSection } from './components/ServicesSection';
 import { PortfolioSection } from './components/PortfolioSection';
-import { CaseStudiesSection } from './components/CaseStudiesSection';
-import { SkillsToolsSection } from './components/SkillsToolsSection';
-import { ExperienceEducationSection } from './components/ExperienceEducationSection';
 import { ReviewsSection } from './components/ReviewsSection';
-import { BlogSection } from './components/BlogSection';
 import { ContactSection } from './components/ContactSection';
-import { CtaBanner } from './components/CtaBanner';
 import { Footer } from './components/Footer';
 import { MobileStickyCta } from './components/MobileStickyCta';
 import { CvModal } from './components/CvModal';
 import { AdminLogin } from './admin/AdminLogin';
 import { AdminLayout } from './admin/AdminLayout';
-import { Loader2 } from 'lucide-react';
 
 function PortfolioApp() {
-  const { data, isAdmin, isLoading } = useCms();
+  const { data, isAdmin } = useCms();
   const [isAdminViewOpen, setIsAdminViewOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
@@ -86,41 +78,21 @@ function PortfolioApp() {
         {/* Hero Section */}
         <HeroSection onOpenCvModal={() => setIsCvModalOpen(true)} />
 
-        {/* Quick Intro & 4 Focus Cards */}
-        <QuickIntro />
-
         {/* About Me & Mission */}
         <AboutSection onOpenCvModal={() => setIsCvModalOpen(true)} />
-
-        {/* Why Choose Me (6 Pillars) */}
-        <WhyChooseMe />
 
         {/* Services Spectrum (3 Categories & Modal) */}
         <ServicesSection onSelectServiceForContact={handleServiceSelected} />
 
-        {/* Portfolio Showcase (Search, Filters, Modal) */}
+        {/* Selected portfolio work */}
         <PortfolioSection onSelectProjectForContact={handleServiceSelected} />
 
-        {/* Case Studies (8-Step Framework) */}
-        <CaseStudiesSection />
-
-        {/* Skills & Tools */}
-        <SkillsToolsSection />
-
-        {/* Professional Journey & Certifications */}
-        <ExperienceEducationSection />
-
-        {/* Client Testimonials */}
+        {/* Client testimonials */}
         <ReviewsSection />
-
-        {/* Blog & Strategy Guides */}
-        <BlogSection />
 
         {/* Contact & Dynamic Inbound Leads Form */}
         <ContactSection preselectedService={preselectedService} />
 
-        {/* Conversion CTA Banner */}
-        <CtaBanner />
       </main>
 
       {/* Footer */}

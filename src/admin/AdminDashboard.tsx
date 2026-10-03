@@ -2,12 +2,10 @@ import React from 'react';
 import {
   FolderGit2,
   Layers,
-  BookOpen,
   Star,
   Users,
   Plus,
   ArrowUpRight,
-  TrendingUp,
   FileText,
   Mail,
   CheckCircle,
@@ -18,17 +16,15 @@ interface AdminDashboardProps {
   onNavigateTab: (tab: string) => void;
   onOpenCreateProject: () => void;
   onOpenCreateService: () => void;
-  onOpenCreateBlog: () => void;
 }
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   onNavigateTab,
   onOpenCreateProject,
   onOpenCreateService,
-  onOpenCreateBlog,
 }) => {
   const { data, updateLeadStatus } = useCms();
-  const { projects, services, caseStudies, blogPosts, reviews, leads, resumes } = data;
+  const { projects, services, reviews, leads, resumes } = data;
 
   const publishedProjects = projects.filter((p) => p.status === 'Published').length;
   const draftProjects = projects.filter((p) => p.status === 'Draft').length;
@@ -67,13 +63,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <Plus className="w-4 h-4 text-[#F4B820]" />
             <span>Add Service</span>
           </button>
-          <button
-            onClick={onOpenCreateBlog}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors"
-          >
-            <Plus className="w-4 h-4 text-[#F4B820]" />
-            <span>Add Blog</span>
-          </button>
         </div>
       </div>
 
@@ -107,36 +96,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             {services.length}
           </div>
           <span className="text-xs font-semibold text-slate-600 block mt-1">Active Services</span>
-        </div>
-
-        {/* Case Studies */}
-        <div
-          onClick={() => onNavigateTab('caseStudies')}
-          className="bg-white p-4 rounded-xl border border-slate-200 hover:border-[#003088] cursor-pointer transition-all hover:shadow-sm"
-        >
-          <div className="flex items-center justify-between text-slate-400 mb-2">
-            <TrendingUp className="w-4 h-4 text-[#003088]" />
-            <span className="text-[11px] text-emerald-600 font-mono">8 Steps</span>
-          </div>
-          <div className="font-mono text-2xl font-extrabold text-[#101828] tabular-nums">
-            {caseStudies.length}
-          </div>
-          <span className="text-xs font-semibold text-slate-600 block mt-1">Case Studies</span>
-        </div>
-
-        {/* Blog Posts */}
-        <div
-          onClick={() => onNavigateTab('blog')}
-          className="bg-white p-4 rounded-xl border border-slate-200 hover:border-[#003088] cursor-pointer transition-all hover:shadow-sm"
-        >
-          <div className="flex items-center justify-between text-slate-400 mb-2">
-            <BookOpen className="w-4 h-4 text-slate-600" />
-            <span className="text-[11px] text-slate-500 font-mono">Guides</span>
-          </div>
-          <div className="font-mono text-2xl font-extrabold text-[#101828] tabular-nums">
-            {blogPosts.length}
-          </div>
-          <span className="text-xs font-semibold text-slate-600 block mt-1">Blog Articles</span>
         </div>
 
         {/* Reviews */}

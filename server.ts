@@ -12,7 +12,7 @@ import {
   requireAdmin,
   AuthenticatedRequest,
 } from './server/auth';
-import { upload } from './server/upload';
+import { upload, cvUpload, uploadFileToSupabase } from './server/upload';
 import { sanitizeString } from './server/sanitize';
 import { sendLeadNotification } from './server/email';
 
@@ -23,26 +23,64 @@ const PORT = parseInt(process.env.PORT || '3000', 10);
 const isProd = process.env.NODE_ENV === 'production';
 
 // Basic security & parsing middlewares
-app.use(express.json({ limit: '15mb' }));
-app.use(express.urlencoded({ extended: true, limit: '15mb' }));
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 app.use(cookieParser());
+app.set('trust proxy', 1);
+
+// Small, dependency-free request throttling for public/auth endpoints.
+type RateLimitEntry = { count: number; resetAt: number };
+const rateLimits = new Map<string, RateLimitEntry>();
+
+function rateLimit(windowMs: number, max: number, prefix: string) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const key = `${prefix}:${req.ip || 'unknown'}`;
+    const now = Date.now();
+    const current = rateLimits.get(key);
+    if (!current || current.resetAt <= now) {
+      rateLimits.set(key, { count: 1, resetAt: now + windowMs });
+      next();
+      return;
+    }
+    current.count += 1;
+    if (current.count > max) {
+      res.status(429).json({ error: 'Too many requests. Please try again later.' });
+      return;
+    }
+    next();
+  };
+}
+
+// Baseline browser security headers.
+app.use((_req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  if (isProd) {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  }
+  next();
+});
 
 // Static file serving for uploads and public folder
-const uploadsPath = path.resolve(process.cwd(), 'uploads');
 const publicPath = path.resolve(process.cwd(), 'public');
-if (!fs.existsSync(uploadsPath)) fs.mkdirSync(uploadsPath, { recursive: true });
 if (!fs.existsSync(publicPath)) fs.mkdirSync(publicPath, { recursive: true });
 
-app.use('/uploads', express.static(uploadsPath));
 app.use('/public', express.static(publicPath));
 app.use('/cv', express.static(path.resolve(publicPath, 'cv')));
+
+// Health check for deployment platforms and uptime monitoring.
+app.get('/api/health', (_req: Request, res: Response) => {
+  res.json({ ok: true, service: 'karima-moni-portfolio' });
+});
 
 // ==========================================
 // 1. AUTHENTICATION ENDPOINTS
 // ==========================================
 
 // POST /api/auth/login
-app.post('/api/auth/login', (req: Request, res: Response) => {
+app.post('/api/auth/login', rateLimit(15 * 60 * 1000, 10, 'login'), (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   if (!password) {
@@ -123,7 +161,7 @@ app.get('/api/site/data', (_req: Request, res: Response) => {
 });
 
 // POST /api/leads (Public form submission)
-app.post('/api/leads', async (req: Request, res: Response) => {
+app.post('/api/leads', rateLimit(15 * 60 * 1000, 5, 'lead'), async (req: Request, res: Response) => {
   const { name, email, whatsapp, service, budget, projectDetails, notes } = req.body;
 
   if (!name || !email) {
@@ -432,8 +470,8 @@ app.delete('/api/resumes/:id', requireAdmin, (req: AuthenticatedRequest, res: Re
 app.post(
   '/api/cv/upload',
   requireAdmin,
-  upload.single('file'),
-  (req: AuthenticatedRequest, res: Response) => {
+  cvUpload.single('file'),
+  async (req: AuthenticatedRequest, res: Response) => {
     if (!req.file) {
       res.status(400).json({ error: 'No PDF file was uploaded' });
       return;
@@ -444,7 +482,7 @@ app.post(
       return;
     }
 
-    const fileUrl = `/uploads/${req.file.filename}`;
+    const fileUrl = await uploadFileToSupabase(req.file, 'cv');
     const fileSize = `${(req.file.size / 1024).toFixed(1)} KB`;
     const title = req.body.title || 'Karima Moni – Senior Marketing Resume';
     const version = req.body.version || `v2026.${Date.now().toString().slice(-3)}`;
@@ -472,6 +510,7 @@ app.post(
 
 // Admin Leads Management (Protected!)
 app.get('/api/leads', requireAdmin, (_req: AuthenticatedRequest, res: Response) => {
+  res.setHeader('Cache-Control', 'no-store');
   res.json(db.getLeads());
 });
 
@@ -505,13 +544,13 @@ app.post(
   '/api/media/upload',
   requireAdmin,
   upload.single('file'),
-  (req: AuthenticatedRequest, res: Response) => {
+  async (req: AuthenticatedRequest, res: Response) => {
     if (!req.file) {
       res.status(400).json({ error: 'No file was uploaded' });
       return;
     }
 
-    const fileUrl = `/uploads/${req.file.filename}`;
+    const fileUrl = await uploadFileToSupabase(req.file, 'media');
     let type: 'image' | 'pdf' | 'video' | 'other' = 'other';
     if (req.file.mimetype.startsWith('image/')) type = 'image';
     else if (req.file.mimetype === 'application/pdf') type = 'pdf';
@@ -554,6 +593,7 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 // ==========================================
 
 async function startServer() {
+  await db.initialize();
   if (!isProd) {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({

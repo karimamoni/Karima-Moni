@@ -212,7 +212,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                     Project Request Received!
                   </h3>
                   <p className="text-sm text-slate-600 max-w-md mx-auto mb-6 leading-relaxed">
-                    Thank you for reaching out. Your project inquiry has been securely stored in Karima Moni's CMS inbox. You will receive a response within 24 hours.
+                    Thank you for reaching out. Your project inquiry has been securely stored in Karima Moni's CMS inbox. I’ll review your request and get back to you as soon as possible.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
@@ -367,7 +367,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                   </button>
 
                   <p className="text-[11px] text-center text-slate-400">
-                    Inquiries are stored directly in Karima Moni's verified lead registry.
+                    Your inquiry is stored securely for project follow-up.
                   </p>
                 </form>
               )}

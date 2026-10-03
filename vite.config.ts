@@ -5,6 +5,8 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    // The portfolio data references /images/*; Vite copies this asset directory into dist.
+    publicDir: path.resolve(__dirname, 'src/assets'),
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

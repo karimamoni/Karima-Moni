@@ -1,5 +1,4 @@
-import fs from 'fs';
-import path from 'path';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { initialCmsData } from '../src/data/initialData';
 import { hashPassword } from './auth';
 import {
@@ -37,52 +36,70 @@ export interface PersistentDatabase extends CmsDatabase {
   users: AdminUser[];
 }
 
-const DATA_DIR = path.resolve(process.cwd(), 'data');
-const DB_FILE = path.resolve(DATA_DIR, 'db.json');
-
-// Ensure data directory exists
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-}
-
 class DatabaseService {
   private data: PersistentDatabase;
   private saveTimeout: NodeJS.Timeout | null = null;
+  private client!: SupabaseClient;
 
   constructor() {
-    this.data = this.loadDatabase();
+    this.data = { ...initialCmsData, users: [] };
   }
 
-  private loadDatabase(): PersistentDatabase {
-    try {
-      if (fs.existsSync(DB_FILE)) {
-        const raw = fs.readFileSync(DB_FILE, 'utf-8');
-        const parsed = JSON.parse(raw);
-        // Ensure users array and all tables exist
-        if (!parsed.users || !parsed.users.length) {
-          parsed.users = [this.createDefaultAdminUser()];
-        }
-        return {
-          ...initialCmsData,
-          ...parsed,
-        };
-      }
-    } catch (err) {
-      console.error('[DB Service] Error reading db.json, falling back to seed data:', err);
+  public async initialize(): Promise<void> {
+    const url = process.env.SUPABASE_URL;
+    const key = process.env.SUPABASE_SECRET_KEY;
+    if (!url || !key) throw new Error('SUPABASE_URL and SUPABASE_SECRET_KEY must be configured.');
+
+    this.client = createClient(url, key, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+    });
+
+    const { data, error } = await this.client
+      .from('site_store')
+      .select('data')
+      .eq('id', 1)
+      .maybeSingle<{ data: PersistentDatabase }>();
+
+    if (error) throw new Error(`Supabase database read failed: ${error.message}`);
+
+    if (data?.data) {
+      const hadUsers = Boolean(data.data.users?.length);
+      this.data = {
+        ...initialCmsData,
+        ...data.data,
+        users: hadUsers ? data.data.users : [this.createDefaultAdminUser()],
+      };
+      if (!hadUsers) await this.persist();
+      return;
     }
 
-    // Default initial seed
-    const defaultData: PersistentDatabase = {
-      ...initialCmsData,
-      users: [this.createDefaultAdminUser()],
-    };
-    this.persistSync(defaultData);
-    return defaultData;
+    this.data = { ...initialCmsData, users: [this.createDefaultAdminUser()] };
+    await this.persist();
+  }
+
+  private async persist(): Promise<void> {
+    const { error } = await this.client.from('site_store').upsert({
+      id: 1,
+      data: this.data,
+      updated_at: new Date().toISOString(),
+    });
+    if (error) console.error('[DB Service] Error persisting to Supabase:', error.message);
+  }
+
+  private queueSave(): void {
+    if (this.saveTimeout) clearTimeout(this.saveTimeout);
+    this.saveTimeout = setTimeout(() => {
+      void this.persist();
+    }, 100);
   }
 
   private createDefaultAdminUser(): AdminUser {
-    const adminEmail = process.env.ADMIN_EMAIL || 'digitalkarimamoni@gmail.com';
-    const initialPassword = process.env.ADMIN_INITIAL_PASSWORD || 'karima2026';
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const initialPassword = process.env.ADMIN_INITIAL_PASSWORD;
+    if (!adminEmail) throw new Error('ADMIN_EMAIL must be configured.');
+    if (!initialPassword || initialPassword.length < 12) {
+      throw new Error('ADMIN_INITIAL_PASSWORD must be set and contain at least 12 characters.');
+    }
     return {
       id: 'admin-1',
       email: adminEmail,
@@ -92,25 +109,6 @@ class DatabaseService {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-  }
-
-  private persistSync(dataToSave: PersistentDatabase): void {
-    try {
-      const tmpFile = `${DB_FILE}.tmp`;
-      fs.writeFileSync(tmpFile, JSON.stringify(dataToSave, null, 2), 'utf-8');
-      fs.renameSync(tmpFile, DB_FILE);
-    } catch (err) {
-      console.error('[DB Service] Error persisting to db.json:', err);
-    }
-  }
-
-  private queueSave(): void {
-    if (this.saveTimeout) {
-      clearTimeout(this.saveTimeout);
-    }
-    this.saveTimeout = setTimeout(() => {
-      this.persistSync(this.data);
-    }, 100);
   }
 
   // Auth & User
@@ -144,7 +142,7 @@ class DatabaseService {
       ...initialCmsData,
       users: [admin],
     };
-    this.persistSync(this.data);
+    void this.persist();
   }
 
   // Homepage
