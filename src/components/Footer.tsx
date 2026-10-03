@@ -34,7 +34,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           {/* Col 1 & 2: Brand Identity */}
           <div className="lg:col-span-2 space-y-4">
-            <KarimaMoniLogo variant="full" theme="white" />
+            <KarimaMoniLogo variant="full" theme="white" src={data.settings.logoUrl} />
             <p className="text-xs sm:text-sm text-slate-400 max-w-sm leading-relaxed">
               I help businesses grow through paid advertising, social media support, and clear, consistent creative content.
             </p>
