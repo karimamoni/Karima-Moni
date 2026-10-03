@@ -951,20 +951,7 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
     canonicalUrl: 'https://karimamoni.com',
   },
 
-  leads: [
-    {
-      id: 'lead-1',
-      name: 'Mahmudul Hasan',
-      email: 'mahmud.tech@gmail.com',
-      whatsapp: '01812345678',
-      service: 'Facebook Ads',
-      budget: '$500 – $1,000',
-      projectDetails: 'Looking to set up and scale our e-commerce apparel Facebook ad campaigns for the upcoming seasonal sale.',
-      createdAt: '2026-10-02T14:30:00Z',
-      status: 'New',
-      notes: 'Send preliminary ad audit and campaign questionnaire.',
-    },
-  ],
+  leads: [],
 
   mediaLibrary: [
     {
