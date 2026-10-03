@@ -13,9 +13,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
   const [imageError, setImageError] = useState(false);
 
   return (
-    <section id="about" className="py-20 md:py-28 bg-[#F7F9FC] relative">
+    <section id="about" className="py-14 sm:py-16 md:py-20 bg-[#F7F9FC] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Profile */}
           <div className="lg:col-span-5">
             <div className="sticky top-28 bg-white p-4 rounded-2xl border border-slate-200 shadow-md">
@@ -51,7 +51,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
 
               {/* CV Actions */}
               {data.settings.cvButtonsEnabled && (
-                <div className="mt-5 pt-4 border-t border-slate-200 grid grid-cols-2 gap-2.5">
+                <div className="mt-4 pt-3 border-t border-slate-200 grid grid-cols-2 gap-2.5">
                   <button
                     onClick={onOpenCvModal}
                     className="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 text-xs font-bold text-slate-800 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors"
@@ -87,7 +87,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
             </p>
 
             {/* Bio */}
-            <div className="prose prose-slate max-w-none text-slate-700 space-y-4 mb-8 leading-relaxed">
+            <div className="prose prose-slate max-w-none text-slate-700 space-y-4 mb-6 leading-relaxed">
               {homepage.aboutContent.split('\n\n').map((paragraph, idx) => (
                 <p key={idx} className="text-base">
                   {paragraph}
@@ -95,7 +95,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
               ))}
             </div>
 
-            <div className="mb-10 p-5 rounded-xl bg-white border border-slate-200">
+            <div className="mb-7 p-5 rounded-xl bg-white border border-slate-200">
               <p className="text-sm font-semibold text-slate-900 leading-relaxed">
                 {homepage.aboutMission}
               </p>
