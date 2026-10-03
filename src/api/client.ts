@@ -71,20 +71,6 @@ export const api = {
     return { success: true, user: { email: data.user.email, name: 'Karima Moni', role: 'admin' } };
   },
 
-  async signup(email: string, password: string): Promise<{ success: boolean; confirmationRequired: boolean }> {
-    const targetEmail = email.trim().toLowerCase();
-    if (targetEmail !== ADMIN_EMAIL.toLowerCase()) {
-      throw new Error('Use the portfolio owner email address configured for Admin access.');
-    }
-    const { data, error } = await supabase.auth.signUp({
-      email: targetEmail,
-      password,
-      options: { emailRedirectTo: window.location.origin + window.location.pathname },
-    });
-    if (error) throw new Error(error.message);
-    return { success: true, confirmationRequired: !data.session };
-  },
-
   async logout(): Promise<{ success: boolean }> {
     await supabase.auth.signOut();
     return { success: true };
