@@ -62,6 +62,13 @@ function PortfolioApp() {
     }
   };
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('admin') === '1') {
+      handleOpenAdmin();
+    }
+  }, [isAdmin]);
+
   const handleServiceSelected = (serviceTitle: string) => {
     setPreselectedService(serviceTitle);
   };
