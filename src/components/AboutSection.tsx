@@ -16,7 +16,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
     <section id="about" className="py-20 md:py-28 bg-[#F7F9FC] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Visual Profile Card */}
+          {/* Profile */}
           <div className="lg:col-span-5">
             <div className="sticky top-28 bg-white p-4 rounded-2xl border border-slate-200 shadow-md">
               <div className="relative aspect-4/3 sm:aspect-1/1 w-full rounded-xl overflow-hidden bg-slate-100 mb-5">
@@ -49,7 +49,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
                 Focused on practical marketing execution, creative communication, and work that helps businesses move forward.
               </div>
 
-              {/* CV Action Buttons */}
+              {/* CV Actions */}
               {data.settings.cvButtonsEnabled && (
                 <div className="mt-5 pt-4 border-t border-slate-200 grid grid-cols-2 gap-2.5">
                   <button
@@ -74,7 +74,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
             </div>
           </div>
 
-          {/* Right Column: Bio Prose, Capabilities, Mission */}
+          {/* About Content */}
           <div className="lg:col-span-7 flex flex-col text-left">
             <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
               About Me
@@ -86,7 +86,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
               {homepage.aboutSubtitle}
             </p>
 
-            {/* Prose Content */}
+            {/* Bio */}
             <div className="prose prose-slate max-w-none text-slate-700 space-y-4 mb-8 leading-relaxed">
               {homepage.aboutContent.split('\n\n').map((paragraph, idx) => (
                 <p key={idx} className="text-base">
@@ -101,7 +101,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
               </p>
             </div>
 
-            {/* Capabilities Matrix */}
+            {/* Capabilities */}
             <div>
               <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-4">
                 Core Capabilities
