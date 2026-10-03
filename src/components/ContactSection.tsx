@@ -25,8 +25,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
   const [highlightService, setHighlightService] = useState(false);
 
   const nameInputRef = useRef<HTMLInputElement>(null);
-  const serviceSelectRef = useRef<HTMLSelectElement>(null);
-
   // Sync if preselectedService changes
   useEffect(() => {
     if (preselectedService) {
@@ -185,10 +183,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[#F4B820] shrink-0" />
                 <span>{contactInfo.workingHours}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Available for consultation & video discovery calls</span>
               </div>
             </div>
           </div>
@@ -349,7 +343,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                     {submitting ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin text-[#F4B820]" />
-                        <span>Submitting Request to Karima Moni...</span>
+                        <span>Sending Your Request...</span>
                       </>
                     ) : (
                       <>
