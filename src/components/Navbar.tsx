@@ -4,11 +4,10 @@ import { Menu, X, ArrowUpRight, Download } from 'lucide-react';
 import { useCms } from '../context/CmsContext';
 
 interface NavbarProps {
-  onOpenAdmin: () => void;
   onOpenCvModal: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, onOpenCvModal }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenCvModal }) => {
   const { data, getActiveResume } = useCms();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
