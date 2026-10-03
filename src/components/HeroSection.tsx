@@ -12,7 +12,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
   const [imageError, setImageError] = useState(false);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#F7F9FC] via-[#F7F9FC] to-white pt-10 pb-20 md:pt-16 md:pb-28">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#F7F9FC] via-[#F7F9FC] to-white pt-8 pb-16 sm:pt-10 sm:pb-20 md:pt-16 md:pb-28">
       {/* Subtle brand ambient decorations (Royal Blue & Gold gentle glow) */}
       <div
         className="pointer-events-none absolute -top-24 right-0 w-96 h-96 rounded-full bg-[#003088]/5 blur-3xl"
@@ -24,7 +24,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-8 items-center">
           {/* Left Column: Bold Typographic Identity & Hero Content */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             {/* Identity Kicker */}
@@ -45,7 +45,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
             </p>
 
             {/* Services Highlight Bar */}
-            <div className="mb-7 sm:mb-9 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 shadow-2xs">
+            <div className="mb-6 sm:mb-9 flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-slate-700 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 w-full sm:w-auto shadow-2xs">
               <span className="inline-flex items-center gap-1.5 text-[#003088]">
                 <TrendingUp className="w-4 h-4 text-[#003088]" />
                 Digital Marketing
@@ -66,7 +66,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
               <a
                 href="#portfolio"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-white bg-[#003088] hover:bg-[#00205c] rounded-md shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.98]"
+                className="w-full sm:w-auto min-h-12 inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-white bg-[#003088] hover:bg-[#00205c] rounded-md shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.98]"
               >
                 <span>{homepage.heroCtaPrimaryText}</span>
                 <ArrowDown className="w-4 h-4 text-[#F4B820]" />
@@ -74,7 +74,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
 
               <a
                 href="#contact"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-[#101828] hover:text-[#003088] bg-white border border-slate-300 hover:border-[#003088]/50 rounded-md shadow-xs hover:shadow-md transition-all duration-200"
+                className="w-full sm:w-auto min-h-12 inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold text-[#101828] hover:text-[#003088] bg-white border border-slate-300 hover:border-[#003088]/50 rounded-md shadow-xs hover:shadow-md transition-all duration-200"
               >
                 <span>{homepage.heroCtaSecondaryText}</span>
                 <ArrowUpRight className="w-4 h-4 text-[#F4B820]" />
@@ -83,7 +83,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
               {data.settings.cvButtonsEnabled && (
                 <button
                   onClick={onOpenCvModal}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-semibold text-slate-700 hover:text-[#003088] hover:bg-slate-100 rounded-md transition-colors"
+                  className="w-full sm:w-auto min-h-12 inline-flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-semibold text-slate-700 hover:text-[#003088] hover:bg-slate-100 rounded-md transition-colors"
                 >
                   <Download className="w-4 h-4 text-[#003088]" />
                   <span>{homepage.heroCtaCvText}</span>
@@ -98,7 +98,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
               {/* Outer decorative card frame with brand gold corner highlight */}
               <div className="absolute -inset-2 bg-gradient-to-tr from-[#003088]/20 via-[#F4B820]/30 to-transparent rounded-2xl blur-xs transform -rotate-1" />
 
-              <div className="relative bg-white p-3 rounded-2xl border border-slate-200/90 shadow-xl overflow-hidden">
+              <div className="relative bg-white p-3 rounded-2xl border border-slate-200/90 shadow-xl overflow-hidden w-full">
                 <div className="relative aspect-4/3 sm:aspect-1/1 w-full rounded-xl overflow-hidden bg-slate-100">
                   {!imageError ? (
                     <img
@@ -122,7 +122,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#101828]/60 via-transparent to-transparent pointer-events-none" />
 
                   {/* Badge Overlay */}
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white text-xs bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-lg border border-white/15">
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 text-white text-xs bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-lg border border-white/15">
                     <span className="font-semibold tracking-wide">Connect · Create · Grow</span>
                     <span className="text-[#F4B820] font-bold">2026</span>
                   </div>
