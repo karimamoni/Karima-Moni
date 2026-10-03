@@ -63,11 +63,13 @@ class DatabaseService {
     if (error) throw new Error(`Supabase database read failed: ${error.message}`);
 
     if (data?.data) {
+      const hadUsers = Boolean(data.data.users?.length);
       this.data = {
         ...initialCmsData,
         ...data.data,
-        users: data.data.users?.length ? data.data.users : [this.createDefaultAdminUser()],
+        users: hadUsers ? data.data.users : [this.createDefaultAdminUser()],
       };
+      if (!hadUsers) await this.persist();
       return;
     }
 
