@@ -985,5 +985,7 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
   settings: {
     cvButtonsEnabled: true,
     stickyCtaEnabled: true,
+    availabilityEnabled: true,
+    availabilityText: 'Open for New Projects',
   },
 };
