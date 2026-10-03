@@ -896,7 +896,7 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
       course: 'Graphic Design Masterclass & Brand Identity Systems',
       skills: ['Brand Identity', 'Typography', 'Color Theory', 'Canva Pro', 'Photoshop'],
       date: '2025 – 2026',
-      certificateUrl: '#',
+      certificateUrl: '',
       order: 2,
     },
     {
@@ -905,7 +905,7 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
       course: 'Generative AI Workflows for Marketing & Video Creation',
       skills: ['AI Content', 'AI Video', 'Prompt Engineering', 'Workflow Automation'],
       date: '2026',
-      certificateUrl: '#',
+      certificateUrl: '',
       order: 3,
     },
   ],
@@ -925,14 +925,14 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
   ],
 
   socialLinks: {
-    facebook: 'https://facebook.com',
-    instagram: 'https://instagram.com',
-    linkedin: 'https://linkedin.com',
-    youtube: 'https://youtube.com',
+    facebook: '',
+    instagram: '',
+    linkedin: '',
+    youtube: '',
     whatsapp: 'https://wa.me/8801714810035',
-    pinterest: 'https://pinterest.com',
-    x: 'https://x.com',
-    tiktok: 'https://tiktok.com',
+    pinterest: '',
+    x: '',
+    tiktok: '',
   },
 
   contactInfo: {
