@@ -217,6 +217,16 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onClose, onOpenCvPrevi
               >
                 View Public Site
               </button>
+              <button
+                onClick={() => {
+                  logoutAdmin();
+                  setSidebarOpen(false);
+                  onClose();
+                }}
+                className="w-full py-2 text-xs font-semibold text-rose-300 hover:bg-rose-950/40 rounded"
+              >
+                Sign Out
+              </button>
             </div>
           </div>
         </div>
