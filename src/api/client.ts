@@ -51,7 +51,13 @@ export const api = {
   async checkSession(): Promise<{ authenticated: boolean; user?: { email: string; name: string; role: string } }> {
     const { data } = await supabase.auth.getUser();
     if (!data.user?.email) return { authenticated: false };
-    return { authenticated: true, user: { email: data.user.email, name: 'Karima Moni', role: 'admin' } };
+    try {
+      await invoke<LeadMessage[]>({ op: 'get_leads' });
+      return { authenticated: true, user: { email: data.user.email, name: 'Karima Moni', role: 'admin' } };
+    } catch {
+      await supabase.auth.signOut();
+      return { authenticated: false };
+    }
   },
 
   async login(password: string, email?: string): Promise<{ success: boolean; user: any }> {
