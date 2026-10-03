@@ -1,8 +1,15 @@
 import { Request, Response, NextFunction } from 'express';
+import dotenv from 'dotenv';
+
+dotenv.config();
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-const JWT_SECRET = process.env.SESSION_SECRET || 'km_session_secret_karima_moni_secure_2026_key';
+const JWT_SECRET = process.env.SESSION_SECRET;
+
+if (!JWT_SECRET || JWT_SECRET.length < 32) {
+  throw new Error('SESSION_SECRET must be set and contain at least 32 characters.');
+}
 export const AUTH_COOKIE_NAME = 'km_admin_session';
 
 export interface AdminPayload {
