@@ -13,10 +13,10 @@ import {
 } from 'lucide-react';
 
 interface FooterProps {
-  onOpenAdmin: () => void;
+  onOpenAdmin?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
+export const Footer: React.FC<FooterProps> = () => {
   const { data } = useCms();
   const { contactInfo, socialLinks } = data;
 
@@ -39,7 +39,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
               I help businesses grow through paid advertising, social media support, and clear, consistent creative content.
             </p>
             <div className="text-xs text-[#F4B820] font-semibold tracking-wider uppercase">
-              Connect. Create. Grow.
+              Digital Marketing · Paid Ads · Creative Content
             </div>
 
             {/* Dynamic Social Icons */}
@@ -170,14 +170,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
                 <Mail className="w-4 h-4 text-[#F4B820] shrink-0" />
                 <span className="truncate">{contactInfo.email}</span>
               </li>
-              <li className="pt-2">
-                <button
-                  onClick={onOpenAdmin}
-                  className="text-xs text-slate-400 hover:text-white underline underline-offset-4"
-                >
-                  Manage Portfolio
-                </button>
-              </li>
             </ul>
           </div>
         </div>
@@ -188,11 +180,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
             © 2026 Karima Moni. All Rights Reserved.
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-[#003088] font-bold">#003088</span>
-            <span>·</span>
-            <span className="text-[#F4B820] font-bold">#F4B820</span>
-            <span>·</span>
-            <span>Connect. Create. Grow.</span>
+            <span>Digital Marketing · Paid Ads · Creative Content</span>
           </div>
         </div>
       </div>
