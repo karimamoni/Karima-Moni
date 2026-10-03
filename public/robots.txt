@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://karimamoni.github.io/Karima-Moni/sitemap.xml
