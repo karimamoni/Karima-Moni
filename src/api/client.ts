@@ -42,7 +42,7 @@ const crud = async <T>(resource: string, action: string, data?: any, id?: string
 
 export const api = {
   async bootstrap(): Promise<CmsDatabase> {
-    return invoke<CmsDatabase>({ op: 'bootstrap', data: initialCmsData, adminEmail: initialCmsData.contactInfo.email });
+    return invoke<CmsDatabase>({ op: 'bootstrap', data: { ...initialCmsData, seoSettings: { ...initialCmsData.seoSettings, canonicalUrl: 'https://karimamoni.github.io/Karima-Moni/' } }, adminEmail: initialCmsData.contactInfo.email });
   },
   async getSiteData(): Promise<CmsDatabase> {
     return invoke<CmsDatabase>({ op: 'get_site_data' });
