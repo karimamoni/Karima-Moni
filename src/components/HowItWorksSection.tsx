@@ -9,17 +9,17 @@ const steps = [
 ];
 
 export const HowItWorksSection: React.FC = () => (
-  <section id="process" className="py-12 sm:py-14 md:py-16 bg-[#F7F9FC] border-b border-slate-100">
+  <section id="process" className="py-10 sm:py-12 md:py-14 bg-[#F7F9FC] border-b border-slate-100">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mb-8 sm:mb-10">
+      <div className="max-w-3xl mb-6 sm:mb-7">
         <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">Simple Process</div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-[#101828] tracking-tight mb-4">How I Work</h2>
         <p className="text-base sm:text-lg text-slate-600">A clear, collaborative process designed to keep projects focused from the first conversation to the final delivery.</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {steps.map(({ number, title, description, icon: Icon }) => (
-          <div key={number} className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6">
-            <div className="flex items-center justify-between mb-5">
+          <div key={number} className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5">
+            <div className="flex items-center justify-between mb-4">
               <span className="text-xs font-bold text-[#F4B820]">{number}</span>
               <Icon className="w-5 h-5 text-[#003088]" aria-hidden="true" />
             </div>
