@@ -30,6 +30,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const draftProjects = projects.filter((p) => p.status === 'Draft').length;
   const newLeads = leads.filter((l) => l.status === 'New').length;
   const activeResume = resumes.find((r) => r.isActive);
+  const publishedReviews = reviews.filter((r) => r.status === 'Published').length;
+  const publishedServices = services.filter((s) => s.published).length;
 
   return (
     <div className="space-y-8">
@@ -93,9 +95,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <span className="text-[11px] text-slate-500 font-mono">{serviceCategories.length} Categories</span>
           </div>
           <div className="font-mono text-2xl font-extrabold text-[#101828] tabular-nums">
-            {services.length}
+            {publishedServices}
           </div>
-          <span className="text-xs font-semibold text-slate-600 block mt-1">Active Services</span>
+          <span className="text-xs font-semibold text-slate-600 block mt-1">Published Services</span>
         </div>
 
         {/* Reviews */}
@@ -105,7 +107,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         >
           <div className="flex items-center justify-between text-slate-400 mb-2">
             <Star className="w-4 h-4 text-[#F4B820]" />
-            <span className="text-[11px] text-slate-500 font-mono">5.0 ★</span>
+            <span className="text-[11px] text-slate-500 font-mono">{publishedReviews} Published</span>
           </div>
           <div className="font-mono text-2xl font-extrabold text-[#101828] tabular-nums">
             {reviews.length}
@@ -254,16 +256,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 About & Bio
               </button>
               <button
-                onClick={() => onNavigateTab('skills')}
+                onClick={() => onNavigateTab('projects')}
                 className="p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-left font-medium text-slate-800 transition-colors"
               >
-                Skills & Tools
+                Portfolio
               </button>
               <button
-                onClick={() => onNavigateTab('experience')}
+                onClick={() => onNavigateTab('leads')}
                 className="p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-left font-medium text-slate-800 transition-colors"
               >
-                Certificates
+                Leads
               </button>
               <button
                 onClick={() => onNavigateTab('social')}
