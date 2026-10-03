@@ -145,6 +145,37 @@ export const AdminSeoSettings: React.FC = () => {
             </div>
 
             <div className="flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200">
+              <div className="min-w-0 flex-1 pr-4">
+                <span className="text-xs font-bold text-slate-900 block">
+                  Availability Badge
+                </span>
+                <span className="text-[11px] text-slate-500">
+                  Show or hide the project availability badge in the hero section.
+                </span>
+              </div>
+              <input
+                type="checkbox"
+                checked={siteSettings.availabilityEnabled}
+                onChange={(e) => setSiteSettings({ ...siteSettings, availabilityEnabled: e.target.checked })}
+                className="rounded text-[#003088] w-4 h-4"
+              />
+            </div>
+
+            {siteSettings.availabilityEnabled && (
+              <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                <label className="block text-xs font-bold text-slate-700 mb-1">Availability Text</label>
+                <input
+                  type="text"
+                  maxLength={60}
+                  value={siteSettings.availabilityText}
+                  onChange={(e) => setSiteSettings({ ...siteSettings, availabilityText: e.target.value })}
+                  placeholder="Open for New Projects"
+                  className="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded"
+                />
+              </div>
+            )}
+
+            <div className="flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200">
               <div>
                 <span className="text-xs font-bold text-slate-900 block">
                   Mobile Sticky Bottom CTA Bar
