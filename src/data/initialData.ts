@@ -584,7 +584,7 @@ export const initialCmsData: CmsDatabase = {
       date: 'March 2026',
       service: 'Digital Marketing & Social Media',
       featured: true,
-      status: 'Published',
+      status: 'Draft',
       order: 1,
     },
     {
@@ -597,7 +597,7 @@ export const initialCmsData: CmsDatabase = {
       date: 'February 2026',
       service: 'Brand Identity & Graphic Design',
       featured: true,
-      status: 'Published',
+      status: 'Draft',
       order: 2,
     },
     {
@@ -610,7 +610,7 @@ export const initialCmsData: CmsDatabase = {
       date: 'January 2026',
       service: 'YouTube Marketing & AI Content',
       featured: true,
-      status: 'Published',
+      status: 'Draft',
       order: 3,
     },
   ],
