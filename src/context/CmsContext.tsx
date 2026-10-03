@@ -27,7 +27,7 @@ interface CmsContextType {
   isAdmin: boolean;
   isLoading: boolean;
   adminUser: { email: string; name: string } | null;
-  loginAdmin: (password: string, email?: string) => Promise<{ success: boolean; error?: string }>;
+  loginAdmin: (password: string, email?: string) => Promise<{ success: boolean; confirmationRequired?: boolean; error?: string }>;
   signupAdmin: (email: string, password: string) => Promise<{ success: boolean; confirmationRequired?: boolean; error?: string }>;
   logoutAdmin: () => Promise<void>;
   changeAdminPassword: (currentPassword: string, newPassword: string) => Promise<void>;
