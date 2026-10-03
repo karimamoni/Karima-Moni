@@ -80,8 +80,13 @@ export const api = {
     return { success: true };
   },
 
-  async changeAdminPassword(_currentPassword: string, newPassword: string): Promise<{ success: boolean }> {
-    const { error } = await supabase.auth.updateUser({ password: newPassword, current_password: _currentPassword });
+  async changeAdminPassword(currentPassword: string, newPassword: string): Promise<{ success: boolean }> {
+    const { data: userData, error: userError } = await supabase.auth.getUser();
+    const email = userData.user?.email;
+    if (userError || !email) throw new Error('Your admin session has expired. Please sign in again.');
+    const { error: verifyError } = await supabase.auth.signInWithPassword({ email, password: currentPassword });
+    if (verifyError) throw new Error('Current password is incorrect.');
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
     if (error) throw new Error(error.message);
     return { success: true };
   },
