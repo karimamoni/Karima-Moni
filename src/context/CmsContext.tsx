@@ -241,7 +241,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
-  const updateSettings = async (settings: { cvButtonsEnabled: boolean; stickyCtaEnabled: boolean }) => {
+  const updateSettings = async (settings: { cvButtonsEnabled: boolean; stickyCtaEnabled: boolean; availabilityEnabled: boolean; availabilityText: string }) => {
     setData((prev) => ({ ...prev, settings }));
     try {
       await api.updateSettings(settings);
