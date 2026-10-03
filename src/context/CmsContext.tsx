@@ -29,6 +29,7 @@ interface CmsContextType {
   adminUser: { email: string; name: string } | null;
   loginAdmin: (password: string, email?: string) => Promise<{ success: boolean; error?: string }>;
   logoutAdmin: () => Promise<void>;
+  changeAdminPassword: (currentPassword: string, newPassword: string) => Promise<void>;
   refreshData: () => Promise<void>;
   refreshLeads: () => Promise<void>;
 
@@ -187,6 +188,10 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     } catch {}
     setIsAdmin(false);
     setAdminUser(null);
+  };
+
+  const changeAdminPassword = async (currentPassword: string, newPassword: string): Promise<void> => {
+    await api.changeAdminPassword(currentPassword, newPassword);
   };
 
   // General Updates
@@ -730,6 +735,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         adminUser,
         loginAdmin,
         logoutAdmin,
+        changeAdminPassword,
         refreshData,
         refreshLeads,
         updateHomepage,
