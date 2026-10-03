@@ -117,9 +117,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
     : `880${rawWa}`;
 
   return (
-    <section id="contact" className="py-16 sm:py-20 md:py-28 bg-white relative pb-28 sm:pb-24">
+    <section id="contact" className="py-14 sm:py-16 md:py-20 bg-white relative pb-28 sm:pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start">
           {/* Left Column: Contact Channels & Trust */}
           <div className="lg:col-span-5">
             <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
@@ -128,12 +128,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#101828] tracking-tight mb-4">
               Let's Work Together
             </h2>
-            <p className="text-base text-slate-600 mb-8 leading-relaxed">
+            <p className="text-base text-slate-600 mb-6 leading-relaxed">
               Tell me what you're trying to achieve, and I'll help you figure out the next practical step.
             </p>
 
             {/* Quick Action Channels */}
-            <div className="space-y-4 mb-8">
+            <div className="space-y-3 mb-6">
               {/* WhatsApp direct card */}
               <a
                 href={`https://wa.me/${cleanWhatsappNumber}`}
