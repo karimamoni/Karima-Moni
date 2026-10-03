@@ -27,15 +27,20 @@ function PortfolioApp() {
     if (data.seoSettings?.siteTitle) {
       document.title = data.seoSettings.siteTitle;
     }
-    if (data.seoSettings?.metaDescription) {
+    const seo = data.seoSettings;
+    if (seo?.metaDescription) {
       const descMeta = document.querySelector('meta[name="description"]');
-      if (descMeta) {
-        descMeta.setAttribute('content', data.seoSettings.metaDescription);
-      }
+      if (descMeta) descMeta.setAttribute('content', seo.metaDescription);
       const ogDesc = document.querySelector('meta[property="og:description"]');
-      if (ogDesc) {
-        ogDesc.setAttribute('content', data.seoSettings.metaDescription);
-      }
+      if (ogDesc) ogDesc.setAttribute('content', seo.metaDescription);
+    }
+    if (seo?.ogImage) {
+      const ogImage = document.querySelector('meta[property="og:image"]');
+      if (ogImage) ogImage.setAttribute('content', seo.ogImage);
+    }
+    if (seo?.canonicalUrl) {
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute('href', seo.canonicalUrl);
     }
   }, [data.seoSettings]);
 
