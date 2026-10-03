@@ -70,10 +70,7 @@ function PortfolioApp() {
   return (
     <div className="min-h-screen bg-[#F7F9FC] text-[#101828] flex flex-col antialiased selection:bg-[#F4B820]/30 selection:text-[#003088] pb-16 sm:pb-0">
       {/* Sticky Top Navigation */}
-      <Navbar
-        onOpenAdmin={handleOpenAdmin}
-        onOpenCvModal={() => setIsCvModalOpen(true)}
-      />
+      <Navbar onOpenCvModal={() => setIsCvModalOpen(true)} />
 
       {/* Main Content Sections */}
       <main className="flex-1">
