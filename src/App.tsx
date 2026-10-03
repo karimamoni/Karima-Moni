@@ -5,7 +5,6 @@ import { HeroSection } from './components/HeroSection';
 import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
 import { HowItWorksSection } from './components/HowItWorksSection';
-import { WhyWorkWithMeSection } from './components/WhyWorkWithMeSection';
 import { PortfolioSection } from './components/PortfolioSection';
 import { ReviewsSection } from './components/ReviewsSection';
 import { ContactSection } from './components/ContactSection';
@@ -100,8 +99,6 @@ function PortfolioApp() {
         {/* Selected portfolio work */}
         <PortfolioSection onSelectProjectForContact={handleServiceSelected} />
 
-        {/* Compact trust signals */}
-        <WhyWorkWithMeSection />
 
         {/* Client testimonials */}
         <ReviewsSection />
