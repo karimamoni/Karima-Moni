@@ -34,9 +34,9 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
   );
 
   return (
-    <section id="portfolio" className="py-20 md:py-28 bg-white border-b border-slate-100">
+    <section id="portfolio" className="py-14 sm:py-16 md:py-20 bg-white border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mb-10">
+        <div className="max-w-3xl mb-8">
           <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
             Portfolio
           </div>
@@ -48,7 +48,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 mb-10 pb-6 border-b border-slate-100">
+        <div className="flex flex-wrap items-center gap-2 mb-8 pb-6 border-b border-slate-100">
           {filterTabs.map((tab) => (
             <button
               key={tab}
