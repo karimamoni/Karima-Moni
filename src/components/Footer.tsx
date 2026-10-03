@@ -150,7 +150,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
               </li>
               <li>
                 <a href="#services" className="hover:text-white transition-colors">
-                  Graphic Design & Identity
+                  Creative Content & Brand Design
                 </a>
               </li>
             </ul>
