@@ -64,10 +64,18 @@ function PortfolioApp() {
 
   if (isAdminViewOpen && isAdmin) {
     return (
-      <AdminLayout
-        onClose={() => setIsAdminViewOpen(false)}
-        onOpenCvPreview={() => setIsCvModalOpen(true)}
-      />
+      <>
+        {saveError && (
+          <div role="alert" className="fixed top-4 left-1/2 z-[100] -translate-x-1/2 w-[min(92vw,520px)] rounded-xl border border-rose-200 bg-white px-4 py-3 shadow-xl flex items-start gap-3">
+            <div className="min-w-0 flex-1 text-sm font-medium text-rose-700">{saveError}</div>
+            <button type="button" onClick={clearSaveError} className="text-xs font-bold text-slate-500 hover:text-slate-900">Dismiss</button>
+          </div>
+        )}
+        <AdminLayout
+          onClose={() => setIsAdminViewOpen(false)}
+          onOpenCvPreview={() => setIsCvModalOpen(true)}
+        />
+      </>
     );
   }
 
