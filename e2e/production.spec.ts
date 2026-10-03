@@ -25,7 +25,7 @@ test.describe('production portfolio smoke test', () => {
   });
 
   test('critical assets do not return 404', async ({ page }) => {
-    const failed = [];
+    const failed: Array<{ status: number; url: string }> = [];
     page.on('response', (response) => {
       if (response.status() >= 400 && response.url().includes('/Karima-Moni/')) {
         failed.push({ status: response.status(), url: response.url() });
