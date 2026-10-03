@@ -99,7 +99,7 @@ export const api = {
   async updateSocial(links: SocialLinks) { return invoke({ op: 'update_social', data: links }); },
   async updateContact(info: ContactInfo) { return invoke({ op: 'update_contact', data: info }); },
   async updateSeo(seo: SeoSettings) { return invoke({ op: 'update_seo', data: seo }); },
-  async updateSettings(settings: { cvButtonsEnabled: boolean; stickyCtaEnabled: boolean; availabilityEnabled: boolean; availabilityText: string }) { return invoke({ op: 'update_settings', data: settings }); },
+  async updateSettings(settings: { cvButtonsEnabled: boolean; stickyCtaEnabled: boolean; availabilityEnabled: boolean; availabilityText: string; logoUrl: string }) { return invoke({ op: 'update_settings', data: settings }); },
 
   async addServiceCategory(x: Omit<ServiceCategory, 'id'>) { return crud<ServiceCategory>('serviceCategories','add',x); },
   async updateServiceCategory(id: string, x: Partial<ServiceCategory>) { return crud<ServiceCategory>('serviceCategories','update',x,id); },
