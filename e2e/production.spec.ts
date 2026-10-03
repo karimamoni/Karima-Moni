@@ -21,7 +21,7 @@ test.describe('production portfolio smoke test', () => {
     await expect(form).toBeVisible();
     await expect(form.locator('input').first()).toBeVisible();
     await expect(form.locator('textarea')).toBeVisible();
-    await expect(form.getByRole('button', { name: /send|submit|inquiry/i })).toBeVisible();
+    await expect(form.getByRole('button', { name: /start a conversation/i })).toBeVisible();
   });
 
   test('critical assets do not return 404', async ({ page }) => {
