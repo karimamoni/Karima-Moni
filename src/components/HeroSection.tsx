@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { ArrowDown, ArrowUpRight, Sparkles, TrendingUp, Palette } from 'lucide-react';
 import { useCms } from '../context/CmsContext';
 
-interface HeroSectionProps {
-  onOpenCvModal: () => void;
-}
-
-export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
+export const HeroSection: React.FC = () => {
   const { data } = useCms();
   const { homepage } = data;
   const [imageError, setImageError] = useState(false);
