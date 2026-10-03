@@ -122,9 +122,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#101828]/60 via-transparent to-transparent pointer-events-none" />
 
                   {/* Badge Overlay */}
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 text-white text-xs bg-black/40 backdrop-blur-md px-3.5 py-2 rounded-lg border border-white/15">
-                    <span className="font-semibold tracking-wide">Connect · Create · Grow</span>
-                    <span className="text-[#F4B820] font-bold">2026</span>
+                  <div className="absolute bottom-3 left-3 right-3 text-white text-xs bg-black/35 backdrop-blur-md px-3.5 py-2 rounded-lg border border-white/15">
+                    <span className="font-semibold tracking-wide">Digital Marketing · Paid Ads · Creative Content</span>
                   </div>
                 </div>
 
@@ -134,7 +133,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                     {data.settings.availabilityEnabled && <span className="text-xs font-semibold text-slate-700">{data.settings.availabilityText}</span>}
                   </div>
-                  <span className="text-[11px] font-mono font-medium text-[#003088] bg-blue-50 px-2 py-0.5 rounded">
+                  <span className="text-[11px] font-semibold text-[#003088]">
                     Digital Marketing
                   </span>
                 </div>
