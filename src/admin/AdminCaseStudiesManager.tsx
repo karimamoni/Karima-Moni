@@ -13,7 +13,7 @@ export const AdminCaseStudiesManager: React.FC = () => {
   const [form, setForm] = useState({
     title: '',
     client: '',
-    category: 'Digital Marketing' as ProjectCategory,
+    category: 'Performance Marketing' as ProjectCategory,
     service: 'Facebook Ads',
     thumbnail: '/src/assets/images/marketing_campaign_showcase_1790992154996.jpg',
     overview: '',
@@ -33,7 +33,7 @@ export const AdminCaseStudiesManager: React.FC = () => {
     setForm({
       title: '',
       client: '',
-      category: 'Digital Marketing',
+      category: 'Performance Marketing',
       service: 'Facebook & Instagram Ads',
       thumbnail: '/src/assets/images/marketing_campaign_showcase_1790992154996.jpg',
       overview: '',
@@ -206,9 +206,8 @@ export const AdminCaseStudiesManager: React.FC = () => {
                     onChange={(e) => setForm({ ...form, category: e.target.value as any })}
                     className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded"
                   >
-                    <option value="Digital Marketing">Digital Marketing</option>
-                    <option value="Graphic Design">Graphic Design</option>
-                    <option value="AI Services">AI Services</option>
+                    <option value="Performance Marketing">Performance Marketing</option>
+                    <option value="Creative Content">Creative Content</option>
                   </select>
                 </div>
                 <div>
