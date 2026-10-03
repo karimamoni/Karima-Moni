@@ -15,14 +15,14 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
 
   const getCategoryTheme = (slug: string) => {
     switch (slug) {
-      case 'digital-marketing':
+      case 'performance-marketing':
         return {
           icon: <TrendingUp className="w-5 h-5 text-[#003088]" />,
           borderAccent: 'border-l-4 border-l-[#003088]',
           badgeBg: 'bg-blue-50 text-[#003088]',
           headerGradient: 'from-[#003088]/5 to-transparent',
         };
-      case 'graphic-design':
+      case 'creative-content':
         return {
           icon: <Palette className="w-5 h-5 text-[#F4B820]" />,
           borderAccent: 'border-l-4 border-l-[#F4B820]',
@@ -58,11 +58,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
             Specialized Digital Services
           </h2>
           <p className="text-base sm:text-lg text-slate-600">
-            From strategic paid acquisition to high-end brand identity and AI-accelerated workflows, explore end-to-end creative solutions.
+            Focused performance marketing and creative content services built around clear business goals.
           </p>
         </div>
 
-        {/* 3 Categories Stack */}
+        {/* Core Service Groups */}
         <div className="space-y-16">
           {serviceCategories.map((category) => {
             const theme = getCategoryTheme(category.slug);
