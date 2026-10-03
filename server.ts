@@ -121,6 +121,26 @@ app.post('/api/auth/logout', (_req: Request, res: Response) => {
   res.json({ success: true, message: 'Successfully signed out' });
 });
 
+// PUT /api/auth/password
+app.put('/api/auth/password', rateLimit(15 * 60 * 1000, 10, 'password-change'), requireAdmin, (req: AuthenticatedRequest, res: Response) => {
+  const { currentPassword, newPassword } = req.body;
+  if (!currentPassword || !newPassword) {
+    res.status(400).json({ error: 'Current password and new password are required.' });
+    return;
+  }
+  if (String(newPassword).length < 12) {
+    res.status(400).json({ error: 'New password must be at least 12 characters.' });
+    return;
+  }
+  const admin = db.getAdminUser();
+  if (!admin || !comparePassword(String(currentPassword), admin.passwordHash)) {
+    res.status(401).json({ error: 'Current password is incorrect.' });
+    return;
+  }
+  db.updateAdminPassword(require('./server/auth').hashPassword(String(newPassword)));
+  res.json({ success: true });
+});
+
 // GET /api/auth/session
 app.get('/api/auth/session', (req: AuthenticatedRequest, res: Response) => {
   const token = req.cookies?.km_admin_session;

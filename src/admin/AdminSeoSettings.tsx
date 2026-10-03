@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { Save, CheckCircle, RefreshCw, AlertTriangle } from 'lucide-react';
+import { Save, CheckCircle, RefreshCw, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { useCms } from '../context/CmsContext';
 
 export const AdminSeoSettings: React.FC = () => {
-  const { data, updateSeoSettings, updateSettings, resetToDefaults } = useCms();
+  const { data, updateSeoSettings, updateSettings, resetToDefaults, changeAdminPassword } = useCms();
   const [seo, setSeo] = useState({ ...data.seoSettings });
   const [siteSettings, setSiteSettings] = useState({ ...data.settings });
   const [saved, setSaved] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordMessage, setPasswordMessage] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -155,6 +160,34 @@ export const AdminSeoSettings: React.FC = () => {
                 className="rounded text-[#003088] w-4 h-4"
               />
             </div>
+          </div>
+        </div>
+
+        {/* Admin Security */}
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-[#003088] flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4" /> Admin Security
+            </h3>
+            <p className="text-[11px] text-slate-500 mt-1">Change the admin login password without touching your website content.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} placeholder="Current password" autoComplete="current-password" className="px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded" />
+            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="New password (12+ chars)" autoComplete="new-password" className="px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded" />
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm new password" autoComplete="new-password" className="px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded" />
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <button type="button" onClick={async () => {
+              setPasswordMessage(''); setPasswordError('');
+              if (newPassword.length < 12) { setPasswordError('New password must be at least 12 characters.'); return; }
+              if (newPassword !== confirmPassword) { setPasswordError('New password and confirmation do not match.'); return; }
+              try { await changeAdminPassword(currentPassword, newPassword); setCurrentPassword(''); setNewPassword(''); setConfirmPassword(''); setPasswordMessage('Admin password updated successfully.'); }
+              catch (e: any) { setPasswordError(e.message || 'Could not change password.'); }
+            }} className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-[#003088] hover:bg-[#00205c] rounded-lg">
+              <ShieldCheck className="w-3.5 h-3.5" /> Change Admin Password
+            </button>
+            {passwordMessage && <span className="text-xs font-semibold text-emerald-700">{passwordMessage}</span>}
+            {passwordError && <span className="text-xs font-semibold text-rose-700">{passwordError}</span>}
           </div>
         </div>
 
