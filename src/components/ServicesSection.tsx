@@ -106,9 +106,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                 {/* Sub-services Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {categoryServices.map((service) => (
-                    <button
+                    <div
                       key={service.id}
-                      type="button"
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`View service: ${service.title}`}
                       onClick={() => setSelectedService(service)}
                       className="group bg-white p-6 rounded-xl border border-slate-200/90 hover:border-[#003088] hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col justify-between"
                       role="button"
@@ -148,7 +150,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                           {service.tools.length} Tools
                         </span>
                       </div>
-                    </button>
+                    </div>
                   ))}
                 </div>
               </div>
