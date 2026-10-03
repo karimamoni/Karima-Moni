@@ -34,7 +34,6 @@ const fileFilter = (
     'image/jpeg',
     'image/png',
     'image/webp',
-    'image/svg+xml',
     'image/gif',
     'application/pdf',
     'video/mp4',
@@ -48,10 +47,25 @@ const fileFilter = (
   }
 };
 
-export const upload = multer({
+const uploadOptions = {
   storage,
   limits: {
-    fileSize: 15 * 1024 * 1024, // 15MB limit
+    fileSize: 15 * 1024 * 1024,
   },
+};
+
+export const upload = multer({
+  ...uploadOptions,
   fileFilter,
+});
+
+export const cvUpload = multer({
+  ...uploadOptions,
+  fileFilter: (_req, file, cb) => {
+    if (file.mimetype === 'application/pdf' && path.extname(file.originalname).toLowerCase() === '.pdf') {
+      cb(null, true);
+      return;
+    }
+    cb(new Error('Only PDF files are accepted for CV upload.'));
+  },
 });
