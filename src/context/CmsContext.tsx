@@ -214,6 +214,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateHomepage(patch);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not save homepage. Please try again.'); console.error('Failed to save homepage to database:', e);
     }
   };
@@ -223,6 +224,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateSocial(links);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not save social links. Please try again.'); console.error('Failed to save social links to database:', e);
     }
   };
@@ -232,6 +234,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateContact(info);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not save contact info. Please try again.'); console.error('Failed to save contact info to database:', e);
     }
   };
@@ -241,6 +244,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateSeo(seo);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not save SEO. Please try again.'); console.error('Failed to save SEO to database:', e);
     }
   };
@@ -250,6 +254,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateSettings(settings);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not save settings. Please try again.'); console.error('Failed to save settings to database:', e);
     }
   };
@@ -259,6 +264,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const res = await api.resetCms();
       if (res.data) setData(res.data);
     } catch (e) {
+      await refreshData();
       console.error('Failed to reset CMS:', e);
       setData(initialCmsData);
     }
@@ -270,6 +276,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const created = await api.addServiceCategory(cat);
       setData((prev) => ({ ...prev, serviceCategories: [...prev.serviceCategories, created] }));
     } catch (e) {
+      await refreshData();
       setSaveError('Could not add category. Please try again.'); console.error('Failed to add category:', e);
     }
   };
@@ -282,6 +289,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateServiceCategory(id, cat);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not update category. Please try again.'); console.error('Failed to update category:', e);
     }
   };
@@ -294,6 +302,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteServiceCategory(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete category. Please try again.'); console.error('Failed to delete category:', e);
     }
   };
@@ -304,6 +313,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const created = await api.addService(srv);
       setData((prev) => ({ ...prev, services: [...prev.services, created] }));
     } catch (e) {
+      await refreshData();
       setSaveError('Could not add service. Please try again.'); console.error('Failed to add service:', e);
     }
   };
@@ -316,6 +326,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateService(id, srv);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not update service. Please try again.'); console.error('Failed to update service:', e);
     }
   };
@@ -328,6 +339,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteService(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete service. Please try again.'); console.error('Failed to delete service:', e);
     }
   };
@@ -338,6 +350,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const created = await api.addProject(proj);
       setData((prev) => ({ ...prev, projects: [created, ...prev.projects] }));
     } catch (e) {
+      await refreshData();
       setSaveError('Could not add project. Please try again.'); console.error('Failed to add project:', e);
     }
   };
@@ -350,6 +363,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateProject(id, proj);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not update project. Please try again.'); console.error('Failed to update project:', e);
     }
   };
@@ -362,6 +376,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteProject(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete project. Please try again.'); console.error('Failed to delete project:', e);
     }
   };
@@ -371,6 +386,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const duplicated = await api.duplicateProject(id);
       setData((prev) => ({ ...prev, projects: [duplicated, ...prev.projects] }));
     } catch (e) {
+      await refreshData();
       console.error('Failed to duplicate project:', e);
     }
   };
@@ -381,6 +397,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const created = await api.addCaseStudy(cs);
       setData((prev) => ({ ...prev, caseStudies: [created, ...prev.caseStudies] }));
     } catch (e) {
+      await refreshData();
       setSaveError('Could not add case study. Please try again.'); console.error('Failed to add case study:', e);
     }
   };
@@ -393,6 +410,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateCaseStudy(id, cs);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not update case study. Please try again.'); console.error('Failed to update case study:', e);
     }
   };
@@ -405,6 +423,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteCaseStudy(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete case study. Please try again.'); console.error('Failed to delete case study:', e);
     }
   };
@@ -415,6 +434,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const created = await api.addReview(rev);
       setData((prev) => ({ ...prev, reviews: [created, ...prev.reviews] }));
     } catch (e) {
+      await refreshData();
       setSaveError('Could not add review. Please try again.'); console.error('Failed to add review:', e);
     }
   };
@@ -427,6 +447,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateReview(id, rev);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not update review. Please try again.'); console.error('Failed to update review:', e);
     }
   };
@@ -439,6 +460,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteReview(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete review. Please try again.'); console.error('Failed to delete review:', e);
     }
   };
@@ -449,6 +471,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const created = await api.addBlogPost(post);
       setData((prev) => ({ ...prev, blogPosts: [created, ...prev.blogPosts] }));
     } catch (e) {
+      await refreshData();
       setSaveError('Could not add blog post. Please try again.'); console.error('Failed to add blog post:', e);
     }
   };
@@ -461,6 +484,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateBlogPost(id, post);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not update blog post. Please try again.'); console.error('Failed to update blog post:', e);
     }
   };
@@ -473,6 +497,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteBlogPost(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete blog post. Please try again.'); console.error('Failed to delete blog post:', e);
     }
   };
@@ -483,6 +508,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const created = await api.addSkill(skill);
       setData((prev) => ({ ...prev, skills: [...prev.skills, created] }));
     } catch (e) {
+      await refreshData();
       setSaveError('Could not add skill. Please try again.'); console.error('Failed to add skill:', e);
     }
   };
@@ -495,6 +521,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateSkill(id, skill);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not update skill. Please try again.'); console.error('Failed to update skill:', e);
     }
   };
@@ -507,6 +534,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteSkill(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete skill. Please try again.'); console.error('Failed to delete skill:', e);
     }
   };
@@ -517,6 +545,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const created = await api.addTool(tool);
       setData((prev) => ({ ...prev, tools: [...prev.tools, created] }));
     } catch (e) {
+      await refreshData();
       setSaveError('Could not add tool. Please try again.'); console.error('Failed to add tool:', e);
     }
   };
@@ -529,6 +558,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateTool(id, tool);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not update tool. Please try again.'); console.error('Failed to update tool:', e);
     }
   };
@@ -541,6 +571,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteTool(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete tool. Please try again.'); console.error('Failed to delete tool:', e);
     }
   };
@@ -551,6 +582,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const created = await api.addExperience(exp);
       setData((prev) => ({ ...prev, experience: [...prev.experience, created] }));
     } catch (e) {
+      await refreshData();
       setSaveError('Could not add experience. Please try again.'); console.error('Failed to add experience:', e);
     }
   };
@@ -563,6 +595,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateExperience(id, exp);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not update experience. Please try again.'); console.error('Failed to update experience:', e);
     }
   };
@@ -575,6 +608,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteExperience(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete experience. Please try again.'); console.error('Failed to delete experience:', e);
     }
   };
@@ -585,6 +619,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const created = await api.addEducation(edu);
       setData((prev) => ({ ...prev, education: [...prev.education, created] }));
     } catch (e) {
+      await refreshData();
       setSaveError('Could not add education. Please try again.'); console.error('Failed to add education:', e);
     }
   };
@@ -597,6 +632,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateEducation(id, edu);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not update education. Please try again.'); console.error('Failed to update education:', e);
     }
   };
@@ -609,6 +645,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteEducation(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete education. Please try again.'); console.error('Failed to delete education:', e);
     }
   };
@@ -624,6 +661,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return { ...prev, resumes: [created, ...updatedList] };
       });
     } catch (e) {
+      await refreshData();
       setSaveError('Could not add resume. Please try again.'); console.error('Failed to add resume:', e);
     }
   };
@@ -636,6 +674,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.setActiveResume(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not activate resume. Please try again.'); console.error('Failed to activate resume:', e);
     }
   };
@@ -648,6 +687,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteResume(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete resume. Please try again.'); console.error('Failed to delete resume:', e);
     }
   };
@@ -693,6 +733,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.updateLeadStatus(id, status, notes);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not update lead status. Please try again.'); console.error('Failed to update lead status:', e);
     }
   };
@@ -705,6 +746,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteLead(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete lead. Please try again.'); console.error('Failed to delete lead:', e);
     }
   };
@@ -715,6 +757,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const created = await api.addMediaItem(item);
       setData((prev) => ({ ...prev, mediaLibrary: [created, ...prev.mediaLibrary] }));
     } catch (e) {
+      await refreshData();
       setSaveError('Could not add media item. Please try again.'); console.error('Failed to add media item:', e);
     }
   };
@@ -736,6 +779,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       await api.deleteMedia(id);
     } catch (e) {
+      await refreshData();
       setSaveError('Could not delete media asset. Please try again.'); setSaveError('Could not delete the media asset. Please try again.'); console.error('Failed to delete media asset:', e);
     }
   };
