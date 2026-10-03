@@ -20,9 +20,9 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 
   const filterTabs: Array<'All' | ProjectCategory> = [
     'All',
-    'Digital Marketing',
-    'Graphic Design',
-    'AI Services',
+    'Performance Marketing',
+    'Creative Content',
+    'Creative Content',
   ];
 
   const filteredProjects = useMemo(() => {
@@ -56,7 +56,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
             My Creative Work
           </h2>
           <p className="text-base sm:text-lg text-slate-600">
-            Explore selected projects across digital marketing, graphic design and AI-powered creative work.
+            Explore selected projects across performance marketing and creative content.
           </p>
         </div>
 
