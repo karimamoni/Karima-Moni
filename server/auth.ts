@@ -5,11 +5,13 @@ dotenv.config();
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-const JWT_SECRET = process.env.SESSION_SECRET;
-
-if (!JWT_SECRET || JWT_SECRET.length < 32) {
-  throw new Error('SESSION_SECRET must be set and contain at least 32 characters.');
-}
+const JWT_SECRET: string = (() => {
+  const secret = process.env.SESSION_SECRET;
+  if (!secret || secret.length < 32) {
+    throw new Error('SESSION_SECRET must be set and contain at least 32 characters.');
+  }
+  return secret;
+})();
 export const AUTH_COOKIE_NAME = 'km_admin_session';
 
 export interface AdminPayload {
@@ -32,7 +34,7 @@ export function generateToken(payload: AdminPayload): string {
 
 export function verifyToken(token: string): AdminPayload | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as AdminPayload;
+    return jwt.verify(token, JWT_SECRET) as unknown as AdminPayload;
   } catch {
     return null;
   }
