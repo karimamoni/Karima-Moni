@@ -29,7 +29,7 @@ test.describe('production portfolio smoke test', () => {
   });
 
   test('contact form is rendered without submitting data', async ({ page }) => {
-    await page.goto(baseURL, { waitUntil: 'networkidle' });
+    await openReadyPortfolio(page);
     const form = page.locator('#contact form');
     await expect(form).toBeVisible();
     await expect(form.locator('input').first()).toBeVisible();
@@ -64,7 +64,7 @@ test.describe('production portfolio smoke test', () => {
   });
 
   test('admin access is protected by a login dialog', async ({ page }) => {
-    await page.goto(baseURL, { waitUntil: 'networkidle' });
+    await openReadyPortfolio(page);
     await page.locator('footer button').filter({ hasText: 'Manage Portfolio' }).click();
     await expect(page.locator('#admin-email')).toBeVisible();
     await expect(page.locator('#admin-email')).toHaveValue('karimamonimarketer@gmail.com');
