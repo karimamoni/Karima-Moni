@@ -39,7 +39,7 @@ interface CmsContextType {
   updateSocialLinks: (links: SocialLinks) => Promise<void>;
   updateContactInfo: (info: ContactInfo) => Promise<void>;
   updateSeoSettings: (seo: SeoSettings) => Promise<void>;
-  updateSettings: (settings: { cvButtonsEnabled: boolean; stickyCtaEnabled: boolean }) => Promise<void>;
+  updateSettings: (settings: { cvButtonsEnabled: boolean; stickyCtaEnabled: boolean; availabilityEnabled: boolean; availabilityText: string }) => Promise<void>;
   resetToDefaults: () => Promise<void>;
 
   // Services
