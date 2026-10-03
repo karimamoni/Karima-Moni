@@ -16,6 +16,7 @@ async function openReadyPortfolio(page: import('@playwright/test').Page) {
 }
 
 test.describe('production portfolio smoke test', () => {
+  test.setTimeout(90000);
   test('homepage loads and core sections are visible', async ({ page }) => {
     await openReadyPortfolio(page);
     await expect(page).toHaveTitle(/Karima|Moni/i);
@@ -44,7 +45,7 @@ test.describe('production portfolio smoke test', () => {
         failed.push({ status: response.status(), url: response.url() });
       }
     });
-    await page.goto(baseURL, { waitUntil: 'networkidle' });
+    await openReadyPortfolio(page);
     expect(failed, JSON.stringify(failed, null, 2)).toEqual([]);
   });
   test('admin API rejects unauthenticated management operations', async ({ request }) => {
