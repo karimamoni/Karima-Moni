@@ -53,12 +53,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
               <span className="text-slate-300 font-bold" aria-hidden="true">·</span>
               <span className="inline-flex items-center gap-1.5 text-slate-800">
                 <Palette className="w-4 h-4 text-[#F4B820]" />
-                Graphic Design
+                Creative Content
               </span>
               <span className="text-slate-300 font-bold" aria-hidden="true">·</span>
               <span className="inline-flex items-center gap-1.5 text-[#003088]">
                 <Sparkles className="w-4 h-4 text-[#F4B820]" />
-                AI Services
+                Paid Ads
               </span>
             </div>
 
