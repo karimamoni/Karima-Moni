@@ -5,11 +5,7 @@ import {
   User,
   Layers,
   FolderGit2,
-  TrendingUp,
   Star,
-  BookOpen,
-  Wrench,
-  GraduationCap,
   FileText,
   Image as ImageIcon,
   Mail,
@@ -19,7 +15,6 @@ import {
   ExternalLink,
   Menu,
   X,
-  Plus,
 } from 'lucide-react';
 import { KarimaMoniLogo } from '../components/KarimaMoniLogo';
 import { useCms } from '../context/CmsContext';
