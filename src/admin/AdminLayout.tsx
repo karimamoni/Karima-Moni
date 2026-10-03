@@ -157,7 +157,6 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onClose, onOpenCvPrevi
               onNavigateTab={(tab) => setActiveTab(tab)}
               onOpenCreateProject={() => setActiveTab('projects')}
               onOpenCreateService={() => setActiveTab('services')}
-              onOpenCreateBlog={() => setActiveTab('blog')}
             />
           )}
           {activeTab === 'homepage' && <AdminHomepageManager />}
