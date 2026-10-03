@@ -14,7 +14,7 @@ import { AdminLogin } from './admin/AdminLogin';
 import { AdminLayout } from './admin/AdminLayout';
 
 function PortfolioApp() {
-  const { data, isAdmin, isLoading } = useCms();
+  const { data, isAdmin } = useCms();
   const [isAdminViewOpen, setIsAdminViewOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
