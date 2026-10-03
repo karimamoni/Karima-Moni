@@ -1,5 +1,4 @@
 import { createClient } from 'npm:@supabase/supabase-js@2.112.3'
-import { corsHeaders } from 'npm:@supabase/supabase-js@2.112.3/cors'
 
 type JsonRecord = Record<string, any>
 const supabaseUrl = Deno.env.get('SUPABASE_URL')!
