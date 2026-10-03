@@ -81,7 +81,7 @@ export const api = {
   },
 
   async changeAdminPassword(_currentPassword: string, newPassword: string): Promise<{ success: boolean }> {
-    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    const { error } = await supabase.auth.updateUser({ password: newPassword, current_password: _currentPassword });
     if (error) throw new Error(error.message);
     return { success: true };
   },
