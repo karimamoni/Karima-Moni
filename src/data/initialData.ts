@@ -498,7 +498,7 @@ export const initialCmsData: CmsDatabase = {
       id: 'proj-4',
       name: 'YouTube Channel Optimization & Thumbnail Refresh',
       client: 'Educational Content Channel',
-      category: 'Digital Marketing',
+      category: 'Creative Content',
       subCategory: 'YouTube Marketing',
       service: 'YouTube Marketing',
       date: 'March 2026',
