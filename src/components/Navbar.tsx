@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCvModal }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Zone 1: Brand Wordmark & Emblem */}
         <a href="#" className="flex items-center group py-2 focus-visible:outline-hidden">
-          <KarimaMoniLogo variant="full" />
+          <KarimaMoniLogo variant="full" src={data.settings.logoUrl} />
         </a>
 
         {/* Zone 2: Navigation Links (Text with clean hover) */}
