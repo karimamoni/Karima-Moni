@@ -8,11 +8,25 @@ const publishableKeys = JSON.parse(Deno.env.get('SUPABASE_PUBLISHABLE_KEYS') || 
 const secretKey = secretKeys.default || Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
 const publishableKey = publishableKeys.default || Deno.env.get('SUPABASE_ANON_KEY')!
 
+const LEAD_WINDOW_MS = 10 * 60 * 1000
+const LEAD_MAX_PER_WINDOW = 5
+const leadAttempts = new Map<string, number[]>()
+const MAX_TEXT = 2000
+const MAX_MESSAGE = 6000
+
 const adminDb = createClient(supabaseUrl, secretKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } })
 const authDb = createClient(supabaseUrl, publishableKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } })
 
-const json = (body: unknown, status = 200) =>
-  Response.json(body, { status, headers: { ...corsHeaders, 'Cache-Control': 'no-store' } })
+const ALLOWED_ORIGIN = 'https://karimamoni.github.io'
+const responseHeaders = (req: Request) => ({
+  'Access-Control-Allow-Origin': req.headers.get('Origin') === ALLOWED_ORIGIN ? ALLOWED_ORIGIN : ALLOWED_ORIGIN,
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Vary': 'Origin',
+  'Cache-Control': 'no-store',
+})
+const json = (body: unknown, status = 200, req?: Request) =>
+  Response.json(body, { status, headers: responseHeaders(req || new Request('https://localhost')) })
 
 async function readStore(): Promise<JsonRecord> {
   const { data, error } = await adminDb.from('site_store').select('data').eq('id', 1).maybeSingle()
@@ -53,6 +67,34 @@ const resourceConfig: Record<string, { key: string; prefix: string; prepend?: bo
 }
 function newId(prefix: string) { return prefix + Date.now() + '-' + Math.random().toString(36).slice(2, 7) }
 
+function clientKey(req: Request) {
+  return (req.headers.get('x-forwarded-for') || req.headers.get('cf-connecting-ip') || 'unknown').split(',')[0].trim()
+}
+function allowLead(req: Request) {
+  const key = clientKey(req)
+  const now = Date.now()
+  const recent = (leadAttempts.get(key) || []).filter(t => now - t < LEAD_WINDOW_MS)
+  if (recent.length >= LEAD_MAX_PER_WINDOW) return false
+  recent.push(now)
+  leadAttempts.set(key, recent)
+  return true
+}
+function text(value: unknown, max = MAX_TEXT) {
+  return String(value ?? '').trim().slice(0, max)
+}
+function storagePathFromUrl(url: unknown) {
+  try {
+    const pathname = new URL(String(url)).pathname
+    const marker = '/storage/v1/object/public/portfolio-media/'
+    return pathname.includes(marker) ? decodeURIComponent(pathname.split(marker)[1]) : null
+  } catch { return null }
+}
+async function removeStorageObject(url: unknown) {
+  const path = storagePathFromUrl(url)
+  if (!path) return
+  await adminDb.storage.from('portfolio-media').remove([path]).catch(() => undefined)
+}
+
 async function handleJson(req: Request) {
   const body = await req.json().catch(() => ({}))
   const op = body.op as string
@@ -62,26 +104,34 @@ async function handleJson(req: Request) {
     if (!existing.homepage && body.data?.homepage) {
       const initialized = { ...body.data, leads: [], adminEmail: body.adminEmail || body.data.contactInfo?.email || '' }
       await writeStore(initialized)
-      return json(publicData(initialized))
+      return json(publicData(initialized), 200, req)
     }
-    return json(publicData(existing))
+    return json(publicData(existing), 200, req)
   }
-  if (op === 'get_site_data') return json(publicData(await readStore()))
+  if (op === 'get_site_data') return json(publicData(await readStore()), 200, req)
   if (op === 'submit_lead') {
+    if (!allowLead(req)) return json({ error: 'Too many messages. Please try again later.' }, 429, req)
+    const data = body.data && typeof body.data === 'object' ? body.data : {}
+    if (text(data.website)) return json({ error: 'Invalid submission.' }, 400, req)
+    const name = text(data.name, 120)
+    const email = text(data.email, 160).toLowerCase()
+    const message = text(data.message, MAX_MESSAGE)
+    if (!name || !email || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: 'Please provide a valid name, email and message.' }, 400, req)
     const store = await readStore()
     const leads = Array.isArray(store.leads) ? [...store.leads] : []
-    const lead = { ...body.data, id: 'lead-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7), createdAt: new Date().toISOString(), status: 'New' }
+    const lead = { name, email, phone: text(data.phone, 60), company: text(data.company, 160), message, id: 'lead-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7), createdAt: new Date().toISOString(), status: 'New' }
     leads.unshift(lead)
     await writeStore({ ...store, leads })
-    return json({ success: true, leadId: lead.id }, 201)
+    return json({ success: true, leadId: lead.id }, 201, req)
   }
 
   const { store } = await requireAdmin(req)
 
   if (op === 'reset_cms') {
     const reset = { ...body.data, leads: [], adminEmail: store.adminEmail || store.contactInfo?.email || '' }
+    if (reset.seoSettings) reset.seoSettings = { ...reset.seoSettings, canonicalUrl: 'https://karimamoni.github.io/Karima-Moni/' }
     await writeStore(reset)
-    return json({ success: true, data: publicData(reset) })
+    return json({ success: true, data: publicData(reset) }, 200, req)
   }
 
   const fieldMap: Record<string, string> = {
@@ -95,23 +145,23 @@ async function handleJson(req: Request) {
     return json({ success: true, [key]: updated })
   }
 
-  if (op === 'get_leads') return json(store.leads || [])
+  if (op === 'get_leads') return json(store.leads || [], 200, req)
   if (op === 'update_lead') {
     const leads = (store.leads || []).map((item: JsonRecord) => item.id === body.id ? { ...item, status: body.status, ...(body.notes !== undefined ? { notes: body.notes } : {}) } : item)
     await writeStore({ ...store, leads })
     const updated = leads.find((item: JsonRecord) => item.id === body.id)
-    return updated ? json(updated) : json({ error: 'Lead not found' }, 404)
+    return updated ? json(updated, 200, req) : json({ error: 'Lead not found' }, 404, req)
   }
   if (op === 'delete_lead') {
     const before = (store.leads || []).length
     const leads = (store.leads || []).filter((item: JsonRecord) => item.id !== body.id)
     await writeStore({ ...store, leads })
-    return json({ success: leads.length < before })
+    return json({ success: leads.length < before }, 200, req)
   }
 
   if (op === 'crud') {
     const cfg = resourceConfig[body.resource]
-    if (!cfg) return json({ error: 'Unknown resource' }, 400)
+    if (!cfg) return json({ error: 'Unknown resource' }, 400, req)
     const list = Array.isArray(store[cfg.key]) ? [...store[cfg.key]] : []
     if (body.action === 'add') {
       const item = { ...(body.data || {}), id: newId(cfg.prefix) }
@@ -128,11 +178,13 @@ async function handleJson(req: Request) {
       return json(list[index])
     }
     if (body.action === 'delete') {
+      const existing = list.find((x: JsonRecord) => x.id === body.id)
       const before = list.length
       const remaining = list.filter((x: JsonRecord) => x.id !== body.id)
       if (body.resource === 'resumes' && remaining.length && !remaining.some((x: JsonRecord) => x.isActive)) remaining[0].isActive = true
       await writeStore({ ...store, [cfg.key]: remaining })
-      return json({ success: remaining.length < before })
+      if (existing && (body.resource === 'mediaLibrary' || body.resource === 'resumes')) await removeStorageObject(existing.url || existing.fileUrl)
+      return json({ success: remaining.length < before }, 200, req)
     }
     if (body.action === 'duplicate' && body.resource === 'projects') {
       const original = list.find((x: JsonRecord) => x.id === body.id)
@@ -150,7 +202,7 @@ async function handleJson(req: Request) {
       return json({ success: true, resumes: list })
     }
   }
-  return json({ error: 'Unknown operation' }, 400)
+  return json({ error: 'Unknown operation' }, 400, req)
 }
 
 async function handleUpload(req: Request) {
@@ -201,7 +253,7 @@ async function handleUpload(req: Request) {
 
 export default {
   async fetch(req: Request) {
-    if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
+    if (req.method === 'OPTIONS') return new Response('ok', { status: 204, headers: responseHeaders(req) })
     try {
       if (req.method !== 'POST') return json({ error: 'POST required.' }, 405)
       if (req.headers.get('content-type')?.includes('multipart/form-data')) return await handleUpload(req)
@@ -209,7 +261,7 @@ export default {
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error)
       const status = /Authentication required|not authorized/i.test(message) ? 401 : 400
-      return json({ error: message }, status)
+      return json({ error: message }, status, req)
     }
   },
 }
