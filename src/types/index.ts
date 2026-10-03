@@ -282,5 +282,6 @@ export interface CmsDatabase {
     stickyCtaEnabled: boolean;
     availabilityEnabled: boolean;
     availabilityText: string;
+    logoUrl: string;
   };
 }
