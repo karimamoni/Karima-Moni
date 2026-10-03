@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { CmsProvider, useCms } from './context/CmsContext';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
+import { AboutSection } from './components/AboutSection';
+import { ServicesSection } from './components/ServicesSection';
+import { PortfolioSection } from './components/PortfolioSection';
+import { ReviewsSection } from './components/ReviewsSection';
 import { ContactSection } from './components/ContactSection';
 import { CtaBanner } from './components/CtaBanner';
 import { Footer } from './components/Footer';
@@ -9,7 +13,6 @@ import { MobileStickyCta } from './components/MobileStickyCta';
 import { CvModal } from './components/CvModal';
 import { AdminLogin } from './admin/AdminLogin';
 import { AdminLayout } from './admin/AdminLayout';
-import { Loader2 } from 'lucide-react';
 
 function PortfolioApp() {
   const { data, isAdmin, isLoading } = useCms();
