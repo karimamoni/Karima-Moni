@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Mail, MessageCircle, Send, CheckCircle2, Phone, Clock, MapPin, Loader2, Sparkles } from 'lucide-react';
+import { Mail, MessageCircle, Send, CheckCircle2, Clock, MapPin, Loader2, Sparkles } from 'lucide-react';
 import { useCms } from '../context/CmsContext';
 
 interface ContactSectionProps {
