@@ -29,9 +29,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
   ];
 
   return (
-    <footer className="bg-[#101828] text-white pt-16 pb-12 border-t border-slate-800">
+    <footer className="bg-[#101828] text-white pt-12 pb-8 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-7 mb-8">
           {/* Col 1 & 2: Brand Identity */}
           <div className="lg:col-span-2 space-y-4">
             <KarimaMoniLogo variant="full" theme="white" src={data.settings.logoUrl} />
@@ -184,7 +184,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
         </div>
 
         {/* Bottom Copyright Bar */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
           <div>
             © 2026 Karima Moni. All Rights Reserved.
           </div>
