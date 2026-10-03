@@ -111,7 +111,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                           setSelectedService(service);
                         }
                       }}
-                      className="group bg-white p-6 rounded-xl border border-slate-200/90 hover:border-[#003088] hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col justify-between"}
+                      className="group bg-white p-6 rounded-xl border border-slate-200/90 hover:border-[#003088] hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col justify-between"
                     >
                       <div>
                         <div className="flex items-start justify-between gap-2 mb-3">
