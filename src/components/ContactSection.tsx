@@ -117,9 +117,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
     : `880${rawWa}`;
 
   return (
-    <section id="contact" className="py-14 sm:py-16 md:py-20 bg-white relative pb-28 sm:pb-24">
+    <section id="contact" className="py-10 sm:py-12 md:py-16 bg-white relative pb-28 sm:pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-start">
           {/* Left Column: Contact Channels & Trust */}
           <div className="lg:col-span-5">
             <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
@@ -128,18 +128,18 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#101828] tracking-tight mb-4">
               Let's Work Together
             </h2>
-            <p className="text-base text-slate-600 mb-6 leading-relaxed">
+            <p className="text-base text-slate-600 mb-5 leading-relaxed">
               Tell me what you're trying to achieve, and I'll help you figure out the next practical step.
             </p>
 
             {/* Quick Action Channels */}
-            <div className="space-y-3 mb-6">
+            <div className="space-y-2.5 mb-5">
               {/* WhatsApp direct card */}
               <a
                 href={`https://wa.me/${cleanWhatsappNumber}`}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex items-center justify-between p-4 rounded-xl bg-[#F7F9FC] border border-slate-200/90 hover:border-emerald-500 hover:bg-emerald-50/30 transition-all"
+                className="group flex items-center justify-between p-3.5 rounded-xl bg-[#F7F9FC] border border-slate-200/90 hover:border-emerald-500 hover:bg-emerald-50/30 transition-all"
               >
                 <div className="flex items-center gap-3.5">
                   <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-700">
@@ -158,7 +158,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
               {/* Email direct card */}
               <a
                 href={`mailto:${contactInfo.email}`}
-                className="group flex items-center justify-between p-4 rounded-xl bg-[#F7F9FC] border border-slate-200/90 hover:border-[#003088] hover:bg-blue-50/30 transition-all"
+                className="group flex items-center justify-between p-3.5 rounded-xl bg-[#F7F9FC] border border-slate-200/90 hover:border-[#003088] hover:bg-blue-50/30 transition-all"
               >
                 <div className="flex items-center gap-3.5">
                   <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-[#003088]">
@@ -176,7 +176,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
             </div>
 
             {/* Working Details */}
-            <div className="p-4 rounded-xl bg-[#F7F9FC] border border-slate-200/80 space-y-2.5 text-xs text-slate-600">
+            <div className="p-3.5 rounded-xl bg-[#F7F9FC] border border-slate-200/80 space-y-2.5 text-xs text-slate-600">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#003088] shrink-0" />
                 <span>{contactInfo.location}</span>
@@ -190,16 +190,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
 
           {/* Right Column: Dynamic Project Request Form */}
           <div className="lg:col-span-7">
-            <div className="bg-[#F7F9FC] p-5 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+            <div className="bg-[#F7F9FC] p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm">
               {submitted ? (
-                <div className="py-12 px-6 text-center animate-in fade-in zoom-in-95 duration-300">
+                <div className="py-10 px-5 text-center animate-in fade-in zoom-in-95 duration-300">
                   <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2">
                     Project Request Received!
                   </h3>
-                  <p className="text-sm text-slate-600 max-w-md mx-auto mb-6 leading-relaxed">
+                  <p className="text-sm text-slate-600 max-w-md mx-auto mb-5 leading-relaxed">
                     Thanks for reaching out. I’ll review your project details and get back to you as soon as possible.
                   </p>
                   <button
@@ -210,7 +210,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   {highlightService && (
                     <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg flex items-center gap-2 text-xs text-[#003088] font-semibold animate-in fade-in duration-300">
                       <Sparkles className="w-4 h-4 text-[#F4B820]" />
