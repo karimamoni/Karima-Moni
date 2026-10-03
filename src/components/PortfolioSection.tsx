@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, ArrowUpRight, FolderGit2 } from 'lucide-react';
+import { ArrowUpRight, FolderGit2 } from 'lucide-react';
 import { useCms } from '../context/CmsContext';
 import { PortfolioProject, ProjectCategory } from '../types';
 import { ProjectDetailModal } from './ProjectDetailModal';
@@ -15,7 +15,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
   const { projects } = data;
 
   const [activeCategory, setActiveCategory] = useState<'All' | ProjectCategory>('All');
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
 
   const filterTabs: Array<'All' | ProjectCategory> = [
@@ -31,17 +30,9 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
         if (activeCategory !== 'All' && p.category !== activeCategory) {
           return false;
         }
-        if (searchQuery.trim() !== '') {
-          const q = searchQuery.toLowerCase();
-          const matchesName = p.name.toLowerCase().includes(q);
-          const matchesClient = p.client.toLowerCase().includes(q);
-          const matchesService = p.service.toLowerCase().includes(q);
-          const matchesDesc = p.shortDescription.toLowerCase().includes(q);
-          return matchesName || matchesClient || matchesService || matchesDesc;
-        }
         return true;
       });
-  }, [projects, activeCategory, searchQuery]);
+  }, [projects, activeCategory]);
 
   return (
     <section id="portfolio" className="py-20 md:py-28 bg-white border-b border-slate-100">
@@ -49,43 +40,46 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
         {/* Section Header */}
         <div className="max-w-3xl mb-12">
           <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
-            Showcase of Work
+            Selected Work
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#101828] tracking-tight mb-4">
-            My Creative Work
+            Selected Work
           </h2>
           <p className="text-base sm:text-lg text-slate-600">
-            Explore selected projects across performance marketing and creative content.
+            A selection of marketing campaigns, creative projects, and brand-focused work.
           </p>
         </div>
 
-        {/* Filter Bar & Search Input */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 pb-6 border-b border-slate-100">
-          {/* Category Tabs (Segmented Controls) */}
-          <div className="flex flex-nowrap items-center gap-1.5 p-1 bg-slate-100/90 rounded-lg overflow-x-auto max-w-full">
+        {/* Simple project filters */}
+        <div className="flex flex-wrap items-center gap-1.5 mb-10 pb-6 border-b border-slate-100">
+
+          <div className="flex flex-wrap items-center gap-1.5">
             {filterTabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveCategory(tab)}
-                className={`px-3.5 py-2 text-xs whitespace-nowrap font-semibold rounded-md transition-all ${
+                type="button"
+                className={`px-4 py-2.5 text-xs whitespace-nowrap font-semibold rounded-md transition-all ${
                   activeCategory === tab
-                    ? 'bg-white text-[#003088] shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-[#003088] text-white shadow-xs'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
                 }`}
               >
                 {tab}
-              </div>
+              </button>
             ))}
           </div>
 
+          {/* Search intentionally omitted for a small curated portfolio. */}
+          <div className="hidden md:block text-xs text-slate-400 ml-auto">Selected projects</div>
+        </div>
+
           {/* Search Box */}
-          <div className="relative w-full md:w-72 min-h-11">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <input
+          <div className="hidden">
+                        <input
               type="text"
-              placeholder="Search projects, client, service..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder=""
+              value={''}
               className="w-full pl-9 pr-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-hidden focus:border-[#003088] focus:bg-white transition-colors"
             />
           </div>
@@ -101,14 +95,13 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                 tabIndex={0}
                 aria-label={`View project: ${project.name}`}
                 onClick={() => setSelectedProject(project)}
-                className="group bg-[#F7F9FC] rounded-2xl border border-slate-200/90 hover:border-[#003088]/40 hover:bg-white hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col justify-between"
-                role="button"
-                tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
                     setSelectedProject(project);
                   }
                 }}
+                className="group bg-[#F7F9FC] rounded-2xl border border-slate-200/90 hover:border-[#003088]/40 hover:bg-white hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col justify-between"
               >
                 <div>
                   {/* Thumbnail */}
@@ -167,12 +160,11 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
             <FolderGit2 className="w-10 h-10 text-slate-400 mx-auto mb-3" />
             <h3 className="text-base font-bold text-slate-800">No projects found</h3>
             <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-              No published projects matched your query "{searchQuery}". Try selecting another category or clearing your search.
+              No published projects match this category yet. Try another category.
             </p>
             <button
               onClick={() => {
                 setActiveCategory('All');
-                setSearchQuery('');
               }}
               className="mt-4 px-4 py-2 text-xs font-semibold text-[#003088] bg-white border border-slate-200 rounded-md hover:bg-slate-100"
             >
