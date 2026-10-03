@@ -13,13 +13,13 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
   const [imageError, setImageError] = useState(false);
 
   return (
-    <section id="about" className="py-14 sm:py-16 md:py-20 bg-[#F7F9FC] relative">
+    <section id="about" className="py-10 sm:py-12 md:py-16 bg-[#F7F9FC] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Profile */}
           <div className="lg:col-span-5">
-            <div className="sticky top-28 bg-white p-4 rounded-2xl border border-slate-200 shadow-md">
-              <div className="relative aspect-4/3 sm:aspect-1/1 w-full rounded-xl overflow-hidden bg-slate-100 mb-5">
+            <div className="sticky top-28 bg-white p-3.5 rounded-2xl border border-slate-200 shadow-md">
+              <div className="relative aspect-4/3 sm:aspect-1/1 w-full rounded-xl overflow-hidden bg-slate-100 mb-4">
                 {!imageError ? (
                   <img
                     src={homepage.aboutImage}
@@ -87,7 +87,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
             </p>
 
             {/* Bio */}
-            <div className="prose prose-slate max-w-none text-slate-700 space-y-4 mb-6 leading-relaxed">
+            <div className="prose prose-slate max-w-none text-slate-700 space-y-4 mb-5 leading-relaxed">
               {homepage.aboutContent.split('\n\n').map((paragraph, idx) => (
                 <p key={idx} className="text-base">
                   {paragraph}
@@ -95,7 +95,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
               ))}
             </div>
 
-            <div className="mb-7 p-5 rounded-xl bg-white border border-slate-200">
+            <div className="mb-6 p-4.5 rounded-xl bg-white border border-slate-200">
               <p className="text-sm font-semibold text-slate-900 leading-relaxed">
                 {homepage.aboutMission}
               </p>
