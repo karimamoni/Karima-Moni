@@ -15,7 +15,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
     email: '',
     whatsapp: '',
     service: preselectedService || 'Facebook Ads',
-    budget: '$500 – $1,000',
+    budget: 'Flexible / Undecided',
     projectDetails: '',
   });
 
@@ -97,7 +97,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
           email: '',
           whatsapp: '',
           service: 'Facebook Ads',
-          budget: '$500 – $1,000',
+          budget: 'Flexible / Undecided',
           projectDetails: '',
         });
       } else {
