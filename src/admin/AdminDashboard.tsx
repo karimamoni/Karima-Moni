@@ -24,7 +24,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   onOpenCreateService,
 }) => {
   const { data, updateLeadStatus } = useCms();
-  const { projects, services, reviews, leads, resumes } = data;
+  const { projects, services, serviceCategories, reviews, leads, resumes } = data;
 
   const publishedProjects = projects.filter((p) => p.status === 'Published').length;
   const draftProjects = projects.filter((p) => p.status === 'Draft').length;
@@ -43,7 +43,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             Karima Moni CMS Dashboard
           </h1>
           <p className="text-xs sm:text-sm text-blue-200 mt-1">
-            Manage public portfolio content, client leads, case studies, and resume assets in real time.
+            Manage public portfolio content, client leads, reviews, and resume assets in real time.
           </p>
         </div>
 
@@ -90,7 +90,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         >
           <div className="flex items-center justify-between text-slate-400 mb-2">
             <Layers className="w-4 h-4 text-[#F4B820]" />
-            <span className="text-[11px] text-slate-500 font-mono">3 Cats</span>
+            <span className="text-[11px] text-slate-500 font-mono">{serviceCategories.length} Categories</span>
           </div>
           <div className="font-mono text-2xl font-extrabold text-[#101828] tabular-nums">
             {services.length}
