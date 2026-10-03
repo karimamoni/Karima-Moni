@@ -135,7 +135,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
                     {data.settings.availabilityEnabled && <span className="text-xs font-semibold text-slate-700">{data.settings.availabilityText}</span>}
                   </div>
                   <span className="text-[11px] font-mono font-medium text-[#003088] bg-blue-50 px-2 py-0.5 rounded">
-                    Global Remote
+                    Digital Marketing
                   </span>
                 </div>
               </div>
