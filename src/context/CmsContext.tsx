@@ -30,7 +30,6 @@ interface CmsContextType {
   saveError: string | null;
   clearSaveError: () => void;
   loginAdmin: (password: string, email?: string) => Promise<{ success: boolean; confirmationRequired?: boolean; error?: string }>;
-  signupAdmin: (email: string, password: string) => Promise<{ success: boolean; confirmationRequired?: boolean; error?: string }>;
   logoutAdmin: () => Promise<void>;
   changeAdminPassword: (currentPassword: string, newPassword: string) => Promise<void>;
   refreshData: () => Promise<void>;
