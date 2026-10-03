@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 
 const url = import.meta.env.VITE_SUPABASE_URL || 'https://aohdvlibkksdboohbhgb.supabase.co';
-const publishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+const publishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_wJEYD2GMz8dEey-WJQ3LfA_LOK5tzKt';
 
 if (!publishableKey) {
   console.warn('[Supabase] VITE_SUPABASE_PUBLISHABLE_KEY is not configured. GitHub Pages will use the local CMS fallback until configured.');
