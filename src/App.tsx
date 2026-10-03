@@ -7,7 +7,6 @@ import { ServicesSection } from './components/ServicesSection';
 import { PortfolioSection } from './components/PortfolioSection';
 import { ReviewsSection } from './components/ReviewsSection';
 import { ContactSection } from './components/ContactSection';
-import { CtaBanner } from './components/CtaBanner';
 import { Footer } from './components/Footer';
 import { MobileStickyCta } from './components/MobileStickyCta';
 import { CvModal } from './components/CvModal';
@@ -94,8 +93,6 @@ function PortfolioApp() {
         {/* Contact & Dynamic Inbound Leads Form */}
         <ContactSection preselectedService={preselectedService} />
 
-        {/* Conversion CTA Banner */}
-        <CtaBanner />
       </main>
 
       {/* Footer */}
