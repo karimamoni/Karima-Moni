@@ -34,9 +34,9 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
   );
 
   return (
-    <section id="portfolio" className="py-14 sm:py-16 md:py-20 bg-white border-b border-slate-100">
+    <section id="portfolio" className="py-10 sm:py-12 md:py-16 bg-white border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mb-8">
+        <div className="max-w-3xl mb-6">
           <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
             Portfolio
           </div>
@@ -48,7 +48,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 mb-8 pb-6 border-b border-slate-100">
+        <div className="flex flex-wrap items-center gap-2 mb-6 pb-6 border-b border-slate-100">
           {filterTabs.map((tab) => (
             <button
               key={tab}
@@ -66,7 +66,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
         </div>
 
         {filteredProjects.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-5">
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
@@ -103,7 +103,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                     </div>
                   </div>
 
-                  <div className="p-6">
+                  <div className="p-5">
                     <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-2">
                       <span className="font-semibold text-[#003088]">{project.category}</span>
                       <span aria-hidden="true">·</span>
@@ -118,7 +118,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                   </div>
                 </div>
 
-                <div className="px-6 pb-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-bold text-[#003088]">
+                <div className="px-5 pb-5 pt-2.5 border-t border-slate-200/60 flex items-center justify-between text-xs font-bold text-[#003088]">
                   <span>View Project</span>
                   <span className="w-7 h-7 rounded-full bg-white group-hover:bg-[#003088] flex items-center justify-center border border-slate-200 group-hover:border-[#003088] transition-colors">
                     <ArrowUpRight className="w-3.5 h-3.5 text-[#003088] group-hover:text-white transition-colors" />
