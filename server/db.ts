@@ -82,7 +82,10 @@ class DatabaseService {
 
   private createDefaultAdminUser(): AdminUser {
     const adminEmail = process.env.ADMIN_EMAIL || 'digitalkarimamoni@gmail.com';
-    const initialPassword = process.env.ADMIN_INITIAL_PASSWORD || 'karima2026';
+    const initialPassword = process.env.ADMIN_INITIAL_PASSWORD;
+    if (!initialPassword || initialPassword.length < 12) {
+      throw new Error('ADMIN_INITIAL_PASSWORD must be set and contain at least 12 characters.');
+    }
     return {
       id: 'admin-1',
       email: adminEmail,
@@ -133,8 +136,9 @@ class DatabaseService {
 
   // Public Site Data (excludes sensitive admin records)
   public getPublicData(): CmsDatabase {
-    const { users, ...publicCms } = this.data;
-    return publicCms;
+    const { users, leads, ...publicCms } = this.data;
+    // Leads contain private client/contact information and must never be part of the public API.
+    return { ...publicCms, leads: [] };
   }
 
   // Reset to seed defaults
