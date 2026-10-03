@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, TrendingUp, Palette, Sparkles, Check } from 'lucide-react';
+import { ArrowUpRight, TrendingUp, Palette, Check } from 'lucide-react';
 import { useCms } from '../context/CmsContext';
 import { ServiceItem } from '../types';
 import { ServiceDetailModal } from './ServiceDetailModal';
@@ -52,10 +52,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
-            Service Spectrum
+            What I Do
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#101828] tracking-tight mb-4">
-            Specialized Digital Services
+            How I Can Help
           </h2>
           <p className="text-base sm:text-lg text-slate-600">
             Focused performance marketing and creative content services built around clear business goals.
@@ -84,7 +84,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                         </span>
                         <span className="text-xs text-slate-400">·</span>
                         <span className="text-xs font-semibold text-slate-500">
-                          {categoryServices.length} Core Services
+                          {categoryServices.length} services
                         </span>
                       </div>
                       <h3 className="text-2xl font-extrabold text-[#101828] tracking-tight">
@@ -112,14 +112,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                       tabIndex={0}
                       aria-label={`View service: ${service.title}`}
                       onClick={() => setSelectedService(service)}
-                      className="group bg-white p-6 rounded-xl border border-slate-200/90 hover:border-[#003088] hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col justify-between"
-                      role="button"
-                      tabIndex={0}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
                           setSelectedService(service);
                         }
-                      }}
+                      }
+                      className="group bg-white p-6 rounded-xl border border-slate-200/90 hover:border-[#003088] hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col justify-between"}
                     >
                       <div>
                         <div className="flex items-start justify-between gap-2 mb-3">
@@ -145,10 +144,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
 
                       {/* Footer Affordance */}
                       <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#003088]">
-                        <span>View Details & Process</span>
-                        <span className="text-[11px] font-mono text-slate-400">
-                          {service.tools.length} Tools
-                        </span>
+                        <span>View Details →</span>
                       </div>
                     </div>
                   ))}
