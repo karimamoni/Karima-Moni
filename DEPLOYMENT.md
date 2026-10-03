@@ -1,39 +1,34 @@
-# Free deployment
+# Production deployment
 
-This project is a full-stack React/Vite + Express application. GitHub Pages alone is not suitable because the admin API and uploads require a server.
+The portfolio frontend is deployed on GitHub Pages. Supabase provides the database, authentication, storage and Edge Function API.
 
-## Supabase setup
+## Architecture
 
-1. Create a Supabase project.
-2. Open SQL Editor and run supabase/schema.sql once.
-3. In Supabase Project Settings/API, copy the project URL and the secret key. Never put the secret key in frontend code or GitHub.
-4. Storage bucket portfolio-media is created by the SQL script.
+- Frontend: GitHub Pages
+- Source: GitHub `main` branch
+- Database/Auth/Storage/API: Supabase
+- Public URL: https://karimamoni.github.io/Karima-Moni/
+- No Render server is required.
 
-## Render setup
+## Supabase
 
-The included render.yaml uses Render's Free web service. It is intentionally stateless: CMS data lives in Supabase and uploaded files live in Supabase Storage.
+The browser uses only the Supabase publishable key. Never put the Supabase secret/service-role key in the repository or frontend. The `portfolio-api` Edge Function uses the server-side secret key for database and storage operations.
 
-Set these environment variables in Render:
+## Admin access
 
-- NODE_ENV=production
-- SUPABASE_URL
-- SUPABASE_SECRET_KEY
-- SUPABASE_STORAGE_BUCKET=portfolio-media
-- SESSION_SECRET (32+ random characters)
-- ADMIN_EMAIL
-- ADMIN_INITIAL_PASSWORD (12+ characters)
+Admin login uses Supabase Auth. The account email must match the portfolio admin email stored in the CMS. New admin passwords should be at least 12 characters.
 
-SUPABASE_PUBLISHABLE_KEY is documented for future browser-side integrations but is not required by the current server-rendered API.
+## GitHub Pages
 
-## Important
+Every push to `main` runs typecheck and production build inside the deployment workflow. Deployment only proceeds if both pass.
 
-Render Free web services can spin down when idle. The first request after inactivity may therefore take longer. Free instances also have usage limits. This does not delete CMS data because persistence is handled by Supabase.
+## Production checks
 
-After the first successful deploy, verify:
-
-- /api/health returns {"ok":true,...}
-- public homepage loads
-- /admin login works
-- creating/editing a project persists after a restart
-- media/CV upload creates a Supabase Storage URL
-- public API never returns leads or admin users
+- Public homepage loads from the GitHub Pages URL.
+- Admin login works.
+- CMS changes persist after refresh.
+- Contact form creates a lead visible only to the admin.
+- Lead submission has basic validation and rate limiting.
+- CV/media uploads are restricted by type and size.
+- Deleting uploaded CV/media also removes the corresponding Storage object when its public URL is known.
+- Supabase RLS/security advisors should remain clean.
