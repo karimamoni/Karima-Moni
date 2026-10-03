@@ -50,18 +50,12 @@ export const initialCmsData: CmsDatabase = {
       'To help businesses grow online through creative, strategic and result-focused digital solutions.',
     aboutImage: '/images/karima_hero_portrait_1790992143360.jpg',
     aboutCapabilities: [
-      'Digital Marketing',
-      'Facebook & Google Ads',
+      'Meta & Google Ads',
       'Social Media Marketing',
-      'YouTube Marketing',
-      'SEO & Content Writing',
-      'Email Marketing',
-      'Graphic Design',
-      'Video Editing',
-      'AI Video Content',
-      'AI Image Generation',
-      'AI Content Creation',
-      'AI Automation',
+      'Content Strategy & Creation',
+      'Brand & Social Media Design',
+      'Short-form Video',
+      'AI-assisted Creative Workflows',
     ],
     whyChooseHeading: 'Why Work With Me?',
     whyChooseCards: [
@@ -944,10 +938,10 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
   },
 
   seoSettings: {
-    siteTitle: 'Karima Moni – Digital Marketing Specialist & Creative Portfolio',
-    metaDescription: 'Personal portfolio and CMS of Karima Moni, Digital Marketing Specialist. Expert in Facebook & Google Ads, Graphic Design, and AI Creative Content.',
+    siteTitle: 'Karima Moni – Digital Marketing Specialist',
+    metaDescription: 'Karima Moni is a digital marketing specialist helping businesses with paid advertising, social media and creative content.',
     ogImage: '/images/karima_hero_portrait_1790992143360.jpg',
-    keywords: 'Karima Moni, Digital Marketing Specialist, Facebook Ads, Google Ads, Graphic Design, AI Content, SEO, YouTube Marketing',
+    keywords: '',
     canonicalUrl: 'https://karimamoni.com',
   },
 
