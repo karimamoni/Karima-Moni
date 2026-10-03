@@ -64,7 +64,8 @@ app.use((_req, res, next) => {
 });
 
 // Static file serving for uploads and public folder
-const uploadsPath = path.resolve(process.cwd(), 'uploads');
+const STORAGE_ROOT = path.resolve(process.env.STORAGE_PATH || process.cwd());
+const uploadsPath = path.resolve(STORAGE_ROOT, 'uploads');
 const publicPath = path.resolve(process.cwd(), 'public');
 if (!fs.existsSync(uploadsPath)) fs.mkdirSync(uploadsPath, { recursive: true });
 if (!fs.existsSync(publicPath)) fs.mkdirSync(publicPath, { recursive: true });
@@ -72,6 +73,11 @@ if (!fs.existsSync(publicPath)) fs.mkdirSync(publicPath, { recursive: true });
 app.use('/uploads', express.static(uploadsPath));
 app.use('/public', express.static(publicPath));
 app.use('/cv', express.static(path.resolve(publicPath, 'cv')));
+
+// Health check for deployment platforms and uptime monitoring.
+app.get('/api/health', (_req: Request, res: Response) => {
+  res.json({ ok: true, service: 'karima-moni-portfolio' });
+});
 
 // ==========================================
 // 1. AUTHENTICATION ENDPOINTS
