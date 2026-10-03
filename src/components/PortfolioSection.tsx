@@ -38,7 +38,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-10">
           <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
-            Selected Work
+            Portfolio
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#101828] tracking-tight mb-4">
             Selected Work
