@@ -1,408 +1,166 @@
+import { supabase, PORTFOLIO_API_URL } from '../lib/supabase';
 import {
-  CmsDatabase,
-  HomepageContent,
-  ServiceCategory,
-  ServiceItem,
-  PortfolioProject,
-  CaseStudy,
-  ReviewItem,
-  BlogPost,
-  SkillItem,
-  ToolItem,
-  ExperienceItem,
-  EducationCertificate,
-  ResumeCV,
-  LeadMessage,
-  SocialLinks,
-  ContactInfo,
-  SeoSettings,
-  MediaItem,
+  CmsDatabase, HomepageContent, ServiceCategory, ServiceItem, PortfolioProject, CaseStudy,
+  ReviewItem, BlogPost, SkillItem, ToolItem, ExperienceItem, EducationCertificate, ResumeCV,
+  LeadMessage, SocialLinks, ContactInfo, SeoSettings, MediaItem,
 } from '../types';
+import { initialCmsData } from '../data/initialData';
 
-async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const res = await fetch(endpoint, {
-    ...options,
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      ...(options.headers || {}),
-    },
-  });
-
-  if (!res.ok) {
-    let errorMsg = `Server error (${res.status})`;
-    try {
-      const errJson = await res.json();
-      if (errJson.error) errorMsg = errJson.error;
-    } catch {}
-    throw new Error(errorMsg);
+async function invoke<T>(body: Record<string, any>): Promise<T> {
+  const { data, error } = await supabase.functions.invoke('portfolio-api', { body });
+  if (error) {
+    let message = error.message || 'Request failed';
+    if ((error as any).context) {
+      try {
+        const payload = await (error as any).context.json();
+        if (payload?.error) message = payload.error;
+      } catch {}
+    }
+    throw new Error(message);
   }
-
-  return res.json();
+  return data as T;
 }
 
+async function upload(formData: FormData) {
+  const { data: sessionData } = await supabase.auth.getSession();
+  const token = sessionData.session?.access_token;
+  const res = await fetch(PORTFOLIO_API_URL, {
+    method: 'POST',
+    headers: {
+      apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '',
+      ...(token ? { Authorization: 'Bearer ' + token } : {}),
+    },
+    body: formData,
+  });
+  const data = await res.json().catch(() => ({ error: 'Upload failed' }));
+  if (!res.ok) throw new Error(data.error || 'Upload failed');
+  return data;
+}
+
+const crud = async <T>(resource: string, action: string, data?: any, id?: string): Promise<T> =>
+  invoke<T>({ op: 'crud', resource, action, data, id });
+
 export const api = {
-  // Public Site Data
+  async bootstrap(): Promise<CmsDatabase> {
+    return invoke<CmsDatabase>({ op: 'bootstrap', data: initialCmsData, adminEmail: initialCmsData.contactInfo.email });
+  },
   async getSiteData(): Promise<CmsDatabase> {
-    return request<CmsDatabase>('/api/site/data');
+    return invoke<CmsDatabase>({ op: 'get_site_data' });
   },
 
-  // Auth
   async checkSession(): Promise<{ authenticated: boolean; user?: { email: string; name: string; role: string } }> {
-    try {
-      return await request('/api/auth/session');
-    } catch {
-      return { authenticated: false };
-    }
+    const { data } = await supabase.auth.getUser();
+    if (!data.user?.email) return { authenticated: false };
+    return { authenticated: true, user: { email: data.user.email, name: 'Karima Moni', role: 'admin' } };
   },
 
   async login(password: string, email?: string): Promise<{ success: boolean; user: any }> {
-    return request('/api/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ password, email }),
+    const targetEmail = (email || initialCmsData.contactInfo.email).trim();
+    const { data, error } = await supabase.auth.signInWithPassword({ email: targetEmail, password });
+    if (error || !data.user) throw new Error(error?.message || 'Invalid admin credentials.');
+    return { success: true, user: { email: data.user.email, name: 'Karima Moni', role: 'admin' } };
+  },
+
+  async signup(email: string, password: string): Promise<{ success: boolean; confirmationRequired: boolean }> {
+    const targetEmail = email.trim().toLowerCase();
+    if (targetEmail !== initialCmsData.contactInfo.email.toLowerCase()) {
+      throw new Error('Use the portfolio owner email address configured for Admin access.');
+    }
+    const { data, error } = await supabase.auth.signUp({
+      email: targetEmail,
+      password,
+      options: { emailRedirectTo: window.location.origin + window.location.pathname },
     });
+    if (error) throw new Error(error.message);
+    return { success: true, confirmationRequired: !data.session };
   },
 
   async logout(): Promise<{ success: boolean }> {
-    return request('/api/auth/logout', { method: 'POST' });
+    await supabase.auth.signOut();
+    return { success: true };
   },
 
-  async changeAdminPassword(currentPassword: string, newPassword: string): Promise<{ success: boolean }> {
-    return request('/api/auth/password', {
-      method: 'PUT',
-      body: JSON.stringify({ currentPassword, newPassword }),
-    });
+  async changeAdminPassword(_currentPassword: string, newPassword: string): Promise<{ success: boolean }> {
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) throw new Error(error.message);
+    return { success: true };
   },
 
-  // Lead Submission (Public)
   async submitLead(data: Omit<LeadMessage, 'id' | 'createdAt' | 'status'>): Promise<{ success: boolean; leadId: string }> {
-    return request('/api/leads', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
+    return invoke({ op: 'submit_lead', data });
   },
 
-  // CMS Reset
   async resetCms(): Promise<{ success: boolean; data: CmsDatabase }> {
-    return request('/api/cms/reset', { method: 'POST' });
+    return invoke({ op: 'reset_cms', data: initialCmsData });
   },
 
-  // Homepage, Social, Contact, SEO, Settings
-  async updateHomepage(patch: Partial<HomepageContent>): Promise<{ success: boolean; homepage: HomepageContent }> {
-    return request('/api/home', {
-      method: 'PUT',
-      body: JSON.stringify(patch),
-    });
+  async updateHomepage(patch: Partial<HomepageContent>) { return invoke({ op: 'update_homepage', data: patch }); },
+  async updateSocial(links: SocialLinks) { return invoke({ op: 'update_social', data: links }); },
+  async updateContact(info: ContactInfo) { return invoke({ op: 'update_contact', data: info }); },
+  async updateSeo(seo: SeoSettings) { return invoke({ op: 'update_seo', data: seo }); },
+  async updateSettings(settings: { cvButtonsEnabled: boolean; stickyCtaEnabled: boolean }) { return invoke({ op: 'update_settings', data: settings }); },
+
+  async addServiceCategory(x: Omit<ServiceCategory, 'id'>) { return crud<ServiceCategory>('serviceCategories','add',x); },
+  async updateServiceCategory(id: string, x: Partial<ServiceCategory>) { return crud<ServiceCategory>('serviceCategories','update',x,id); },
+  async deleteServiceCategory(id: string) { return crud<{success:boolean}>('serviceCategories','delete',undefined,id); },
+
+  async addService(x: Omit<ServiceItem, 'id'>) { return crud<ServiceItem>('services','add',x); },
+  async updateService(id: string, x: Partial<ServiceItem>) { return crud<ServiceItem>('services','update',x,id); },
+  async deleteService(id: string) { return crud<{success:boolean}>('services','delete',undefined,id); },
+
+  async addProject(x: Omit<PortfolioProject, 'id'>) { return crud<PortfolioProject>('projects','add',x); },
+  async updateProject(id: string, x: Partial<PortfolioProject>) { return crud<PortfolioProject>('projects','update',x,id); },
+  async deleteProject(id: string) { return crud<{success:boolean}>('projects','delete',undefined,id); },
+  async duplicateProject(id: string) { return crud<PortfolioProject>('projects','duplicate',undefined,id); },
+
+  async addCaseStudy(x: Omit<CaseStudy, 'id'>) { return crud<CaseStudy>('caseStudies','add',x); },
+  async updateCaseStudy(id: string, x: Partial<CaseStudy>) { return crud<CaseStudy>('caseStudies','update',x,id); },
+  async deleteCaseStudy(id: string) { return crud<{success:boolean}>('caseStudies','delete',undefined,id); },
+
+  async addReview(x: Omit<ReviewItem, 'id'>) { return crud<ReviewItem>('reviews','add',x); },
+  async updateReview(id: string, x: Partial<ReviewItem>) { return crud<ReviewItem>('reviews','update',x,id); },
+  async deleteReview(id: string) { return crud<{success:boolean}>('reviews','delete',undefined,id); },
+
+  async addBlogPost(x: Omit<BlogPost, 'id'>) { return crud<BlogPost>('blogPosts','add',x); },
+  async updateBlogPost(id: string, x: Partial<BlogPost>) { return crud<BlogPost>('blogPosts','update',x,id); },
+  async deleteBlogPost(id: string) { return crud<{success:boolean}>('blogPosts','delete',undefined,id); },
+
+  async addSkill(x: Omit<SkillItem, 'id'>) { return crud<SkillItem>('skills','add',x); },
+  async updateSkill(id: string, x: Partial<SkillItem>) { return crud<SkillItem>('skills','update',x,id); },
+  async deleteSkill(id: string) { return crud<{success:boolean}>('skills','delete',undefined,id); },
+
+  async addTool(x: Omit<ToolItem, 'id'>) { return crud<ToolItem>('tools','add',x); },
+  async updateTool(id: string, x: Partial<ToolItem>) { return crud<ToolItem>('tools','update',x,id); },
+  async deleteTool(id: string) { return crud<{success:boolean}>('tools','delete',undefined,id); },
+
+  async addExperience(x: Omit<ExperienceItem, 'id'>) { return crud<ExperienceItem>('experience','add',x); },
+  async updateExperience(id: string, x: Partial<ExperienceItem>) { return crud<ExperienceItem>('experience','update',x,id); },
+  async deleteExperience(id: string) { return crud<{success:boolean}>('experience','delete',undefined,id); },
+
+  async addEducation(x: Omit<EducationCertificate, 'id'>) { return crud<EducationCertificate>('education','add',x); },
+  async updateEducation(id: string, x: Partial<EducationCertificate>) { return crud<EducationCertificate>('education','update',x,id); },
+  async deleteEducation(id: string) { return crud<{success:boolean}>('education','delete',undefined,id); },
+
+  async addResume(x: Omit<ResumeCV, 'id'>) { return crud<ResumeCV>('resumes','add',x); },
+  async setActiveResume(id: string) { return crud<{success:boolean;resumes:ResumeCV[]}>('resumes','active',undefined,id); },
+  async deleteResume(id: string) { return crud<{success:boolean;resumes:ResumeCV[]}>('resumes','delete',undefined,id); },
+
+  async uploadResumePdf(file: File, metadata?: { title?: string; version?: string; date?: string; notes?: string }) {
+    const fd = new FormData();
+    fd.append('kind','cv'); fd.append('file',file);
+    Object.entries(metadata || {}).forEach(([k,v]) => v && fd.append(k,v));
+    return upload(fd) as Promise<{success:boolean;resume:ResumeCV;fileUrl:string}>;
   },
 
-  async updateSocial(links: SocialLinks): Promise<{ success: boolean; socialLinks: SocialLinks }> {
-    return request('/api/social', {
-      method: 'PUT',
-      body: JSON.stringify(links),
-    });
+  async getLeads() { return invoke<LeadMessage[]>({ op: 'get_leads' }); },
+  async updateLeadStatus(id: string, status: LeadMessage['status'], notes?: string) { return invoke<LeadMessage>({ op:'update_lead', id, status, notes }); },
+  async deleteLead(id: string) { return invoke<{success:boolean}>({ op:'delete_lead', id }); },
+
+  async getMedia() { return invoke<MediaItem[]>({ op:'get_site_data' }).then((x:any) => x.mediaLibrary || []); },
+  async uploadMedia(file: File, name?: string) {
+    const fd = new FormData(); fd.append('kind','media'); fd.append('file',file); if(name) fd.append('name',name);
+    return upload(fd) as Promise<{success:boolean;mediaItem:MediaItem;fileUrl:string}>;
   },
-
-  async updateContact(info: ContactInfo): Promise<{ success: boolean; contactInfo: ContactInfo }> {
-    return request('/api/contact-info', {
-      method: 'PUT',
-      body: JSON.stringify(info),
-    });
-  },
-
-  async updateSeo(seo: SeoSettings): Promise<{ success: boolean; seoSettings: SeoSettings }> {
-    return request('/api/seo', {
-      method: 'PUT',
-      body: JSON.stringify(seo),
-    });
-  },
-
-  async updateSettings(settings: { cvButtonsEnabled: boolean; stickyCtaEnabled: boolean }): Promise<{ success: boolean; settings: any }> {
-    return request('/api/settings', {
-      method: 'PUT',
-      body: JSON.stringify(settings),
-    });
-  },
-
-  // Service Categories
-  async addServiceCategory(cat: Omit<ServiceCategory, 'id'>): Promise<ServiceCategory> {
-    return request('/api/service-categories', {
-      method: 'POST',
-      body: JSON.stringify(cat),
-    });
-  },
-
-  async updateServiceCategory(id: string, patch: Partial<ServiceCategory>): Promise<ServiceCategory> {
-    return request(`/api/service-categories/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(patch),
-    });
-  },
-
-  async deleteServiceCategory(id: string): Promise<{ success: boolean }> {
-    return request(`/api/service-categories/${id}`, { method: 'DELETE' });
-  },
-
-  // Services
-  async addService(srv: Omit<ServiceItem, 'id'>): Promise<ServiceItem> {
-    return request('/api/services', {
-      method: 'POST',
-      body: JSON.stringify(srv),
-    });
-  },
-
-  async updateService(id: string, patch: Partial<ServiceItem>): Promise<ServiceItem> {
-    return request(`/api/services/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(patch),
-    });
-  },
-
-  async deleteService(id: string): Promise<{ success: boolean }> {
-    return request(`/api/services/${id}`, { method: 'DELETE' });
-  },
-
-  // Projects
-  async addProject(proj: Omit<PortfolioProject, 'id'>): Promise<PortfolioProject> {
-    return request('/api/projects', {
-      method: 'POST',
-      body: JSON.stringify(proj),
-    });
-  },
-
-  async updateProject(id: string, patch: Partial<PortfolioProject>): Promise<PortfolioProject> {
-    return request(`/api/projects/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(patch),
-    });
-  },
-
-  async deleteProject(id: string): Promise<{ success: boolean }> {
-    return request(`/api/projects/${id}`, { method: 'DELETE' });
-  },
-
-  async duplicateProject(id: string): Promise<PortfolioProject> {
-    return request(`/api/projects/${id}/duplicate`, { method: 'POST' });
-  },
-
-  // Case Studies
-  async addCaseStudy(cs: Omit<CaseStudy, 'id'>): Promise<CaseStudy> {
-    return request('/api/case-studies', {
-      method: 'POST',
-      body: JSON.stringify(cs),
-    });
-  },
-
-  async updateCaseStudy(id: string, patch: Partial<CaseStudy>): Promise<CaseStudy> {
-    return request(`/api/case-studies/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(patch),
-    });
-  },
-
-  async deleteCaseStudy(id: string): Promise<{ success: boolean }> {
-    return request(`/api/case-studies/${id}`, { method: 'DELETE' });
-  },
-
-  // Reviews
-  async addReview(rev: Omit<ReviewItem, 'id'>): Promise<ReviewItem> {
-    return request('/api/reviews', {
-      method: 'POST',
-      body: JSON.stringify(rev),
-    });
-  },
-
-  async updateReview(id: string, patch: Partial<ReviewItem>): Promise<ReviewItem> {
-    return request(`/api/reviews/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(patch),
-    });
-  },
-
-  async deleteReview(id: string): Promise<{ success: boolean }> {
-    return request(`/api/reviews/${id}`, { method: 'DELETE' });
-  },
-
-  // Blog Posts
-  async addBlogPost(post: Omit<BlogPost, 'id'>): Promise<BlogPost> {
-    return request('/api/blog', {
-      method: 'POST',
-      body: JSON.stringify(post),
-    });
-  },
-
-  async updateBlogPost(id: string, patch: Partial<BlogPost>): Promise<BlogPost> {
-    return request(`/api/blog/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(patch),
-    });
-  },
-
-  async deleteBlogPost(id: string): Promise<{ success: boolean }> {
-    return request(`/api/blog/${id}`, { method: 'DELETE' });
-  },
-
-  // Skills
-  async addSkill(skill: Omit<SkillItem, 'id'>): Promise<SkillItem> {
-    return request('/api/skills', {
-      method: 'POST',
-      body: JSON.stringify(skill),
-    });
-  },
-
-  async updateSkill(id: string, patch: Partial<SkillItem>): Promise<SkillItem> {
-    return request(`/api/skills/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(patch),
-    });
-  },
-
-  async deleteSkill(id: string): Promise<{ success: boolean }> {
-    return request(`/api/skills/${id}`, { method: 'DELETE' });
-  },
-
-  // Tools
-  async addTool(tool: Omit<ToolItem, 'id'>): Promise<ToolItem> {
-    return request('/api/tools', {
-      method: 'POST',
-      body: JSON.stringify(tool),
-    });
-  },
-
-  async updateTool(id: string, patch: Partial<ToolItem>): Promise<ToolItem> {
-    return request(`/api/tools/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(patch),
-    });
-  },
-
-  async deleteTool(id: string): Promise<{ success: boolean }> {
-    return request(`/api/tools/${id}`, { method: 'DELETE' });
-  },
-
-  // Experience
-  async addExperience(exp: Omit<ExperienceItem, 'id'>): Promise<ExperienceItem> {
-    return request('/api/experience', {
-      method: 'POST',
-      body: JSON.stringify(exp),
-    });
-  },
-
-  async updateExperience(id: string, patch: Partial<ExperienceItem>): Promise<ExperienceItem> {
-    return request(`/api/experience/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(patch),
-    });
-  },
-
-  async deleteExperience(id: string): Promise<{ success: boolean }> {
-    return request(`/api/experience/${id}`, { method: 'DELETE' });
-  },
-
-  // Education
-  async addEducation(edu: Omit<EducationCertificate, 'id'>): Promise<EducationCertificate> {
-    return request('/api/education', {
-      method: 'POST',
-      body: JSON.stringify(edu),
-    });
-  },
-
-  async updateEducation(id: string, patch: Partial<EducationCertificate>): Promise<EducationCertificate> {
-    return request(`/api/education/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(patch),
-    });
-  },
-
-  async deleteEducation(id: string): Promise<{ success: boolean }> {
-    return request(`/api/education/${id}`, { method: 'DELETE' });
-  },
-
-  // Resumes
-  async addResume(res: Omit<ResumeCV, 'id'>): Promise<ResumeCV> {
-    return request('/api/resumes', {
-      method: 'POST',
-      body: JSON.stringify(res),
-    });
-  },
-
-  async setActiveResume(id: string): Promise<{ success: boolean; resumes: ResumeCV[] }> {
-    return request(`/api/resumes/${id}/active`, { method: 'PUT' });
-  },
-
-  async deleteResume(id: string): Promise<{ success: boolean; resumes: ResumeCV[] }> {
-    return request(`/api/resumes/${id}`, { method: 'DELETE' });
-  },
-
-  async uploadResumePdf(file: File, metadata?: { title?: string; version?: string; date?: string; notes?: string }): Promise<{ success: boolean; resume: ResumeCV; fileUrl: string }> {
-    const formData = new FormData();
-    formData.append('file', file);
-    if (metadata?.title) formData.append('title', metadata.title);
-    if (metadata?.version) formData.append('version', metadata.version);
-    if (metadata?.date) formData.append('date', metadata.date);
-    if (metadata?.notes) formData.append('notes', metadata.notes);
-
-    const res = await fetch('/api/cv/upload', {
-      method: 'POST',
-      credentials: 'include',
-      body: formData,
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({ error: 'Upload failed' }));
-      throw new Error(err.error || 'Failed to upload CV PDF');
-    }
-
-    return res.json();
-  },
-
-  // Leads
-  async getLeads(): Promise<LeadMessage[]> {
-    return request('/api/leads');
-  },
-
-  async updateLeadStatus(id: string, status: LeadMessage['status'], notes?: string): Promise<LeadMessage> {
-    return request(`/api/leads/${id}/status`, {
-      method: 'PATCH',
-      body: JSON.stringify({ status, notes }),
-    });
-  },
-
-  async deleteLead(id: string): Promise<{ success: boolean }> {
-    return request(`/api/leads/${id}`, { method: 'DELETE' });
-  },
-
-  // Media
-  async getMedia(): Promise<MediaItem[]> {
-    return request('/api/media');
-  },
-
-  async uploadMedia(file: File, name?: string): Promise<{ success: boolean; mediaItem: MediaItem; fileUrl: string }> {
-    const formData = new FormData();
-    formData.append('file', file);
-    if (name) formData.append('name', name);
-
-    const res = await fetch('/api/media/upload', {
-      method: 'POST',
-      credentials: 'include',
-      body: formData,
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({ error: 'Upload failed' }));
-      throw new Error(err.error || 'Failed to upload media asset');
-    }
-
-    return res.json();
-  },
-
-  async addMediaItem(item: Omit<MediaItem, 'id' | 'uploadedAt'>): Promise<MediaItem> {
-    return request('/api/media', {
-      method: 'POST',
-      body: JSON.stringify(item),
-    });
-  },
-
-  async deleteMedia(id: string): Promise<{ success: boolean }> {
-    return request(`/api/media/${id}`, { method: 'DELETE' });
-  },
+  async addMediaItem(item: Omit<MediaItem,'id'|'uploadedAt'>) { return crud<MediaItem>('mediaLibrary','add',item); },
+  async deleteMedia(id: string) { return crud<{success:boolean}>('mediaLibrary','delete',undefined,id); },
 };
