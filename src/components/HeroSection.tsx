@@ -132,7 +132,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
                 <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between px-2">
                   <div className="flex items-center gap-2">
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-xs font-semibold text-slate-700">Available for New Projects</span>
+                    <span className="text-xs font-semibold text-slate-700">Open for New Projects</span>
                   </div>
                   <span className="text-[11px] font-mono font-medium text-[#003088] bg-blue-50 px-2 py-0.5 rounded">
                     Global Remote
