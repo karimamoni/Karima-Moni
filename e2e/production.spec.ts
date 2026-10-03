@@ -12,7 +12,7 @@ test.describe('production portfolio smoke test', () => {
     }
 
     await expect(page.getByRole('heading', { name: /Digital Marketing/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: /View My Work/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /View My Work/i })).toBeVisible();
   });
 
   test('contact form is rendered without submitting data', async ({ page }) => {
