@@ -29,13 +29,6 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
           badgeBg: 'bg-amber-50 text-amber-900',
           headerGradient: 'from-[#F4B820]/10 to-transparent',
         };
-      case 'ai-services':
-        return {
-          icon: <Sparkles className="w-5 h-5 text-[#003088]" />,
-          borderAccent: 'border-l-4 border-l-gradient',
-          badgeBg: 'bg-gradient-to-r from-blue-50 to-amber-50 text-[#003088]',
-          headerGradient: 'from-[#003088]/5 via-[#F4B820]/5 to-transparent',
-        };
       default:
         return {
           icon: <TrendingUp className="w-5 h-5 text-[#003088]" />,
@@ -117,7 +110,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                           e.preventDefault();
                           setSelectedService(service);
                         }
-                      }
+                      }}
                       className="group bg-white p-6 rounded-xl border border-slate-200/90 hover:border-[#003088] hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col justify-between"}
                     >
                       <div>
