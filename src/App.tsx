@@ -56,6 +56,7 @@ function PortfolioApp() {
 
   const handleOpenAdmin = () => {
     if (isAdmin) {
+      setIsLoginModalOpen(false);
       setIsAdminViewOpen(true);
     } else {
       setIsLoginModalOpen(true);
