@@ -11,10 +11,10 @@ export const ReviewsSection: React.FC = () => {
   if (publishedReviews.length === 0) return null;
 
   return (
-    <section id="reviews" className="py-14 sm:py-16 md:py-20 bg-white border-b border-slate-100">
+    <section id="reviews" className="py-10 sm:py-12 md:py-16 bg-white border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <div className="text-center max-w-3xl mx-auto mb-7 sm:mb-8">
           <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
             Client Feedback
           </div>
@@ -27,11 +27,11 @@ export const ReviewsSection: React.FC = () => {
         </div>
 
         {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {publishedReviews.map((rev) => (
             <div
               key={rev.id}
-              className="p-7 rounded-2xl bg-[#F7F9FC] border border-slate-200/90 shadow-2xs hover:border-[#003088]/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+              className="p-6 rounded-2xl bg-[#F7F9FC] border border-slate-200/90 shadow-2xs hover:border-[#003088]/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 {/* Rating Stars & Quote Icon */}
