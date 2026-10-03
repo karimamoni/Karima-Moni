@@ -30,15 +30,15 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6"
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-xs flex items-center justify-center p-2 sm:p-6"
       onClick={onClose}
     >
       <div
-        className="relative bg-white w-full max-w-3xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+        className="relative bg-white w-full max-w-3xl max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-3rem)] rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Bar */}
-        <div className="bg-[#003088] text-white p-6 sm:p-7 flex items-center justify-between">
+        <div className="bg-[#003088] text-white p-4 sm:p-7 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-[#F4B820]">
               <FileText className="w-5 h-5" />
@@ -75,7 +75,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* CV Preview Document Paper */}
-        <div className="p-6 sm:p-8 max-h-[65vh] overflow-y-auto space-y-6 bg-slate-50">
+        <div className="p-6 sm:p-8 max-h-[55dvh] sm:max-h-[65vh] overflow-y-auto space-y-6 bg-slate-50">
           <div className="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-xs space-y-6 text-slate-800">
             {/* Header Lockup */}
             <div className="border-b border-slate-200 pb-5">
