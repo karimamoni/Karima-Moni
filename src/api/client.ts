@@ -45,7 +45,8 @@ const crud = async <T>(resource: string, action: string, data?: any, id?: string
 
 export const api = {
   async bootstrap(): Promise<CmsDatabase> {
-    return invoke<CmsDatabase>({ op: 'bootstrap', data: { ...initialCmsData, seoSettings: { ...initialCmsData.seoSettings, canonicalUrl: 'https://karimamoni.github.io/Karima-Moni/' } }, adminEmail: initialCmsData.contactInfo.email });
+    // Public clients only read the already-initialized store. Initialization is never performed by a browser request.
+    return invoke<CmsDatabase>({ op: 'get_site_data' });
   },
   async getSiteData(): Promise<CmsDatabase> {
     return invoke<CmsDatabase>({ op: 'get_site_data' });
