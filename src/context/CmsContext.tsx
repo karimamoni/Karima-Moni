@@ -106,6 +106,23 @@ interface CmsContextType {
   deleteMedia: (id: string) => Promise<void>;
 }
 
+const CMS_ARRAY_KEYS = ['serviceCategories', 'services', 'projects', 'caseStudies', 'reviews', 'blogPosts', 'skills', 'tools', 'experience', 'education', 'resumes', 'leads', 'mediaLibrary'] as const;
+const CMS_OBJECT_KEYS = ['homepage', 'socialLinks', 'contactInfo', 'seoSettings', 'settings'] as const;
+
+function mergeCmsData(remote: Partial<CmsDatabase>): CmsDatabase {
+  const merged: CmsDatabase = { ...initialCmsData, ...remote } as CmsDatabase;
+  for (const key of CMS_ARRAY_KEYS) {
+    if (!Array.isArray(remote[key])) merged[key] = initialCmsData[key] as never;
+  }
+  for (const key of CMS_OBJECT_KEYS) {
+    merged[key] = {
+      ...(initialCmsData[key] as Record<string, unknown>),
+      ...((remote[key] || {}) as Record<string, unknown>),
+    } as never;
+  }
+  return merged;
+}
+
 const CmsContext = createContext<CmsContextType | undefined>(undefined);
 
 export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -121,7 +138,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     try {
       const remoteData = await api.bootstrap();
       if (remoteData && remoteData.homepage) {
-        setData(remoteData);
+        setData(mergeCmsData(remoteData));
       }
     } catch (err) {
       console.warn('[CMS Context] Could not fetch server database, using initial fallback:', err);
