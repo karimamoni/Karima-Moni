@@ -93,7 +93,7 @@ function PortfolioApp() {
       {/* Main Content Sections */}
       <main className="flex-1">
         {/* Hero Section */}
-        <HeroSection onOpenCvModal={() => setIsCvModalOpen(true)} />
+        <HeroSection />
 
         {/* About Me & Mission */}
         <AboutSection onOpenCvModal={() => setIsCvModalOpen(true)} />
