@@ -98,14 +98,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
               ))}
             </div>
 
-            {/* Mission Box */}
-            <div className="mb-10 p-5 rounded-xl bg-white border-l-4 border-l-[#F4B820] border-y border-r border-slate-200 shadow-2xs">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#003088] mb-1.5">
-                <Award className="w-4 h-4 text-[#F4B820]" />
-                <span>My Core Mission</span>
-              </div>
-              <p className="text-base font-medium text-slate-900 italic">
-                "{homepage.aboutMission}"
+            <div className="mb-10 p-5 rounded-xl bg-white border border-slate-200">
+              <p className="text-sm font-semibold text-slate-900 leading-relaxed">
+                {homepage.aboutMission}
               </p>
             </div>
 
