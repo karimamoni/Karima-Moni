@@ -9,9 +9,9 @@ const steps = [
 ];
 
 export const HowItWorksSection: React.FC = () => (
-  <section id="process" className="py-16 sm:py-20 md:py-24 bg-[#F7F9FC] border-b border-slate-100">
+  <section id="process" className="py-12 sm:py-14 md:py-16 bg-[#F7F9FC] border-b border-slate-100">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mb-10 sm:mb-12">
+      <div className="max-w-3xl mb-8 sm:mb-10">
         <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">Simple Process</div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-[#101828] tracking-tight mb-4">How I Work</h2>
         <p className="text-base sm:text-lg text-slate-600">A clear, collaborative process designed to keep projects focused from the first conversation to the final delivery.</p>
