@@ -13,10 +13,10 @@ import {
 } from 'lucide-react';
 
 interface FooterProps {
-  onOpenAdmin?: () => void;
+  onOpenAdmin: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = () => {
+export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
   const { data } = useCms();
   const { contactInfo, socialLinks } = data;
 
@@ -169,6 +169,15 @@ export const Footer: React.FC<FooterProps> = () => {
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#F4B820] shrink-0" />
                 <span className="truncate">{contactInfo.email}</span>
+              </li>
+              <li className="pt-1">
+                <button
+                  type="button"
+                  onClick={onOpenAdmin}
+                  className="text-[11px] text-slate-500 hover:text-white transition-colors"
+                >
+                  Manage Portfolio
+                </button>
               </li>
             </ul>
           </div>
