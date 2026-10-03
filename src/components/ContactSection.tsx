@@ -125,9 +125,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
     : `880${rawWa}`;
 
   return (
-    <section id="contact" className="py-20 md:py-28 bg-white relative pb-28 sm:pb-24">
+    <section id="contact" className="py-16 sm:py-20 md:py-28 bg-white relative pb-28 sm:pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16 items-start">
           {/* Left Column: Contact Channels & Trust */}
           <div className="lg:col-span-5">
             <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
@@ -202,7 +202,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
 
           {/* Right Column: Dynamic Project Request Form */}
           <div className="lg:col-span-7">
-            <div className="bg-[#F7F9FC] p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+            <div className="bg-[#F7F9FC] p-5 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
               {submitted ? (
                 <div className="py-12 px-6 text-center animate-in fade-in zoom-in-95 duration-300">
                   <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -250,7 +250,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="e.g. Mahmudul Hasan"
-                        className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-[#003088] focus:ring-1 focus:ring-[#003088] transition-all"
+                        className="w-full px-3.5 py-3 text-xs sm:text-sm min-h-11 bg-white border border-slate-300 rounded-lg focus:outline-hidden focus:border-[#003088] focus:ring-1 focus:ring-[#003088] transition-all"
                       />
                     </div>
 
@@ -338,7 +338,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                     </label>
                     <textarea
                       id="projectDetails"
-                      rows={4}
+                      rows={5}
                       required
                       value={formData.projectDetails}
                       onChange={(e) => setFormData({ ...formData, projectDetails: e.target.value })}
@@ -351,7 +351,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 text-sm font-bold text-white bg-[#003088] hover:bg-[#00205c] rounded-lg shadow-md hover:shadow-lg transition-all active:scale-[0.99] disabled:opacity-70 cursor-pointer"
+                    className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 sm:px-6 text-sm min-h-12 font-bold text-white bg-[#003088] hover:bg-[#00205c] rounded-lg shadow-md hover:shadow-lg transition-all active:scale-[0.99] disabled:opacity-70 cursor-pointer"
                   >
                     {submitting ? (
                       <>
