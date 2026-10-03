@@ -2,12 +2,14 @@ import React from 'react';
 
 interface LogoProps {
   className?: string;
+  src?: string;
   variant?: 'full' | 'compact' | 'icon';
   theme?: 'dark' | 'light' | 'white';
 }
 
 export const KarimaMoniLogo: React.FC<LogoProps> = ({
   className = '',
+  src = '/Karima-Moni/images/karima-moni-logo.webp',
   variant = 'full',
   theme = 'dark',
 }) => {
@@ -18,7 +20,7 @@ export const KarimaMoniLogo: React.FC<LogoProps> = ({
   return (
     <div className={`inline-flex items-center gap-3 select-none ${className}`}>
       <img
-        src="/Karima-Moni/images/karima-moni-logo.webp"
+        src={src}
         alt="Karima Moni"
         className={`shrink-0 object-contain drop-shadow-sm transition-transform hover:scale-105 duration-300 ${variant === 'icon' ? 'w-10 h-10' : 'w-12 h-12'}`}
       />
