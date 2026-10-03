@@ -211,7 +211,7 @@ export const initialCmsData: CmsDatabase = {
       ],
       tools: ['YouTube Studio', 'Canva', 'VidIQ / TubeBuddy', 'CapCut'],
       ctaText: 'View YouTube Portfolio',
-      published: true,
+      published: false,
       order: 4,
     },
     {
@@ -234,7 +234,7 @@ export const initialCmsData: CmsDatabase = {
       ],
       tools: ['Google Search Console', 'Google Analytics', 'Ahrefs / Ubersuggest', 'Google Docs'],
       ctaText: 'Discuss SEO Plan',
-      published: true,
+      published: false,
       order: 5,
     },
     {
@@ -256,7 +256,7 @@ export const initialCmsData: CmsDatabase = {
       ],
       tools: ['Mailchimp', 'MailerLite', 'Canva', 'Google Workspace'],
       ctaText: 'Start Email Marketing',
-      published: true,
+      published: false,
       order: 6,
     },
 
