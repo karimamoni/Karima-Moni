@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye, Download, CheckCircle2, Award } from 'lucide-react';
+import { Eye, Download, CheckCircle2 } from 'lucide-react';
 import { useCms } from '../context/CmsContext';
 
 interface AboutSectionProps {
@@ -44,31 +44,15 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
                 <div className="absolute inset-0 bg-gradient-to-t from-[#003088]/80 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 text-white">
                   <div className="text-xs uppercase tracking-wider font-semibold text-[#F4B820]">
-                    Personal Identity
+                    Digital Marketing
                   </div>
                   <div className="text-xl font-bold font-display">Karima Moni</div>
                   <div className="text-xs text-blue-100">{homepage.professionalTitle}</div>
                 </div>
               </div>
 
-              {/* Quick Status and Credentials (Dynamic from CMS) */}
-              <div className="space-y-3 pt-2">
-                <div className="flex items-center justify-between text-xs py-1.5 border-b border-slate-100">
-                  <span className="text-slate-500">Core Focus</span>
-                  <span className="font-semibold text-slate-800 text-right truncate max-w-[180px]">
-                    {homepage.positioning || 'Ads · Design · AI'}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between text-xs py-1.5 border-b border-slate-100">
-                  <span className="text-slate-500">Communication</span>
-                  <span className="font-semibold text-slate-800">English · Bengali</span>
-                </div>
-                <div className="flex items-center justify-between text-xs py-1.5">
-                  <span className="text-slate-500">Availability</span>
-                  <span className="font-semibold text-emerald-700">
-                    {data.contactInfo.workingHours || 'Within 24 Hours'}
-                  </span>
-                </div>
+              <div className="pt-2 text-sm text-slate-600 leading-relaxed">
+                Focused on practical marketing execution, creative communication, and work that helps businesses move forward.
               </div>
 
               {/* CV Action Buttons */}
@@ -96,7 +80,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
           {/* Right Column: Bio Prose, Capabilities, Mission */}
           <div className="lg:col-span-7 flex flex-col text-left">
             <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
-              Background & Vision
+              About Me
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#101828] tracking-tight mb-2">
               {homepage.aboutHeading}
@@ -128,7 +112,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
             {/* Capabilities Matrix */}
             <div>
               <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 mb-4">
-                Core Capabilities & Disciplines
+                Core Capabilities
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                 {homepage.aboutCapabilities.map((capability) => (
