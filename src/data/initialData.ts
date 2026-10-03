@@ -4,16 +4,16 @@ export const initialCmsData: CmsDatabase = {
   homepage: {
     brandName: 'KARIMA MONI',
     professionalTitle: 'Digital Marketing Specialist',
-    positioning: 'Digital Marketing | Graphic Design | AI Services',
+    positioning: 'Digital Marketing | Paid Ads | Creative Content',
     tagline: 'Connect. Create. Grow.',
-    heroHeadline: 'Creative Digital Solutions That Help Businesses Grow.',
+    heroHeadline: 'Digital Marketing & Creative Content That Move Your Business Forward.',
     heroSubheadline:
-      'I help businesses build a strong online presence through strategic digital marketing, creative content, professional design and AI-powered creative solutions.',
+      'I help businesses turn their online presence into a clearer, more consistent and more effective customer journey through paid advertising, social media and creative content.',
     heroImage: '/src/assets/images/karima_hero_portrait_1790992143360.jpg',
     heroCtaPrimaryText: 'View My Work',
     heroCtaSecondaryText: "Let's Work Together",
     heroCtaCvText: 'Download My CV',
-    quickIntroHeading: 'Turning Ideas Into Digital Growth',
+    quickIntroHeading: 'Clear Strategy. Strong Creative. Better Digital Presence.',
     quickIntroText:
       'Every business has a story. My goal is to help you tell that story to the right audience through the right platform, strategy and content.',
     focusCards: [
@@ -43,7 +43,7 @@ export const initialCmsData: CmsDatabase = {
       },
     ],
     aboutHeading: 'About Karima Moni',
-    aboutSubtitle: 'Digital Marketing Specialist | Creative Professional',
+    aboutSubtitle: 'Digital Marketing Specialist · Paid Ads · Creative Content',
     aboutContent:
       "Assalamu Alaikum! I'm Karima Moni, a passionate Digital Marketing Specialist dedicated to helping businesses grow in the digital world.\n\nI work with digital marketing, social media, graphic design and AI-powered creative content to help brands create a professional online presence and connect with their target audience.\n\nI believe successful digital marketing is not just about posting content or running advertisements. It is about understanding the audience, creating the right message and using the right strategy at the right time.",
     aboutMission:
@@ -99,7 +99,7 @@ export const initialCmsData: CmsDatabase = {
     ctaBannerHeading: 'Have a Project in Mind?',
     ctaBannerSubheading: "Let's Turn Your Idea Into Digital Growth.",
     ctaBannerText:
-      "Whether you need digital marketing, social media management, graphic design or AI-powered creative content, I'm ready to discuss your project.",
+      "Have a business goal, campaign or content challenge? Let's discuss what you need and choose the right next step.",
   },
 
   serviceCategories: [
@@ -895,7 +895,7 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
       course: 'Advanced Digital Marketing & Performance Advertising Certification',
       skills: ['Meta Ads', 'Google Ads', 'Analytics', 'Conversion Funnels', 'SEO'],
       date: '2025 – 2026',
-      certificateUrl: '#',
+      certificateUrl: '',
       order: 1,
     },
     {
@@ -928,7 +928,7 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
       fileName: 'Karima_Moni_CV_2026.pdf',
       fileSize: '420 KB',
       isActive: true,
-      notes: 'Active resume with verified digital marketing, design, and AI credentials.',
+      notes: 'Current CV available for download.',
     },
   ],
 
