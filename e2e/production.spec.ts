@@ -66,7 +66,8 @@ test.describe('production portfolio smoke test', () => {
 
   test('admin access is protected by a login dialog', async ({ page }) => {
     await openReadyPortfolio(page);
-    await page.locator('footer button').filter({ hasText: 'Manage Portfolio' }).click();
+    await page.getByRole('button', { name: /Manage Portfolio/i }).click();
+    await expect(page.getByRole('heading', { name: /Admin CMS Portal/i })).toBeVisible();
     await expect(page.locator('#admin-email')).toBeVisible();
     await expect(page.locator('#admin-email')).toHaveValue('karimamonimarketer@gmail.com');
     await expect(page.locator('#admin-email')).toHaveAttribute('readonly', '');
