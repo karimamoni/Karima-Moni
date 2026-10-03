@@ -280,5 +280,7 @@ export interface CmsDatabase {
   settings: {
     cvButtonsEnabled: boolean;
     stickyCtaEnabled: boolean;
+    availabilityEnabled: boolean;
+    availabilityText: string;
   };
 }
