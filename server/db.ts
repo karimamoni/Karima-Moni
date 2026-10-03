@@ -36,14 +36,6 @@ export interface PersistentDatabase extends CmsDatabase {
   users: AdminUser[];
 }
 
-const STORAGE_ROOT = path.resolve(process.env.STORAGE_PATH || process.cwd());
-const DATA_DIR = path.resolve(STORAGE_ROOT, 'data');
-const DB_FILE = path.resolve(DATA_DIR, 'db.json');
-
-// Ensure data directory exists
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-}
 class DatabaseService {
   private data: PersistentDatabase;
   private saveTimeout: NodeJS.Timeout | null = null;
