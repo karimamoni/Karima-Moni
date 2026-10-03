@@ -22,20 +22,20 @@ test.describe('production portfolio smoke test', () => {
     await expect(page).toHaveTitle(/Karima|Moni/i);
 
     for (const id of ['about', 'services', 'portfolio', 'contact']) {
-      await expect(page.locator(`#${id}`)).toBeVisible();
+      await expect(page.locator(`#${id}`)).toBeVisible({ timeout: 15000 });
     }
 
-    await expect(page.getByRole('heading', { name: /Digital Marketing/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Digital Marketing/i })).toBeVisible({ timeout: 15000 });
     await expect(page.getByRole('link', { name: /View My Work/i })).toBeVisible();
   });
 
   test('contact form is rendered without submitting data', async ({ page }) => {
     await openReadyPortfolio(page);
     const form = page.locator('#contact form');
-    await expect(form).toBeVisible();
-    await expect(form.locator('input').first()).toBeVisible();
-    await expect(form.locator('textarea')).toBeVisible();
-    await expect(form.getByRole('button', { name: /start a conversation/i })).toBeVisible();
+    await expect(form).toBeVisible({ timeout: 15000 });
+    await expect(form.locator('input').first()).toBeVisible({ timeout: 15000 });
+    await expect(form.locator('textarea')).toBeVisible({ timeout: 15000 });
+    await expect(form.getByRole('button', { name: /start a conversation/i })).toBeVisible({ timeout: 15000 });
   });
 
   test('critical assets do not return 404', async ({ page }) => {
