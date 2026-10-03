@@ -16,8 +16,12 @@ import { AdminLayout } from './admin/AdminLayout';
 
 function PortfolioApp() {
   const { data, isAdmin, saveError, clearSaveError } = useCms();
-  const [isAdminViewOpen, setIsAdminViewOpen] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isAdminViewOpen, setIsAdminViewOpen] = useState(() => {
+    return new URLSearchParams(window.location.search).get('admin') === '1';
+  });
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(() => {
+    return new URLSearchParams(window.location.search).get('admin') === '1';
+  });
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
   const [preselectedService, setPreselectedService] = useState<string>('');
 
