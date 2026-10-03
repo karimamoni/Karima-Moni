@@ -28,6 +28,7 @@ interface CmsContextType {
   isLoading: boolean;
   adminUser: { email: string; name: string } | null;
   loginAdmin: (password: string, email?: string) => Promise<{ success: boolean; error?: string }>;
+  signupAdmin: (email: string, password: string) => Promise<{ success: boolean; confirmationRequired?: boolean; error?: string }>;
   logoutAdmin: () => Promise<void>;
   changeAdminPassword: (currentPassword: string, newPassword: string) => Promise<void>;
   refreshData: () => Promise<void>;
@@ -112,10 +113,10 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [adminUser, setAdminUser] = useState<{ email: string; name: string } | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Fetch site data from persistent backend database on mount
+  // Bootstrap/fetch site data from Supabase on mount
   const refreshData = useCallback(async () => {
     try {
-      const remoteData = await api.getSiteData();
+      const remoteData = await api.bootstrap();
       if (remoteData && remoteData.homepage) {
         setData(remoteData);
       }
@@ -134,7 +135,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     } catch {}
   }, []);
 
-  // Check authenticated session via HTTP-only cookie on mount
+  // Check Supabase Auth session on mount
   useEffect(() => {
     let mounted = true;
     async function init() {
@@ -161,6 +162,15 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       mounted = false;
     };
   }, [refreshData, refreshLeads]);
+
+  const signupAdmin = async (email: string, password: string): Promise<{ success: boolean; confirmationRequired?: boolean; error?: string }> => {
+    try {
+      const res = await api.signup(email, password);
+      return { success: true, confirmationRequired: res.confirmationRequired };
+    } catch (err: any) {
+      return { success: false, error: err.message || 'Could not create admin account.' };
+    }
+  };
 
   // Real Server-Side Login
   const loginAdmin = async (
@@ -734,6 +744,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         isLoading,
         adminUser,
         loginAdmin,
+        signupAdmin,
         logoutAdmin,
         changeAdminPassword,
         refreshData,
