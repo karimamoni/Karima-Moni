@@ -1,4 +1,4 @@
-export type ProjectCategory = 'Digital Marketing' | 'Graphic Design' | 'AI Services';
+export type ProjectCategory = 'Performance Marketing' | 'Creative Content';
 
 export type ContentStatus = 'Draft' | 'Published' | 'Archived';
 
