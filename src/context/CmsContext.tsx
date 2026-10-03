@@ -40,7 +40,7 @@ interface CmsContextType {
   updateSocialLinks: (links: SocialLinks) => Promise<void>;
   updateContactInfo: (info: ContactInfo) => Promise<void>;
   updateSeoSettings: (seo: SeoSettings) => Promise<void>;
-  updateSettings: (settings: { cvButtonsEnabled: boolean; stickyCtaEnabled: boolean; availabilityEnabled: boolean; availabilityText: string }) => Promise<void>;
+  updateSettings: (settings: { cvButtonsEnabled: boolean; stickyCtaEnabled: boolean; availabilityEnabled: boolean; availabilityText: string; logoUrl: string }) => Promise<void>;
   resetToDefaults: () => Promise<void>;
 
   // Services
@@ -241,7 +241,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
-  const updateSettings = async (settings: { cvButtonsEnabled: boolean; stickyCtaEnabled: boolean; availabilityEnabled: boolean; availabilityText: string }) => {
+  const updateSettings = async (settings: { cvButtonsEnabled: boolean; stickyCtaEnabled: boolean; availabilityEnabled: boolean; availabilityText: string; logoUrl: string }) => {
     setData((prev) => ({ ...prev, settings }));
     try {
       await api.updateSettings(settings);
