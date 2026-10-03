@@ -44,21 +44,21 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onClose, onOpenCvPrevi
 
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
-    { id: 'homepage', label: 'Homepage & Hero', icon: <Home className="w-4 h-4" /> },
-    { id: 'about', label: 'About & Mission', icon: <User className="w-4 h-4" /> },
-    { id: 'services', label: 'Services Spectrum', icon: <Layers className="w-4 h-4" /> },
-    { id: 'projects', label: 'Portfolio Projects', icon: <FolderGit2 className="w-4 h-4" /> },
-    { id: 'reviews', label: 'Client Reviews', icon: <Star className="w-4 h-4" /> },
-    { id: 'cv', label: 'CV / Resume Manager', icon: <FileText className="w-4 h-4" /> },
-    { id: 'media', label: 'Media Library', icon: <ImageIcon className="w-4 h-4" /> },
+    { id: 'homepage', label: 'Homepage', icon: <Home className="w-4 h-4" /> },
+    { id: 'about', label: 'About', icon: <User className="w-4 h-4" /> },
+    { id: 'services', label: 'Services', icon: <Layers className="w-4 h-4" /> },
+    { id: 'projects', label: 'Portfolio', icon: <FolderGit2 className="w-4 h-4" /> },
+    { id: 'reviews', label: 'Reviews', icon: <Star className="w-4 h-4" /> },
+    { id: 'cv', label: 'CV / Resume', icon: <FileText className="w-4 h-4" /> },
+    { id: 'media', label: 'Media', icon: <ImageIcon className="w-4 h-4" /> },
     {
       id: 'leads',
-      label: 'Leads & Messages',
+      label: 'Leads',
       icon: <Mail className="w-4 h-4" />,
       badge: newLeadsCount > 0 ? `${newLeadsCount} New` : undefined,
     },
-    { id: 'social', label: 'Social & Contact Info', icon: <Share2 className="w-4 h-4" /> },
-    { id: 'seo', label: 'SEO & Site Settings', icon: <Settings className="w-4 h-4" /> },
+    { id: 'social', label: 'Contact & Social', icon: <Share2 className="w-4 h-4" /> },
+    { id: 'seo', label: 'SEO & Settings', icon: <Settings className="w-4 h-4" /> },
   ];
 
   return (
