@@ -21,7 +21,11 @@
     <meta name="theme-color" content="#003088" />
     
     <!-- Google Fonts: Plus Jakarta Sans for body and Syne / Outfit for headings -->
-    <link rel="canonical" href="https://karimamoni.github.io/Karima-Moni/">\n    <meta property="og:url" content="https://karimamoni.github.io/Karima-Moni/">\n    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="canonical" href="https://karimamoni.github.io/Karima-Moni/" />
+    <meta property="og:url" content="https://karimamoni.github.io/Karima-Moni/" />
+    <meta property="og:image" content="https://karimamoni.github.io/Karima-Moni/images/karima_hero_portrait_1790992143360.jpg" />
+    <meta property="og:image:alt" content="Karima Moni — Digital Marketing Specialist" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
@@ -29,27 +33,49 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Karima Moni",
-      "jobTitle": "Digital Marketing Specialist",
-      "description": "Digital Marketing Specialist specializing in Digital Marketing, Graphic Design, and AI Creative Services.",
-      "email": "digitalkarimamoni@gmail.com",
-      "telephone": "+8801714810035",
-      "knowsAbout": [
-        "Digital Marketing",
-        "Facebook Ads",
-        "Google Ads",
-        "SEO",
-        "Social Media Marketing",
-        "Graphic Design",
-        "AI Content Creation",
-        "AI Video Production"
-      ],
-      "brand": {
-        "@type": "Brand",
-        "name": "Karima Moni",
-        "slogan": "Connect. Create. Grow."
-      }
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://karimamoni.github.io/Karima-Moni/#person",
+          "name": "Karima Moni",
+          "jobTitle": "Digital Marketing Specialist",
+          "description": "Digital marketing specialist focused on paid advertising, social media and creative content.",
+          "email": "digitalkarimamoni@gmail.com",
+          "telephone": "+8801714810035",
+          "url": "https://karimamoni.github.io/Karima-Moni/",
+          "knowsAbout": [
+            "Facebook Ads",
+            "Google Ads",
+            "Social Media Marketing",
+            "Brand Identity",
+            "Social Media Design",
+            "Short-form Video",
+            "AI Video Creation"
+          ],
+          "brand": {
+            "@type": "Brand",
+            "name": "Karima Moni",
+            "slogan": "Connect. Create. Grow."
+          }
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://karimamoni.github.io/Karima-Moni/#service",
+          "name": "Karima Moni — Digital Marketing & Creative Content",
+          "url": "https://karimamoni.github.io/Karima-Moni/",
+          "areaServed": "Worldwide",
+          "provider": {
+            "@id": "https://karimamoni.github.io/Karima-Moni/#person"
+          },
+          "serviceType": [
+            "Paid Advertising",
+            "Social Media Management",
+            "Brand Identity & Logo Design",
+            "Social Media Design",
+            "AI Video Creation & Editing"
+          ]
+        }
+      ]
     }
     </script>
   </head>
