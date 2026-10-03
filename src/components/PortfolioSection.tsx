@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ArrowUpRight, FolderGit2 } from 'lucide-react';
 import { useCms } from '../context/CmsContext';
 import { PortfolioProject, ProjectCategory } from '../types';
@@ -13,7 +13,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
 }) => {
   const { data } = useCms();
   const { projects } = data;
-
   const [activeCategory, setActiveCategory] = useState<'All' | ProjectCategory>('All');
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
 
@@ -23,22 +22,21 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
     'Creative Content',
   ];
 
-  const filteredProjects = useMemo(() => {
-    return projects
-      .filter((p) => p.status === 'Published')
-      .filter((p) => {
-        if (activeCategory !== 'All' && p.category !== activeCategory) {
-          return false;
-        }
-        return true;
-      });
-  }, [projects, activeCategory]);
+  const filteredProjects = useMemo(
+    () =>
+      projects
+        .filter((project) => project.status === 'Published')
+        .filter(
+          (project) =>
+            activeCategory === 'All' || project.category === activeCategory,
+        ),
+    [projects, activeCategory],
+  );
 
   return (
     <section id="portfolio" className="py-20 md:py-28 bg-white border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="max-w-3xl mb-12">
+        <div className="max-w-3xl mb-10">
           <div className="text-xs font-bold uppercase tracking-wider text-[#003088] mb-2">
             Selected Work
           </div>
@@ -50,42 +48,23 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
           </p>
         </div>
 
-        {/* Simple project filters */}
-        <div className="flex flex-wrap items-center gap-1.5 mb-10 pb-6 border-b border-slate-100">
-
-          <div className="flex flex-wrap items-center gap-1.5">
-            {filterTabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveCategory(tab)}
-                type="button"
-                className={`px-4 py-2.5 text-xs whitespace-nowrap font-semibold rounded-md transition-all ${
-                  activeCategory === tab
-                    ? 'bg-[#003088] text-white shadow-xs'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {/* Search intentionally omitted for a small curated portfolio. */}
-          <div className="hidden md:block text-xs text-slate-400 ml-auto">Selected projects</div>
+        <div className="flex flex-wrap items-center gap-2 mb-10 pb-6 border-b border-slate-100">
+          {filterTabs.map((tab) => (
+            <button
+              key={tab}
+              type="button"
+              onClick={() => setActiveCategory(tab)}
+              className={`px-4 py-2.5 text-xs whitespace-nowrap font-semibold rounded-md transition-all ${
+                activeCategory === tab
+                  ? 'bg-[#003088] text-white shadow-xs'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
         </div>
 
-          {/* Search Box */}
-          <div className="hidden">
-                        <input
-              type="text"
-              placeholder=""
-              value={''}
-              className="w-full pl-9 pr-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-hidden focus:border-[#003088] focus:bg-white transition-colors"
-            />
-          </div>
-        </div>
-
-        {/* Projects Grid */}
         {filteredProjects.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
             {filteredProjects.map((project) => (
@@ -95,16 +74,15 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                 tabIndex={0}
                 aria-label={`View project: ${project.name}`}
                 onClick={() => setSelectedProject(project)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
                     setSelectedProject(project);
                   }
                 }}
                 className="group bg-[#F7F9FC] rounded-2xl border border-slate-200/90 hover:border-[#003088]/40 hover:bg-white hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col justify-between"
               >
                 <div>
-                  {/* Thumbnail */}
                   <div className="relative aspect-16/10 w-full overflow-hidden bg-slate-100">
                     <img
                       src={project.thumbnail}
@@ -112,47 +90,41 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-104 transition-transform duration-500"
                       referrerPolicy="no-referrer"
-                      onError={(e) => {
-                        e.currentTarget.onerror = null;
-                        e.currentTarget.src = 'images/karima_hero_portrait_1790992143360.jpg';
+                      onError={(event) => {
+                        event.currentTarget.onerror = null;
+                        event.currentTarget.src =
+                          'images/karima_hero_portrait_1790992143360.jpg';
                       }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    
-                    {/* Unboxed Metadata (Zero-Pill discipline) */}
                     <div className="absolute bottom-3 left-3 right-3 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-between">
                       <span className="font-medium text-blue-200">{project.client}</span>
                       <span className="font-mono text-[11px] text-[#F4B820]">{project.date}</span>
                     </div>
                   </div>
 
-                  {/* Card Content */}
                   <div className="p-6">
-                    {/* Unboxed category and service kicker */}
                     <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-2">
                       <span className="font-semibold text-[#003088]">{project.category}</span>
                       <span aria-hidden="true">·</span>
                       <span>{project.service}</span>
                     </div>
-
                     <h3 className="text-lg font-bold text-[#101828] group-hover:text-[#003088] transition-colors mb-2 leading-snug">
                       {project.name}
                     </h3>
-
-                    <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-4">
+                    <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
                       {project.shortDescription}
                     </p>
                   </div>
                 </div>
 
-                {/* Card Action Footer */}
-                <div className="px-6 pb-6 pt-2 border-t border-slate-200/60 flex items-center justify-between text-xs font-bold text-[#003088]">
+                <div className="px-6 pb-6 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-bold text-[#003088]">
                   <span>View Project</span>
-                  <div className="w-7 h-7 rounded-full bg-white group-hover:bg-[#003088] flex items-center justify-center border border-slate-200 group-hover:border-[#003088] transition-colors">
+                  <span className="w-7 h-7 rounded-full bg-white group-hover:bg-[#003088] flex items-center justify-center border border-slate-200 group-hover:border-[#003088] transition-colors">
                     <ArrowUpRight className="w-3.5 h-3.5 text-[#003088] group-hover:text-white transition-colors" />
-                  </div>
+                  </span>
                 </div>
-              </button>
+              </div>
             ))}
           </div>
         ) : (
@@ -163,9 +135,8 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
               No published projects match this category yet. Try another category.
             </p>
             <button
-              onClick={() => {
-                setActiveCategory('All');
-              }}
+              type="button"
+              onClick={() => setActiveCategory('All')}
               className="mt-4 px-4 py-2 text-xs font-semibold text-[#003088] bg-white border border-slate-200 rounded-md hover:bg-slate-100"
             >
               Reset Filters
@@ -174,7 +145,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
         )}
       </div>
 
-      {/* Project Detail Modal */}
       {selectedProject && (
         <ProjectDetailModal
           project={selectedProject}
