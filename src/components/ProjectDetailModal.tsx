@@ -21,11 +21,11 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6"
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-xs flex items-center justify-center p-2 sm:p-6"
       onClick={onClose}
     >
       <div
-        className="relative bg-white w-full max-w-4xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+        className="relative bg-white w-full max-w-4xl max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-3rem)] rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header bar with close button */}
@@ -49,7 +49,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#101828] via-[#101828]/50 to-transparent" />
           
-          <div className="absolute bottom-6 left-6 right-6 text-white">
+          <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 text-white">
             <div className="flex flex-wrap items-center gap-2 mb-2 text-xs font-semibold text-blue-200">
               <span className="text-[#F4B820] font-bold">{project.category}</span>
               <span>·</span>
@@ -67,7 +67,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
         </div>
 
         {/* Modal Content Body */}
-        <div className="p-6 sm:p-8 max-h-[60vh] overflow-y-auto space-y-8">
+        <div className="p-5 sm:p-8 max-h-[55dvh] sm:max-h-[60vh] overflow-y-auto space-y-8">
           {/* Key Metadata Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs">
             <div>
@@ -204,7 +204,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
         </div>
 
         {/* Modal Bottom CTA */}
-        <div className="p-6 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <div className="p-4 sm:p-6 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
           <button
             onClick={onClose}
             className="text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
@@ -212,7 +212,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
             Back to Portfolio
           </button>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             {project.externalUrl && (
               <a
                 href={project.externalUrl}
