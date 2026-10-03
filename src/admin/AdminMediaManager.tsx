@@ -160,7 +160,7 @@ export const AdminMediaManager: React.FC = () => {
       <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs">
         <div className="flex flex-col sm:flex-row sm:items-center gap-5">
           <div className="w-24 h-24 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0">
-            <img src={data.settings.logoUrl} alt="Current brand logo" className="max-w-full max-h-full object-contain" />
+            <img src={data.settings.logoUrl || '/Karima-Moni/images/karima-moni-logo.webp'} alt="Current brand logo" className="max-w-full max-h-full object-contain" />
           </div>
           <div className="min-w-0 flex-1">
             <h3 className="text-sm font-bold uppercase tracking-wider text-[#003088]">Brand Logo</h3>
