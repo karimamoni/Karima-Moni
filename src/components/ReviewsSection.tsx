@@ -8,6 +8,8 @@ export const ReviewsSection: React.FC = () => {
 
   const publishedReviews = reviews.filter((r) => r.status === 'Published');
 
+  if (publishedReviews.length === 0) return null;
+
   return (
     <section id="reviews" className="py-20 md:py-28 bg-white border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
