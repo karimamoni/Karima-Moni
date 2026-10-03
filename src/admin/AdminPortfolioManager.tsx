@@ -31,7 +31,7 @@ export const AdminPortfolioManager: React.FC = () => {
     subCategory: '',
     service: 'Facebook Ads',
     date: '2026',
-    thumbnail: '/src/assets/images/marketing_campaign_showcase_1790992154996.jpg',
+    thumbnail: 'images/marketing_campaign_showcase_1790992154996.jpg',
     shortDescription: '',
     description: '',
     role: 'Digital Marketing Specialist',
@@ -55,7 +55,7 @@ export const AdminPortfolioManager: React.FC = () => {
       subCategory: 'Paid Ads',
       service: 'Facebook Ads',
       date: 'March 2026',
-      thumbnail: '/src/assets/images/marketing_campaign_showcase_1790992154996.jpg',
+      thumbnail: 'images/marketing_campaign_showcase_1790992154996.jpg',
       shortDescription: '',
       description: '',
       role: 'Lead Digital Marketing Specialist',
@@ -463,12 +463,11 @@ export const AdminPortfolioManager: React.FC = () => {
                   <label className="block text-xs font-bold text-slate-700 mb-1">Category *</label>
                   <select
                     value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value as ProjectCategory })}
                     className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded"
                   >
-                    <option value="Digital Marketing">Digital Marketing</option>
-                    <option value="Graphic Design">Graphic Design</option>
-                    <option value="AI Services">AI Services</option>
+                    <option value="Performance Marketing">Performance Marketing</option>
+                    <option value="Creative Content">Creative Content</option>
                   </select>
                 </div>
                 <div>
