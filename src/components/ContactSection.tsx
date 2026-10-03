@@ -130,7 +130,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
               Let's Talk
             </h2>
             <p className="text-base text-slate-600 mb-8 leading-relaxed">
-              Have a question or a project in mind? Feel free to get in touch. Whether you need paid advertising, social media support, brand design, or short-form creative content, I'm here to help your brand grow.
+              Tell me what you're trying to achieve, and I'll help you figure out the next practical step.
             </p>
 
             {/* Quick Action Channels */}
@@ -205,7 +205,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                     Project Request Received!
                   </h3>
                   <p className="text-sm text-slate-600 max-w-md mx-auto mb-6 leading-relaxed">
-                    Thank you for reaching out. Your project inquiry has been securely stored in Karima Moni's CMS inbox. I’ll review your request and get back to you as soon as possible.
+                    Thanks for reaching out. I’ll review your project details and get back to you as soon as possible.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
@@ -353,15 +353,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                       </>
                     ) : (
                       <>
-                        <span>Send Project Request →</span>
+                        <span>Start a Conversation →</span>
                         <Send className="w-4 h-4 text-[#F4B820]" />
                       </>
                     )}
                   </button>
 
-                  <p className="text-[11px] text-center text-slate-400">
-                    Your inquiry is stored securely for project follow-up.
-                  </p>
                 </form>
               )}
             </div>
