@@ -12,12 +12,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
   const activeResume = getActiveResume();
   const [imageError, setImageError] = useState(false);
 
-  const handleDownloadCv = () => {
-    if (!activeResume) return;
-    // In browser, create a programmatic link or open CV modal
-    onOpenCvModal();
-  };
-
   return (
     <section id="about" className="py-20 md:py-28 bg-[#F7F9FC] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,13 +59,16 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenCvModal }) => 
                     <Eye className="w-3.5 h-3.5 text-[#003088]" />
                     <span>View CV</span>
                   </button>
-                  <button
-                    onClick={handleDownloadCv}
+                  <a
+                    href={activeResume?.fileUrl || '#'}
+                    download={activeResume?.fileName}
+                    target="_blank"
+                    rel="noreferrer"
                     className="inline-flex items-center justify-center gap-1.5 py-2.5 px-3 text-xs font-bold text-white bg-[#003088] hover:bg-[#00205c] rounded-lg transition-colors shadow-xs"
                   >
                     <Download className="w-3.5 h-3.5 text-[#F4B820]" />
                     <span>Download CV</span>
-                  </button>
+                  </a>
                 </div>
               )}
             </div>
