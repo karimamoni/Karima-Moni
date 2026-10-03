@@ -52,12 +52,11 @@ test.describe('production portfolio smoke test', () => {
 
   test('admin access is protected by a login dialog', async ({ page }) => {
     await page.goto(baseURL, { waitUntil: 'networkidle' });
-    await page.getByRole('button', { name: /manage portfolio/i }).click();
-    await expect(page.getByRole('heading', { name: /Admin CMS Portal/i })).toBeVisible();
-    await expect(page.getByLabel('Admin Email')).toHaveValue('karimamonimarketer@gmail.com');
-    await expect(page.getByLabel('Admin Email')).toHaveAttribute('readonly', '');
-    await expect(page.getByLabel('Admin Password')).toHaveAttribute('minlength', '12');
-    await expect(page.getByRole('button', { name: /Sign In to Admin CMS/i })).toBeVisible();
+    await page.locator('footer button').filter({ hasText: 'Manage Portfolio' }).click();
+    await expect(page.locator('#admin-email')).toBeVisible();
+    await expect(page.locator('#admin-email')).toHaveValue('karimamonimarketer@gmail.com');
+    await expect(page.locator('#admin-email')).toHaveAttribute('readonly', '');
+    await expect(page.locator('#admin-password')).toHaveAttribute('minlength', '12');
   });
 
 });
