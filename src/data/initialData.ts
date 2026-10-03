@@ -9,7 +9,7 @@ export const initialCmsData: CmsDatabase = {
     heroHeadline: 'Digital Marketing & Creative Content That Move Your Business Forward.',
     heroSubheadline:
       'I help businesses turn their online presence into a clearer, more consistent and more effective customer journey through paid advertising, social media and creative content.',
-    heroImage: '/src/assets/images/karima_hero_portrait_1790992143360.jpg',
+    heroImage: '/images/karima_hero_portrait_1790992143360.jpg',
     heroCtaPrimaryText: 'View My Work',
     heroCtaSecondaryText: "Let's Work Together",
     heroCtaCvText: 'Download My CV',
@@ -48,7 +48,7 @@ export const initialCmsData: CmsDatabase = {
       "Assalamu Alaikum! I'm Karima Moni, a passionate Digital Marketing Specialist dedicated to helping businesses grow in the digital world.\n\nI work with digital marketing, social media, graphic design and AI-powered creative content to help brands create a professional online presence and connect with their target audience.\n\nI believe successful digital marketing is not just about posting content or running advertisements. It is about understanding the audience, creating the right message and using the right strategy at the right time.",
     aboutMission:
       'To help businesses grow online through creative, strategic and result-focused digital solutions.',
-    aboutImage: '/src/assets/images/karima_hero_portrait_1790992143360.jpg',
+    aboutImage: '/images/karima_hero_portrait_1790992143360.jpg',
     aboutCapabilities: [
       'Digital Marketing',
       'Facebook & Google Ads',
@@ -414,10 +414,10 @@ export const initialCmsData: CmsDatabase = {
       subCategory: 'Facebook Ads',
       service: 'Facebook Ads',
       date: 'March 2026',
-      thumbnail: '/src/assets/images/marketing_campaign_showcase_1790992154996.jpg',
+      thumbnail: '/images/marketing_campaign_showcase_1790992154996.jpg',
       gallery: [
-        '/src/assets/images/marketing_campaign_showcase_1790992154996.jpg',
-        '/src/assets/images/brand_identity_design_1790992165631.jpg',
+        '/images/marketing_campaign_showcase_1790992154996.jpg',
+        '/images/brand_identity_design_1790992165631.jpg',
       ],
       shortDescription: 'Full-funnel Meta advertising campaign featuring custom audience prospecting, retargeting sets, and creative split-testing.',
       description: 'Planned and deployed high-converting Facebook and Instagram ad campaigns tailored to seasonal apparel demand. Conducted rigorous A/B creative testing with multiple headline and visual variations.',
@@ -446,9 +446,9 @@ export const initialCmsData: CmsDatabase = {
       subCategory: 'Brand Identity',
       service: 'Brand Identity & Logo Design',
       date: 'February 2026',
-      thumbnail: '/src/assets/images/brand_identity_design_1790992165631.jpg',
+      thumbnail: '/images/brand_identity_design_1790992165631.jpg',
       gallery: [
-        '/src/assets/images/brand_identity_design_1790992165631.jpg',
+        '/images/brand_identity_design_1790992165631.jpg',
       ],
       shortDescription: 'Comprehensive visual brand guidelines, logo suite, gold foil stationery, and social media aesthetic templates.',
       description: 'Developed an elegant brand identity embodying timeless sophistication with deep royal blue and gold accents, balanced typography, and cohesive collateral for digital and print.',
@@ -477,9 +477,9 @@ export const initialCmsData: CmsDatabase = {
       subCategory: 'AI Video',
       service: 'AI Video Creation & Editing',
       date: 'January 2026',
-      thumbnail: '/src/assets/images/ai_creative_production_1790992176708.jpg',
+      thumbnail: '/images/ai_creative_production_1790992176708.jpg',
       gallery: [
-        '/src/assets/images/ai_creative_production_1790992176708.jpg',
+        '/images/ai_creative_production_1790992176708.jpg',
       ],
       shortDescription: 'Production of short-form educational Reels utilizing AI scripting, natural voiceover synthesis, and dynamic kinetic subtitles.',
       description: 'Streamlined short-form video output by integrating generative AI tools into the script-to-screen workflow, delivering engaging, high-retention content for Reels and Shorts.',
@@ -508,8 +508,8 @@ export const initialCmsData: CmsDatabase = {
       subCategory: 'YouTube Marketing',
       service: 'YouTube Marketing',
       date: 'March 2026',
-      thumbnail: '/src/assets/images/marketing_campaign_showcase_1790992154996.jpg',
-      gallery: ['/src/assets/images/marketing_campaign_showcase_1790992154996.jpg'],
+      thumbnail: '/images/marketing_campaign_showcase_1790992154996.jpg',
+      gallery: ['/images/marketing_campaign_showcase_1790992154996.jpg'],
       shortDescription: 'End-to-end channel SEO audit, keyword-optimized titles and descriptions, and high-CTR custom thumbnail system.',
       description: 'Audited the channel to uncover organic search opportunities. Redesigned thumbnails using bold typography and high-contrast facial expressions to capture more clicks.',
       role: 'YouTube Strategy Specialist',
@@ -538,7 +538,7 @@ export const initialCmsData: CmsDatabase = {
       client: 'Retail & Fashion Client',
       category: 'Digital Marketing',
       service: 'Facebook & Instagram Ads',
-      thumbnail: '/src/assets/images/marketing_campaign_showcase_1790992154996.jpg',
+      thumbnail: '/images/marketing_campaign_showcase_1790992154996.jpg',
       overview: 'A complete campaign restructuring designed to eliminate ad spend waste and capture high-intent buyers through segmented creative testing.',
       challenge: 'The client had been running boosted posts with no conversion tracking, resulting in high clicks but minimal verified purchases.',
       goal: 'Build a sustainable sales funnel on Meta platforms with precise audience targeting and reliable conversion tracking.',
@@ -558,7 +558,7 @@ export const initialCmsData: CmsDatabase = {
       client: 'Boutique Lifestyle Brand',
       category: 'Graphic Design',
       service: 'Brand Identity & Logo Design',
-      thumbnail: '/src/assets/images/brand_identity_design_1790992165631.jpg',
+      thumbnail: '/images/brand_identity_design_1790992165631.jpg',
       overview: 'Transforming an outdated, inconsistent visual presence into an elevated luxury brand identity that inspires customer confidence.',
       challenge: 'Disjointed logos across different social handles and low-resolution print materials were hurting customer trust and preventing premium pricing.',
       goal: 'Create an authoritative, cohesive visual system reflecting quality, reliability, and timeless design.',
@@ -620,7 +620,7 @@ export const initialCmsData: CmsDatabase = {
       id: 'blog-1',
       title: 'What Is Digital Marketing? A Complete Beginner’s Guide',
       slug: 'what-is-digital-marketing-guide',
-      coverImage: '/src/assets/images/marketing_campaign_showcase_1790992154996.jpg',
+      coverImage: '/images/marketing_campaign_showcase_1790992154996.jpg',
       category: 'Digital Marketing',
       excerpt: 'Understand the fundamental pillars of digital marketing, from search engines to social media, and how modern businesses leverage them to grow.',
       content: `Digital marketing is the practice of promoting products, services, or brands through digital channels such as search engines, social media platforms, email, and websites. Unlike traditional marketing methods like print advertisements or billboards, digital marketing allows businesses to measure performance in real time, target exact audience demographics, and adjust campaigns dynamically.
@@ -648,7 +648,7 @@ Every consumer begins their buying journey online. A clear, cohesive digital str
       id: 'blog-2',
       title: 'Why Does Every Business Need Social Media Marketing?',
       slug: 'why-businesses-need-social-media-marketing',
-      coverImage: '/src/assets/images/marketing_campaign_showcase_1790992154996.jpg',
+      coverImage: '/images/marketing_campaign_showcase_1790992154996.jpg',
       category: 'Digital Marketing',
       excerpt: 'Discover why active social media channels are essential for brand credibility, customer engagement, and consistent lead generation.',
       content: `Social media is no longer just a place to share casual photos; it is the modern storefront and customer service desk of every reputable business. When a prospective customer hears about your company, their immediate instinct is to look you up on Facebook, Instagram, or LinkedIn.
@@ -675,7 +675,7 @@ Compared to traditional advertising channels, social platforms allow you to test
       id: 'blog-3',
       title: 'Facebook Ads vs Google Ads: Which One Is Better for Your Business?',
       slug: 'facebook-ads-vs-google-ads-comparison',
-      coverImage: '/src/assets/images/marketing_campaign_showcase_1790992154996.jpg',
+      coverImage: '/images/marketing_campaign_showcase_1790992154996.jpg',
       category: 'Digital Marketing',
       excerpt: 'A clear breakdown of intent-based search advertising versus demand-generation social advertising, and how to choose the right platform.',
       content: `One of the most common questions entrepreneurs ask is: "Should I invest my budget in Facebook Ads or Google Ads?" The truth is that both platforms excel at different stages of the buyer journey.
@@ -701,7 +701,7 @@ For fast direct sales with existing search volume, Google Ads is king. For build
       id: 'blog-4',
       title: 'What Is SEO & Why Is Keyword Research Critical?',
       slug: 'what-is-seo-and-keyword-research',
-      coverImage: '/src/assets/images/brand_identity_design_1790992165631.jpg',
+      coverImage: '/images/brand_identity_design_1790992165631.jpg',
       category: 'SEO',
       excerpt: 'How search engine optimization works and why choosing the right keyword targets makes or breaks your website traffic.',
       content: `Search Engine Optimization (SEO) is the science and art of increasing organic visibility on search engines like Google. Good SEO means your website appears when users search for topics relevant to your services.
@@ -726,7 +726,7 @@ Targeting transactional keywords ensures that your website visitors are people g
       id: 'blog-5',
       title: '5 Tips for Better Short Videos & Engaging Reels',
       slug: '5-tips-better-short-videos-engaging-reels',
-      coverImage: '/src/assets/images/ai_creative_production_1790992176708.jpg',
+      coverImage: '/images/ai_creative_production_1790992176708.jpg',
       category: 'Video Editing',
       excerpt: 'Practical techniques to craft high-retention vertical videos that hook viewers in the first 3 seconds.',
       content: `Short-form vertical video is currently the fastest way to gain organic reach on Instagram, TikTok, and YouTube. Here are 5 practical rules for creating reels that hold viewer attention:
@@ -749,7 +749,7 @@ Targeting transactional keywords ensures that your website visitors are people g
       id: 'blog-6',
       title: 'AI Video Creation for Beginners: Getting Started with Generative Tools',
       slug: 'ai-video-creation-for-beginners',
-      coverImage: '/src/assets/images/ai_creative_production_1790992176708.jpg',
+      coverImage: '/images/ai_creative_production_1790992176708.jpg',
       category: 'AI',
       excerpt: 'A beginner-friendly overview of how generative AI simplifies video scriptwriting, voiceovers, and asset creation.',
       content: `Artificial intelligence has transformed video production from an expensive studio-bound process into an accessible creative discipline.
@@ -774,7 +774,7 @@ AI provides speed, but human judgment provides authenticity. Always review and p
       id: 'blog-7',
       title: 'Visual Identity & Graphic Design: Why Cohesive Branding Drives Conversions',
       slug: 'visual-identity-graphic-design-branding',
-      coverImage: '/src/assets/images/brand_identity_design_1790992165631.jpg',
+      coverImage: '/images/brand_identity_design_1790992165631.jpg',
       category: 'Graphic Design',
       excerpt: 'Discover why consistent typography, color palettes, and polished social visuals significantly elevate customer trust and conversion rates.',
       content: `Visual communication is the silent ambassador of your brand. Before a prospective customer reads a single paragraph of your copy or examines your pricing table, they have already made subconscious judgments about your credibility based on visual design.
@@ -946,7 +946,7 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
   seoSettings: {
     siteTitle: 'Karima Moni – Digital Marketing Specialist & Creative Portfolio',
     metaDescription: 'Personal portfolio and CMS of Karima Moni, Digital Marketing Specialist. Expert in Facebook & Google Ads, Graphic Design, and AI Creative Content.',
-    ogImage: '/src/assets/images/karima_hero_portrait_1790992143360.jpg',
+    ogImage: '/images/karima_hero_portrait_1790992143360.jpg',
     keywords: 'Karima Moni, Digital Marketing Specialist, Facebook Ads, Google Ads, Graphic Design, AI Content, SEO, YouTube Marketing',
     canonicalUrl: 'https://karimamoni.com',
   },
@@ -970,7 +970,7 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
     {
       id: 'media-1',
       name: 'Karima Moni Studio Portrait',
-      url: '/src/assets/images/karima_hero_portrait_1790992143360.jpg',
+      url: '/images/karima_hero_portrait_1790992143360.jpg',
       type: 'image',
       size: '280 KB',
       uploadedAt: '2026-10-02',
@@ -978,7 +978,7 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
     {
       id: 'media-2',
       name: 'Marketing Campaign Dashboard',
-      url: '/src/assets/images/marketing_campaign_showcase_1790992154996.jpg',
+      url: '/images/marketing_campaign_showcase_1790992154996.jpg',
       type: 'image',
       size: '340 KB',
       uploadedAt: '2026-10-02',
@@ -986,7 +986,7 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
     {
       id: 'media-3',
       name: 'Luxury Brand Identity Mockup',
-      url: '/src/assets/images/brand_identity_design_1790992165631.jpg',
+      url: '/images/brand_identity_design_1790992165631.jpg',
       type: 'image',
       size: '310 KB',
       uploadedAt: '2026-10-02',
@@ -994,7 +994,7 @@ Clean, uncrowded graphics with deliberate contrast stop the endless social feed 
     {
       id: 'media-4',
       name: 'AI Video Production Workspace',
-      url: '/src/assets/images/ai_creative_production_1790992176708.jpg',
+      url: '/images/ai_creative_production_1790992176708.jpg',
       type: 'image',
       size: '390 KB',
       uploadedAt: '2026-10-02',
