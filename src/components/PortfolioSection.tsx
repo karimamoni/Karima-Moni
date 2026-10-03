@@ -118,6 +118,10 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-104 transition-transform duration-500"
                       referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = 'images/karima_hero_portrait_1790992143360.jpg';
+                      }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     
