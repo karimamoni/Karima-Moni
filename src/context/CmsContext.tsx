@@ -772,7 +772,7 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       await api.deleteMedia(id);
     } catch (e) {
       await refreshData();
-      setSaveError('Could not delete media asset. Please try again.'); setSaveError('Could not delete the media asset. Please try again.'); console.error('Failed to delete media asset:', e);
+      setSaveError('Could not delete the media asset. Please try again.'); console.error('Failed to delete media asset:', e);
     }
   };
 
