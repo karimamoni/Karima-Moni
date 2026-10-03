@@ -56,21 +56,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
   }, [preselectedService]);
 
   const serviceOptions = [
-    'Facebook Marketing',
     'Facebook Ads',
     'Google Ads',
-    'SEO',
     'Social Media Management',
-    'Lead Generation',
-    'Email Marketing',
-    'Content Marketing',
-    'YouTube Marketing',
-    'Graphic Design',
-    'AI Services',
-    'Video Editing',
+    'Brand Identity & Logo Design',
+    'Social Media Post & Banner Design',
+    'AI Video Creation & Editing',
     'Other',
   ];
-
   const budgetOptions = [
     'Under $300',
     '$300 – $500',
@@ -137,7 +130,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
               Let's Talk
             </h2>
             <p className="text-base text-slate-600 mb-8 leading-relaxed">
-              Have a question or a project in mind? Feel free to get in touch. Whether you need strategic campaign management, visual identity design, or AI workflows, I'm here to help your brand grow.
+              Have a question or a project in mind? Feel free to get in touch. Whether you need paid advertising, social media support, brand design, or short-form creative content, I'm here to help your brand grow.
             </p>
 
             {/* Quick Action Channels */}
