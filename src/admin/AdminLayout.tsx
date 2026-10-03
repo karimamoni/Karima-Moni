@@ -66,7 +66,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ onClose, onOpenCvPrevi
       {/* Sidebar for Desktop */}
       <aside className="hidden lg:flex lg:flex-col lg:w-64 bg-[#001f5c] text-white shrink-0 border-r border-slate-800">
         <div className="p-5 border-b border-white/10 flex items-center justify-between">
-          <KarimaMoniLogo variant="compact" theme="white" />
+          <KarimaMoniLogo variant="compact" theme="white" src={data.settings.logoUrl} />
         </div>
 
         <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
