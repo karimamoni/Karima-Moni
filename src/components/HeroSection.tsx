@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowDown, ArrowUpRight, Download, Sparkles, TrendingUp, Palette } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Sparkles, TrendingUp, Palette } from 'lucide-react';
 import { useCms } from '../context/CmsContext';
 
 interface HeroSectionProps {
@@ -80,15 +80,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCvModal }) => {
                 <ArrowUpRight className="w-4 h-4 text-[#F4B820]" />
               </a>
 
-              {data.settings.cvButtonsEnabled && (
-                <button
-                  onClick={onOpenCvModal}
-                  className="w-full sm:w-auto min-h-12 inline-flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-semibold text-slate-700 hover:text-[#003088] hover:bg-slate-100 rounded-md transition-colors"
-                >
-                  <Download className="w-4 h-4 text-[#003088]" />
-                  <span>{homepage.heroCtaCvText}</span>
-                </button>
-              )}
+
             </div>
           </div>
 
