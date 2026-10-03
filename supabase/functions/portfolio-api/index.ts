@@ -114,11 +114,11 @@ async function handleJson(req: Request) {
     if (text(data.website)) return json({ error: 'Invalid submission.' }, 400, req)
     const name = text(data.name, 120)
     const email = text(data.email, 160).toLowerCase()
-    const message = text(data.message, MAX_MESSAGE)
+    const message = text(data.message || data.projectDetails, MAX_MESSAGE)
     if (!name || !email || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: 'Please provide a valid name, email and message.' }, 400, req)
     const store = await readStore()
     const leads = Array.isArray(store.leads) ? [...store.leads] : []
-    const lead = { name, email, phone: text(data.phone, 60), company: text(data.company, 160), message, id: 'lead-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7), createdAt: new Date().toISOString(), status: 'New' }
+    const lead = { name, email, phone: text(data.phone || data.whatsapp, 60), company: text(data.company, 160), service: text(data.service, 160), budget: text(data.budget, 160), message, projectDetails: message, id: 'lead-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7), createdAt: new Date().toISOString(), status: 'New' }
     leads.unshift(lead)
     await writeStore({ ...store, leads })
     return json({ success: true, leadId: lead.id }, 201, req)
