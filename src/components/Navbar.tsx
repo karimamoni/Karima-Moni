@@ -15,6 +15,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, onOpenCvModal }) =>
   const activeResume = getActiveResume();
 
   useEffect(() => {
+    const handleResize = () => { if (window.innerWidth >= 640) setMobileMenuOpen(false); };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -31,6 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, onOpenCvModal }) =>
 
   return (
     <header
+      aria-label="Primary navigation"
       className={`sticky top-0 z-40 w-full transition-all duration-300 ${
         isScrolled
           ? 'bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs'
@@ -93,7 +100,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, onOpenCvModal }) =>
         <div className="flex items-center gap-1.5 sm:hidden">
           <button
             onClick={onOpenAdmin}
-            className="p-2 text-slate-600 hover:text-[#003088] hover:bg-slate-100 rounded-lg transition-colors"
+            className="p-2.5 text-slate-600 hover:text-[#003088] hover:bg-slate-100 rounded-lg transition-colors"
             title="Portfolio manager"
             aria-label="Admin CMS Portal"
           >
@@ -101,7 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, onOpenCvModal }) =>
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-slate-700 hover:text-[#003088] hover:bg-slate-100 rounded-lg transition-colors"
+            className="p-2.5 text-slate-700 hover:text-[#003088] hover:bg-slate-100 rounded-lg transition-colors"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -111,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, onOpenCvModal }) =>
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="sm:hidden border-b border-slate-200 bg-white px-4 pt-3 pb-6 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="sm:hidden border-b max-h-[calc(100vh-5rem)] overflow-y-auto border-slate-200 bg-white px-4 pt-3 pb-6 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
           <nav className="flex flex-col space-y-2">
             {navLinks.map((link) => (
               <a
