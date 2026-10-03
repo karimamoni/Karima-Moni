@@ -67,6 +67,13 @@ export const api = {
     return request('/api/auth/logout', { method: 'POST' });
   },
 
+  async changeAdminPassword(currentPassword: string, newPassword: string): Promise<{ success: boolean }> {
+    return request('/api/auth/password', {
+      method: 'PUT',
+      body: JSON.stringify({ currentPassword, newPassword }),
+    });
+  },
+
   // Lead Submission (Public)
   async submitLead(data: Omit<LeadMessage, 'id' | 'createdAt' | 'status'>): Promise<{ success: boolean; leadId: string }> {
     return request('/api/leads', {
