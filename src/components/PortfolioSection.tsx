@@ -74,7 +74,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
                 }`}
               >
                 {tab}
-              </button>
+              </div>
             ))}
           </div>
 
@@ -95,11 +95,12 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({
         {filteredProjects.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
             {filteredProjects.map((project) => (
-              <button
+              <div
                 key={project.id}
-                type="button"
-                onClick={() => setSelectedProject(project)}
+                role="button"
+                tabIndex={0}
                 aria-label={`View project: ${project.name}`}
+                onClick={() => setSelectedProject(project)}
                 className="group bg-[#F7F9FC] rounded-2xl border border-slate-200/90 hover:border-[#003088]/40 hover:bg-white hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col justify-between"
                 role="button"
                 tabIndex={0}
