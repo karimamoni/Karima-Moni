@@ -4,7 +4,7 @@ import { useCms } from '../context/CmsContext';
 import { MediaItem } from '../types';
 
 export const AdminMediaManager: React.FC = () => {
-  const { data, addMedia, uploadMediaFile, deleteMedia } = useCms();
+  const { data, addMedia, uploadMediaFile, deleteMedia, updateSettings } = useCms();
   const { mediaLibrary } = data;
 
   const [search, setSearch] = useState('');
@@ -15,6 +15,8 @@ export const AdminMediaManager: React.FC = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploadSuccess, setUploadSuccess] = useState<string | null>(null);
+  const [logoUploading, setLogoUploading] = useState(false);
+  const [logoMessage, setLogoMessage] = useState<string | null>(null);
 
   // Manual URL entry fallback
   const [name, setName] = useState('');
@@ -40,6 +42,34 @@ export const AdminMediaManager: React.FC = () => {
     } finally {
       setUploading(false);
       e.target.value = '';
+    }
+  };
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setLogoUploading(true);
+    setLogoMessage(null);
+    try {
+      if (!file.type.startsWith('image/')) throw new Error('Please choose an image file for the brand logo.');
+      const item = await uploadMediaFile(file, 'Karima Moni Brand Logo');
+      await updateSettings({ ...data.settings, logoUrl: item.url });
+      setLogoMessage('Brand logo updated successfully.');
+    } catch (err: any) {
+      setLogoMessage(err.message || 'Could not update the brand logo.');
+    } finally {
+      setLogoUploading(false);
+      e.target.value = '';
+    }
+  };
+
+  const resetLogo = async () => {
+    setLogoMessage(null);
+    try {
+      await updateSettings({ ...data.settings, logoUrl: '/Karima-Moni/images/karima-moni-logo.webp' });
+      setLogoMessage('Default logo restored.');
+    } catch (err: any) {
+      setLogoMessage(err.message || 'Could not restore the default logo.');
     }
   };
 
@@ -87,7 +117,7 @@ export const AdminMediaManager: React.FC = () => {
               Upload New Media File
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
-              Supports PNG, JPG, WebP, SVG, GIF, PDF, and MP4 files (up to 15MB).
+              Supports PNG, JPG, WebP, GIF, PDF, MP4, and WebM files (up to 15MB).
             </p>
           </div>
 
@@ -124,6 +154,28 @@ export const AdminMediaManager: React.FC = () => {
             {uploadSuccess}
           </p>
         )}
+      </div>
+
+      {/* Brand Logo */}
+      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-5">
+          <div className="w-24 h-24 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0">
+            <img src={data.settings.logoUrl} alt="Current brand logo" className="max-w-full max-h-full object-contain" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-[#003088]">Brand Logo</h3>
+            <p className="text-xs text-slate-500 mt-1">Upload a new logo to replace the website logo across the Navbar, Footer, and Admin Panel.</p>
+            <div className="flex flex-wrap gap-2 mt-4">
+              <label className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-white bg-[#003088] hover:bg-[#00205c] rounded-lg cursor-pointer">
+                {logoUploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4 text-[#F4B820]" />}
+                <span>{logoUploading ? 'Uploading Logo...' : 'Upload New Logo'}</span>
+                <input type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="hidden" disabled={logoUploading} onChange={handleLogoUpload} />
+              </label>
+              <button type="button" onClick={resetLogo} className="px-4 py-2.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg">Restore Default</button>
+            </div>
+            {logoMessage && <p className="mt-3 text-xs font-semibold text-slate-600" role="status">{logoMessage}</p>}
+          </div>
+        </div>
       </div>
 
       {/* Manual URL Link Registration (Optional) */}
