@@ -36,7 +36,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
           <div className="lg:col-span-2 space-y-4">
             <KarimaMoniLogo variant="full" theme="white" />
             <p className="text-xs sm:text-sm text-slate-400 max-w-sm leading-relaxed">
-              Creative digital solutions that help businesses build authentic audience connections, scale paid advertising, and deploy cutting-edge AI creative content.
+              I help businesses grow through paid advertising, social media support, and clear, consistent creative content.
             </p>
             <div className="text-xs text-[#F4B820] font-semibold tracking-wider uppercase">
               Connect. Create. Grow.
